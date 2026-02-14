@@ -1,0 +1,10 @@
+videos/
+transcripts/
+plain_transcripts/
+segments/
+clips/
+final/
+notes/
+site/
+__pycache__/
+*.py

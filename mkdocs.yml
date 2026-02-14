@@ -1,0 +1,44 @@
+site_name: TFS Tafseer Study Notes
+site_description: Study notes from Tafseer classes covering Surahs 93-109 (Juz Amma)
+
+theme:
+  name: material
+  palette:
+    primary: teal
+    accent: amber
+  features:
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+    - search.suggest
+    - content.tabs.link
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - TFS 101:
+    - Sep 21 - Surah Ad-Duha: tfs-101/2023-09-21.md
+    - Sep 28 - Surah Ad-Duha (Ayat 5-11): tfs-101/2023-09-28.md
+    - Oct 05 - Surah Al-Inshirah: tfs-101/2023-10-05.md
+    - Nov 09 - Surah Al-Alaq (Part 1): tfs-101/2023-11-09.md
+    - Nov 16 - Surah Al-Alaq (Part 2): tfs-101/2023-11-16.md
+    - Nov 23 - Surah Al-Alaq (Part 3): tfs-101/2023-11-23.md
+    - Nov 30 - Surah Al-Alaq (Part 4): tfs-101/2023-11-30.md
+    - Dec 07 - Surah Al-Qadr: tfs-101/2023-12-07.md
+    - Dec 14 - Surah Al-Bayyinah: tfs-101/2023-12-14.md
+  - TFS 102:
+    - Jan 18 - Surah Al-Bayyinah (contd.): tfs-102/2024-01-18.md
+    - Jan 25 - Surah Az-Zalzalah: tfs-102/2024-01-25.md
+    - Feb 01 - Surah Al-Adiyat: tfs-102/2024-02-01.md
+    - Feb 08 - Surah Al-Qariah: tfs-102/2024-02-08.md
+    - Feb 15 - Surah At-Takathur: tfs-102/2024-02-15.md
+    - Feb 22 - Surah Al-Asr: tfs-102/2024-02-22.md
+    - Mar 07 - Surah Al-Asr (contd.): tfs-102/2024-03-07.md
+    - Apr 18 - Surah Al-Humazah: tfs-102/2024-04-18.md
+    - Apr 25 - Surah Al-Fil: tfs-102/2024-04-25.md
+    - May 30 - Surah Quraysh: tfs-102/2024-05-30.md
+    - Jun 06 - Surah Al-Maun: tfs-102/2024-06-06.md
+    - Jun 13 - Surah Al-Kawthar: tfs-102/2024-06-13.md
+    - Jun 27 - Surah Al-Kafirun: tfs-102/2024-06-27.md
