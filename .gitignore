@@ -1,10 +1,35 @@
-videos/
-transcripts/
-plain_transcripts/
-segments/
+# Videos (too large for git)
+**/videos/
+
+# Transcripts (regeneratable from videos)
+**/transcripts/
+
+# Generated site
+site/
+
+# Pipeline logs
+logs/
+
+# Google Drive credentials
+config/service_account.json
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temp files
+*.exe
+*.tmp
+
+# Old flat directories (in case any remain)
 clips/
 final/
-notes/
-site/
-__pycache__/
-*.py
+segments/
+plain_transcripts/
