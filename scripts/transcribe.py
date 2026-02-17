@@ -1,12 +1,20 @@
-"""Transcribe video recordings using OpenAI Whisper."""
+"""Transcribe video recordings using OpenAI Whisper.
+
+Uses a dedicated virtual environment with GPU-compatible PyTorch
+for CUDA acceleration on RTX 5080 (Blackwell / sm_120).
+"""
 
 import os
 import json
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 from common import make_parser, resolve_classes, course_dir, get_settings
+
+# Whisper runs in a separate venv with CUDA 12.8 PyTorch for RTX 5080 support
+WHISPER_PYTHON = r"C:\Users\moham\whisper-env\Scripts\python.exe"
 
 
 def transcribe_for_class(subject, course, settings):
@@ -15,7 +23,6 @@ def transcribe_for_class(subject, course, settings):
     transcripts_dir = course_dir(subject, course, "transcripts")
 
     model = settings.get("whisper_model", "large-v3-turbo")
-    language = settings.get("whisper_language", "en")
 
     videos = sorted(
         f for f in os.listdir(videos_dir)
@@ -39,23 +46,36 @@ def transcribe_for_class(subject, course, settings):
         print(f"  [{i}/{len(remaining)}] Transcribing: {video}")
 
         cmd = [
-            sys.executable, "-m", "whisper",
+            WHISPER_PYTHON, "-m", "whisper",
             video_path,
             "--model", model,
-            "--language", language,
             "--word_timestamps", "True",
             "--output_format", "json",
             "--output_dir", str(transcripts_dir),
+            "--device", "cuda",
+            "--condition_on_previous_text", "False",
         ]
 
         env = os.environ.copy()
         env["PYTHONIOENCODING"] = "utf-8"
-        result = subprocess.run(cmd, env=env)
+        result = subprocess.run(cmd, env=env, capture_output=True, text=True)
+
+        base_name = os.path.splitext(video)[0]
 
         if result.returncode != 0:
-            print(f"    ERROR: Failed to transcribe {video}")
+            error_msg = result.stderr or ""
+            is_cuda = any(s in error_msg.lower() for s in ["cuda", "out of memory", "oom"])
+            if is_cuda:
+                print(f"    CUDA ERROR: {video} — skipping (GPU may have run out of memory)")
+                partial = os.path.join(transcripts_dir, f"{base_name}.json")
+                if os.path.exists(partial):
+                    os.remove(partial)
+                time.sleep(5)
+            else:
+                print(f"    ERROR: Failed to transcribe {video}")
+                if error_msg:
+                    print(f"    {error_msg[:200]}")
         else:
-            base_name = os.path.splitext(video)[0]
             print(f"    Done.")
             new_transcripts.append(base_name)
 

@@ -1,5 +1,6 @@
 """Sync study notes to docs/ and update mkdocs.yml navigation."""
 
+import re
 import shutil
 import yaml
 from datetime import datetime
@@ -8,10 +9,11 @@ from pathlib import Path
 from common import load_config, SUBJECTS_DIR, DOCS_DIR, PROJECT_ROOT
 
 SUBJECT_NAMES = {
-    "tfs": "Tafseer (TFS)",
-    "hadith": "Hadith Studies",
-    "nahw": "Arabic Grammar (Nahw)",
-    "sarf": "Arabic Morphology (Sarf)",
+    "tfs": "Tafseer",
+    "hadith": "Hadith",
+    "nahw": "Nahw",
+    "sarf": "Sarf",
+    "fqh": "Fiqh",
 }
 
 
@@ -42,12 +44,264 @@ def sync_notes_to_docs():
                 shutil.copy2(note_file, docs_dest / note_file.name)
 
 
+def _extract_topic(md_path):
+    """Extract a short topic label from a note file for nav sidebar.
+
+    Reads the first 20 lines and tries multiple extraction strategies:
+    - Tafseer: Surah name (e.g., "Surah Al-Duha")
+    - Hadith: Hadith number (e.g., "Hadith #20")
+    - All: Bold terms, "focused on" / "covered" phrases, parenthetical
+      Arabic terms, or first Key Theme from the Session Overview.
+    """
+    try:
+        with open(md_path, "r", encoding="utf-8") as f:
+            lines = [f.readline() for _ in range(40)]
+
+        # --- Tafseer: Extract surah name ---
+        for line in lines[:15]:
+            line = line.strip()
+            m = re.match(r'\*\*Surah Covered:\*\*\s*(.+)', line)
+            if m:
+                return _clean_surah_name(m.group(1))
+            m = re.match(r'\*\*Surah:\*\*\s*(.+)', line)
+            if m:
+                return _clean_surah_name(m.group(1))
+            m = re.match(r'##\s+Surah Covered:\s*(.+)', line)
+            if m:
+                return _clean_surah_name(m.group(1))
+            m = re.match(r'##\s+(Surah\s+(?!Covered).+)', line)
+            if m:
+                return _clean_surah_name(m.group(1))
+
+        # --- Extract Session Overview text ---
+        overview_text = ""
+        in_overview = False
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith("## Session Overview"):
+                in_overview = True
+                continue
+            if in_overview:
+                if stripped.startswith("---") or stripped.startswith("##"):
+                    break
+                overview_text += stripped + " "
+
+        if overview_text:
+            topic = _topic_from_overview(overview_text)
+            if topic:
+                return topic
+
+        # --- Extract first Key Theme as last resort ---
+        in_themes = False
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith("## Key Themes"):
+                in_themes = True
+                continue
+            if in_themes:
+                if stripped.startswith("---") or stripped.startswith("##"):
+                    break
+                # Look for "- **Topic**: description" or "- Topic"
+                m = re.match(r'-\s+\*\*([^*]+)\*\*', stripped)
+                if m:
+                    return _truncate(m.group(1), 30)
+                m = re.match(r'-\s+(.+?)(?::|$)', stripped)
+                if m and len(m.group(1).strip()) > 3:
+                    return _truncate(m.group(1).strip(), 40)
+
+        # --- Surah in heading fallback ---
+        for line in lines[:15]:
+            line = line.strip()
+            if line.startswith("# "):
+                title = line.lstrip("# ").strip()
+                m = re.search(r'(Surah\s+\S+(?:\s+\S+)?)', title)
+                if m:
+                    return _clean_surah_name(m.group(1))
+
+    except Exception:
+        pass
+    return None
+
+
+def _topic_from_overview(text):
+    """Extract a short topic label from the Session Overview paragraph."""
+
+    # --- Hadith number ---
+    m = re.search(r'[Hh]adith\s*(?:#|No\.?\s*|number\s*)(\d+)', text)
+    if m:
+        return f"Hadith #{m.group(1)}"
+
+    # --- Bold terms (most specific) ---
+    bold = re.findall(r'\*\*([^*]+)\*\*', text)
+    if bold:
+        return _truncate(bold[0], 30)
+
+    # --- "focused on" / "covering" / "covered" pattern ---
+    # e.g. "focused on the nullifiers of wudu and the obligations of ghusl"
+    # e.g. "covered fi'il mudareh (present/future tense verbs)"
+    for pattern in [
+        r'(?:focused|focusing)\s+on\s+(?:the\s+)?(?:concept\s+of\s+)?(.+?)(?:\.|,\s+(?:and|with|the instructor|the class|ranging|including|examining|emphasizing))',
+        r'(?:covered|covering)\s+(?:the\s+)?(.+?)(?:\.|,\s+(?:and|with|the instructor|the class|ranging|including|focusing))',
+        r'(?:introduced?|introducing)\s+(?:the\s+)?(.+?)(?:\.|,\s+(?:and|with|the))',
+    ]:
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            topic = m.group(1).strip()
+            # Extract parenthetical Arabic term if present
+            arabic = _extract_parenthetical(topic)
+            if arabic:
+                return _truncate(arabic, 30)
+            # Clean up the English topic
+            topic = _clean_topic_phrase(topic)
+            if topic and len(topic) > 2:
+                return _truncate(topic, 30)
+
+    # --- "Introduction to X" pattern ---
+    m = re.search(r'[Ii]ntroduction\s+to\s+(.+?)(?:\.|,|\()', text)
+    if m:
+        topic = m.group(1).strip()
+        arabic = _extract_parenthetical(topic + text[m.end():m.end()+50])
+        if arabic:
+            return _truncate(f"Intro to {arabic}", 30)
+        return _truncate(f"Intro to {_clean_topic_phrase(topic)}", 30)
+
+    # --- "about [topic]" pattern ---
+    m = re.search(r'about\s+(?:the\s+)?(.+?)(?:\.|,|\()', text)
+    if m:
+        topic = _clean_topic_phrase(m.group(1).strip())
+        if topic and len(topic) > 2:
+            return _truncate(topic, 30)
+
+    # --- Parenthetical Arabic terms anywhere in overview ---
+    # e.g. "(wudu)", "(ghusl)", "(istinja)", "(bid'a)"
+    parens = re.findall(r'\(([a-z][a-z\' -]{2,25})\)', text, re.IGNORECASE)
+    # Filter out common non-topic parentheticals
+    skip = {'e.g', 'i.e', 'fard', 'wajib', 'sunnah', 'nafl', 'pbuh',
+            'may allah', 'rahmatullahi', 'peace be upon him'}
+    for p in parens:
+        if p.lower() not in skip and not p[0].isupper():
+            return _truncate(p[0].upper() + p[1:], 30)
+
+    return None
+
+
+def _extract_parenthetical(text):
+    """Extract a short Arabic term from parentheses, e.g. '(ghusl)' -> 'Ghusl'."""
+    m = re.search(r'\(([a-z][a-z\' -]{2,30})\)', text, re.IGNORECASE)
+    if m:
+        term = m.group(1).strip()
+        skip = {'e.g', 'i.e', 'fard', 'wajib', 'sunnah', 'nafl'}
+        if term.lower() not in skip:
+            return term[0].upper() + term[1:]
+    return None
+
+
+def _clean_topic_phrase(topic):
+    """Clean a topic phrase to a short, readable label."""
+    # Remove leading articles and filler words
+    topic = re.sub(
+        r'^(?:the\s+)?(?:concept\s+of\s+|importance\s+of\s+|'
+        r'significance\s+of\s+|foundations?\s+of\s+|'
+        r'fundamentals?\s+of\s+|basics?\s+of\s+)?(?:the\s+)?',
+        '', topic, flags=re.IGNORECASE,
+    ).strip()
+    # Capitalize first letter
+    if topic:
+        topic = topic[0].upper() + topic[1:]
+    return topic
+
+
+def _truncate(text, max_len):
+    """Truncate text to max_len, adding '...' if needed."""
+    text = text.strip()
+    if len(text) > max_len:
+        return text[:max_len - 3] + "..."
+    return text
+
+
+def _clean_surah_name(raw):
+    """Clean up a surah name to a short display label.
+
+    'Surah Al-Duha (Chapter 93), with references...' -> 'Surah Al-Duha'
+    'Surah Al-Asr (Completion of Tafseer)' -> 'Surah Al-Asr (contd.)'
+    """
+    # Remove markdown formatting
+    raw = raw.replace("*", "").strip()
+
+    # Extract just "Surah X" or "Surah Al-X"
+    m = re.match(r'(Surah\s+(?:Al[- ]|At[- ]|Az[- ]|Ad[- ])?[\w\'-]+)', raw)
+    if m:
+        name = m.group(1)
+    else:
+        name = raw
+
+    # Check if it's a continuation
+    lower = raw.lower()
+    if "contd" in lower or "continuation" in lower or "continued" in lower or "completion" in lower:
+        name += " (contd.)"
+    elif "part" in lower or "session" in lower or "segment" in lower:
+        # Extract part number
+        pm = re.search(r'(?:part|session|segment)\s*(\d+)', lower)
+        if pm:
+            name += f" (Part {pm.group(1)})"
+    elif "ayat" in lower or "ayaat" in lower:
+        # Extract ayah range
+        am = re.search(r'(?:ayat|ayaat)\s*([\d\-]+)', lower)
+        if am:
+            name += f" (Ayat {am.group(1)})"
+
+    # Truncate if too long
+    if len(name) > 50:
+        name = name[:47] + "..."
+
+    return name
+
+
+def generate_course_index(subject, course, docs_course_dir, class_meta):
+    """Generate an index.md for a course with a table of sessions."""
+    meta = class_meta.get((subject, course), {})
+    semester = meta.get("semester", "")
+    course_name = meta.get("name", f"{subject.upper()} {course}")
+
+    title = f"{subject.upper()} {course}"
+    if semester:
+        title += f" ({semester})"
+
+    rows = []
+    for note_file in sorted(docs_course_dir.glob("*.md")):
+        if note_file.name == "index.md":
+            continue
+        date_str = note_file.stem
+        try:
+            dt = datetime.strptime(date_str, "%Y-%m-%d")
+            date_display = dt.strftime("%b %d, %Y")
+        except ValueError:
+            date_display = date_str
+
+        topic = _extract_topic(note_file) or "—"
+        rows.append(f"| [{date_display}]({note_file.name}) | {topic} |")
+
+    if not rows:
+        return
+
+    content = f"""# {title}
+
+{course_name}
+
+| Date | Topic |
+|------|-------|
+{chr(10).join(rows)}
+"""
+
+    index_path = docs_course_dir / "index.md"
+    index_path.write_text(content, encoding="utf-8")
+
+
 def build_nav():
     """Build mkdocs.yml nav structure from docs/ directory."""
     nav = [{"Home": "index.md"}]
     config = load_config()
 
-    # Build lookup for class metadata
     class_meta = {}
     for c in config["classes"]:
         key = (c["subject"], c["course"])
@@ -74,8 +328,16 @@ def build_nav():
             if semester:
                 course_display += f" ({semester})"
 
+            # Generate the course index page
+            generate_course_index(subject, course, course_dir, class_meta)
+
             course_nav = []
+            # First entry: the course overview/index
+            course_nav.append({"Overview": f"{subject}/{course}/index.md"})
+
             for note_file in sorted(course_dir.glob("*.md")):
+                if note_file.name == "index.md":
+                    continue
                 date_str = note_file.stem
                 try:
                     dt = datetime.strptime(date_str, "%Y-%m-%d")
@@ -83,9 +345,9 @@ def build_nav():
                 except ValueError:
                     display = date_str
 
-                title = _extract_title(note_file)
-                if title:
-                    label = f"{display} - {title}"
+                topic = _extract_topic(note_file)
+                if topic:
+                    label = f"{display} - {topic}"
                 else:
                     label = display
 
@@ -99,25 +361,6 @@ def build_nav():
             nav.append({subject_display: subject_nav})
 
     return nav
-
-
-def _extract_title(md_path):
-    """Extract a short title from the first heading of a markdown file."""
-    try:
-        with open(md_path, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith("# "):
-                    title = line.lstrip("# ").strip()
-                    # Try to extract just the surah/topic name
-                    if " - " in title:
-                        title = title.split(" - ", 1)[1].strip()
-                    if len(title) > 60:
-                        title = title[:57] + "..."
-                    return title
-    except Exception:
-        pass
-    return None
 
 
 def update_mkdocs_yml(nav):

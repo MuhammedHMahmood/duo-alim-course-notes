@@ -1,5 +1,5 @@
-site_name: DUO Islamic Studies Notes
-site_description: Study notes from the DUO 6-year Islamic studies program
+site_name: DUO Alim Course Notes
+site_description: Study notes from the DUO 6-year Alim course
 theme:
   name: material
   palette:
@@ -7,36 +7,144 @@ theme:
     accent: amber
   features:
   - navigation.sections
-  - navigation.expand
   - search.highlight
   - search.suggest
   - content.tabs.link
 plugins:
 - search
+extra_javascript:
+- https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+- javascripts/tablesort.js
 nav:
 - Home: index.md
-- Tafseer (TFS):
+- Fiqh:
+  - FQH 101 (Fall 2025):
+    - Overview: fqh/101/index.md
+    - Aug 05 - Two main categories of Isla...: fqh/101/2025-08-05.md
+    - Aug 11 - Fundamental definitions, ca...: fqh/101/2025-08-11.md
+    - Aug 18 - Obligations: fqh/101/2025-08-18.md
+    - Aug 25 - Makruh: fqh/101/2025-08-25.md
+    - Sep 04 - Ritual bath: fqh/101/2025-09-04.md
+    - Sep 08 - Dry ablution: fqh/101/2025-09-08.md
+    - Sep 15 - Hayd: fqh/101/2025-09-15.md
+    - Sep 22 - Ma'adur: fqh/101/2025-09-22.md
+    - Sep 29 - Impurity: fqh/101/2025-09-29.md
+    - Oct 06 - Wells and water sources tha...: fqh/101/2025-10-06.md
+    - Oct 13 - Five daily prayer times, th...: fqh/101/2025-10-13.md
+    - Oct 20 - Mustahab: fqh/101/2025-10-20.md
+    - Oct 27 - Shara'it: fqh/101/2025-10-27.md
+    - Nov 03 - Wajibat: fqh/101/2025-11-03.md
+    - Nov 10 - Makruhat: fqh/101/2025-11-10.md
+    - Nov 17 - Fiqh: fqh/101/2025-11-17.md
+    - Nov 24 - Detailed rulings about mana...: fqh/101/2025-11-24.md
+    - Dec 01 - Prostration of recital: fqh/101/2025-12-01.md
+    - Dec 08 - Janazah: fqh/101/2025-12-08.md
+    - Dec 15 - Niyyah: fqh/101/2025-12-15.md
+    - Dec 17 - Obligatory charity: fqh/101/2025-12-17.md
+    - Dec 24 - Three types of Hajj (Qiran,...: fqh/101/2025-12-24.md
+    - Dec 25 - Lesser pilgrimage: fqh/101/2025-12-25.md
+  - FQH 102 (Spring 2026):
+    - Overview: fqh/102/index.md
+    - Jan 26 - Intro to Fiqh al-Muyassir: fqh/102/2026-01-26.md
+    - Feb 02 - Understanding different typ...: fqh/102/2026-02-02.md
+    - Feb 09 - Kathir: fqh/102/2026-02-09.md
+- Hadith:
+  - HADITH 101 (Spring 2026):
+    - Overview: hadith/101/index.md
+    - Aug 07 - Rahmatullahi wabarakatuh: hadith/101/2025-08-07.md
+    - Aug 13 - Intention: hadith/101/2025-08-13.md
+    - Aug 20 - Deep scholarly analysis of ...: hadith/101/2025-08-20.md
+    - Sep 03 - Reading the complete Arabic...: hadith/101/2025-09-03.md
+    - Sep 10 - Detailed explanation of Isl...: hadith/101/2025-09-10.md
+    - 'Sep 17 - Hadith #3': hadith/101/2025-09-17.md
+    - 'Sep 24 - Hadith #4': hadith/101/2025-09-24.md
+    - Oct 01 - Innovation: hadith/101/2025-10-01.md
+    - Oct 08 - al-war'u wal-ikhlas: hadith/101/2025-10-08.md
+    - Oct 15 - Three subcategories of ambi...: hadith/101/2025-10-15.md
+    - Oct 22 - Nasiha - doing well by others: hadith/101/2025-10-22.md
+    - Oct 29 - Explaining a commonly misun...: hadith/101/2025-10-29.md
+    - 'Nov 05 - Hadith #9': hadith/101/2025-11-05.md
+    - Nov 12 - Two main hadith (numbers 12...: hadith/101/2025-11-12.md
+    - 'Nov 19 - Hadith #14': hadith/101/2025-11-19.md
+    - 'Nov 26 - Two fundamental ahadith: on...': hadith/101/2025-11-26.md
+    - Dec 03 - Assistance and protection o...: hadith/101/2025-12-03.md
+  - HADITH 102 (Spring 2026):
+    - Overview: hadith/102/index.md
+    - 'Jan 28 - Hadith #20': hadith/102/2026-01-28.md
+    - Feb 04 - istiqamah: hadith/102/2026-02-04.md
+    - Feb 11 - A beautiful hadith about th...: hadith/102/2026-02-11.md
+- Nahw:
+  - NAHW 101 (Fall 2025):
+    - Overview: nahw/101/index.md
+    - Aug 04 - Nahw: nahw/101/2025-08-04.md
+    - Aug 06 - Key terminology and the log...: nahw/101/2025-08-06.md
+    - Aug 14 - Kalima: nahw/101/2025-08-14.md
+    - Aug 19 - Reviewing fundamental Arabi...: nahw/101/2025-08-19.md
+    - Aug 21 - Essential grammatical conce...: nahw/101/2025-08-21.md
+    - Aug 28 - Murakkab: nahw/101/2025-08-28.md
+    - 'Sep 02 - Two new types: possessive p...': nahw/101/2025-09-02.md
+    - Sep 09 - Murakab: nahw/101/2025-09-09.md
+    - Sep 11 - Nominal sentences: nahw/101/2025-09-11.md
+    - Sep 16 - Mubtada and khabar with pra...: nahw/101/2025-09-16.md
+    - Sep 18 - Vocabulary review from the ...: nahw/101/2025-09-18.md
+    - Sep 23 - Grammatical concept of Mudh...: nahw/101/2025-09-23.md
+    - Sep 25 - Translation practice betwee...: nahw/101/2025-09-25.md
+    - Sep 30 - Past tense verbs: nahw/101/2025-09-30.md
+    - Oct 02 - Verb conjugation practice a...: nahw/101/2025-10-02.md
+    - Oct 07 - Past tense verb: nahw/101/2025-10-07.md
+    - Oct 09 - Verbal sentences: nahw/101/2025-10-09.md
+    - Oct 14 - Prepositions: nahw/101/2025-10-14.md
+    - Oct 16 - Al-dhamir: nahw/101/2025-10-16.md
+    - Oct 21 - Complete framework of visib...: nahw/101/2025-10-21.md
+    - Oct 28 - Pronouns: nahw/101/2025-10-28.md
+    - Oct 30 - Present and future tense verb: nahw/101/2025-10-30.md
+    - Nov 06 - Formation rules, conjugatio...: nahw/101/2025-11-06.md
+    - Nov 11 - Translating English sentenc...: nahw/101/2025-11-11.md
+    - Nov 18 - Command form: nahw/101/2025-11-18.md
+    - Nov 20 - Vocabulary review from less...: nahw/101/2025-11-20.md
+    - Nov 25 - Command and prohibition str...: nahw/101/2025-11-25.md
+    - Dec 02 - Al-wahid: nahw/101/2025-12-02.md
+    - Dec 04 - Damir: nahw/101/2025-12-04.md
+    - Dec 11 - Particles that resemble verbs: nahw/101/2025-12-11.md
+    - Dec 16 - Advanced rules for the inna...: nahw/101/2025-12-16.md
+    - Dec 23 - Conjugation patterns, timin...: nahw/101/2025-12-23.md
+    - Dec 26 - Fundamental distinction bet...: nahw/101/2025-12-26.md
+  - NAHW 102 (Spring 2026):
+    - Overview: nahw/102/index.md
+    - Feb 03 - Indeclinable words: nahw/102/2026-02-03.md
+    - 'Feb 05 - Three special types: Damir ...': nahw/102/2026-02-05.md
+    - Feb 10 - Dhul as a relative pronoun ...: nahw/102/2026-02-10.md
+    - Feb 12 - Advanced concepts including...: nahw/102/2026-02-12.md
+- Sarf:
+  - SARF 102 (Spring 2026):
+    - Overview: sarf/102/index.md
+    - Jan 30 - Grammar rules: sarf/102/2026-01-30.md
+    - Feb 06 - Trilateral root system as t...: sarf/102/2026-02-06.md
+    - Feb 15 - Awzan: sarf/102/2026-02-15.md
+- Tafseer:
   - TFS 101 (Fall 2023):
-    - Sep 21 - Study Notes: tfs/101/2023-09-21.md
-    - Sep 28 - Study Notes: tfs/101/2023-09-28.md
-    - Oct 05 - Study Notes: tfs/101/2023-10-05.md
-    - Nov 09 - Surah Al-Alaq (The Clot) - Session 1: tfs/101/2023-11-09.md
-    - Nov 16 - Study Notes (2023-11-16): tfs/101/2023-11-16.md
-    - Nov 23 - Tafseer of Surah Al-Alaq (Part 3): tfs/101/2023-11-23.md
-    - Nov 30 - Study Notes: tfs/101/2023-11-30.md
-    - Dec 07 - Study Notes: tfs/101/2023-12-07.md
-    - Dec 14 - Study Notes: tfs/101/2023-12-14.md
+    - Overview: tfs/101/index.md
+    - Sep 21 - Surah Al-Duha: tfs/101/2023-09-21.md
+    - Sep 28 - Surah Al-Duha (contd.): tfs/101/2023-09-28.md
+    - Oct 05 - Surah Al-Inshirah: tfs/101/2023-10-05.md
+    - Nov 09 - Al-Alaq (Chapter 96) -- First five ayat: tfs/101/2023-11-09.md
+    - Nov 16 - Surah Al-Alaq (contd.): tfs/101/2023-11-16.md
+    - Nov 23 - Surah Al-Alaq: tfs/101/2023-11-23.md
+    - Nov 30 - Surah Al-Alaq (Part 3): tfs/101/2023-11-30.md
+    - Dec 07 - Surah Al-Qadr: tfs/101/2023-12-07.md
+    - Dec 14 - Surah Al-Bayyinah (Ayat 1-3): tfs/101/2023-12-14.md
   - TFS 102 (Spring 2024):
-    - Jan 18 - Tafseer of Surah Al-Bayyinah (The Clear Evidence): tfs/102/2024-01-18.md
-    - Jan 25 - Study Notes: tfs/102/2024-01-25.md
-    - Feb 01 - Study Notes: tfs/102/2024-02-01.md
-    - Feb 08 - Study Notes: tfs/102/2024-02-08.md
-    - Feb 15 - Study Notes: tfs/102/2024-02-15.md
-    - Feb 22 - Study Notes: tfs/102/2024-02-22.md
-    - Mar 07 - Study Notes: tfs/102/2024-03-07.md
-    - Apr 18 - Tafseer of Surah Al-Humazah (104): tfs/102/2024-04-18.md
-    - Apr 25 - Study Notes: tfs/102/2024-04-25.md
-    - May 30 - Study Notes: tfs/102/2024-05-30.md
-    - Jun 06 - Study Notes: tfs/102/2024-06-06.md
-    - Jun 13 - Session 102 Study Notes: tfs/102/2024-06-13.md
-    - Jun 27 - Tafseer of Surah Al-Kafirun (Chapter 109): tfs/102/2024-06-27.md
+    - Overview: tfs/102/index.md
+    - Jan 18 - Al-Bayyinah (Surah 98): tfs/102/2024-01-18.md
+    - Jan 25 - Surah Al-Zilzal: tfs/102/2024-01-25.md
+    - Feb 01 - Surah Al-Aadiyat: tfs/102/2024-02-01.md
+    - Feb 08 - Surah Al-Qari'ah: tfs/102/2024-02-08.md
+    - Feb 15 - Surah At-Takathur: tfs/102/2024-02-15.md
+    - Feb 22 - Surah Al-Asr: tfs/102/2024-02-22.md
+    - Mar 07 - Surah Al-Asr (contd.): tfs/102/2024-03-07.md
+    - Apr 18 - Surah Al-Humazah: tfs/102/2024-04-18.md
+    - Apr 25 - Surah Al-Feel: tfs/102/2024-04-25.md
+    - May 30 - Surah Al-Quraysh: tfs/102/2024-05-30.md
+    - Jun 06 - Surah Al-Ma'un: tfs/102/2024-06-06.md
+    - Jun 13 - Surah Al-Kawthar: tfs/102/2024-06-13.md
+    - Jun 27 - Surah Al-Kafirun: tfs/102/2024-06-27.md

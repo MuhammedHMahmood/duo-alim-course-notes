@@ -10,8 +10,12 @@ site/
 # Pipeline logs
 logs/
 
-# Google Drive credentials
-config/service_account.json
+# Config (contains Drive folder IDs and credentials)
+config/
+
+# Claude Code
+.claude/
+%APPDATA%/
 
 # Python
 __pycache__/

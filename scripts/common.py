@@ -11,7 +11,7 @@ CONFIG_DIR = PROJECT_ROOT / "config"
 SUBJECTS_DIR = PROJECT_ROOT / "subjects"
 DOCS_DIR = PROJECT_ROOT / "docs"
 
-VALID_SUBJECTS = ["tfs", "hadith", "nahw", "sarf"]
+VALID_SUBJECTS = ["tfs", "hadith", "nahw", "sarf", "fqh"]
 
 
 def load_config():
@@ -74,19 +74,26 @@ def make_parser(description):
         "--active-only", action="store_true",
         help="Process only active classes (for cron use)"
     )
+    parser.add_argument(
+        "--all", action="store_true",
+        help="Process all classes regardless of active status"
+    )
     return parser
 
 
 def resolve_classes(args):
     """Given parsed args, return list of (subject, course, config) tuples to process."""
-    if args.active_only:
+    config = load_config()
+    if getattr(args, "all", False):
+        return [(c["subject"], c["course"], c) for c in config["classes"]]
+    elif args.active_only:
         classes = get_active_classes()
         return [(c["subject"], c["course"], c) for c in classes]
     elif args.subject and args.course:
-        config = get_class_config(args.subject, args.course)
-        return [(args.subject, args.course, config)]
+        cls = get_class_config(args.subject, args.course)
+        return [(args.subject, args.course, cls)]
     else:
-        raise ValueError("Provide either --subject and --course, or --active-only")
+        raise ValueError("Provide --all, --active-only, or --subject and --course")
 
 
 SERVICE_NAME = "duo-class-notes"
