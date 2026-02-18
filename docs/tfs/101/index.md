@@ -1,6 +1,8 @@
 # TFS 101 (Fall 2023)
 
-Tafseer Foundation Series 101
+**Tafseer Foundation Series 101** &nbsp;|&nbsp; **Semester:** Fall 2023 &nbsp;|&nbsp; **Teacher:** Sheikh Yasir Nadeem &nbsp;|&nbsp; **Sessions:** 9
+
+---
 
 | Date | Topic |
 |------|-------|

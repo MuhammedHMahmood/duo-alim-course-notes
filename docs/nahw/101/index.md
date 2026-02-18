@@ -1,6 +1,8 @@
 # NAHW 101 (Fall 2025)
 
-Nahw 101
+**Nahw 101** &nbsp;|&nbsp; **Semester:** Fall 2025 &nbsp;|&nbsp; **Teacher:** Mufti Yasir Nadeem &nbsp;|&nbsp; **Sessions:** 33
+
+---
 
 | Date | Topic |
 |------|-------|

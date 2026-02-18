@@ -1,6 +1,8 @@
 # NAHW 102 (Spring 2026)
 
-Nahw 102
+**Nahw 102** &nbsp;|&nbsp; **Semester:** Spring 2026 &nbsp;|&nbsp; **Teacher:** Mufti Yasir Nadeem &nbsp;|&nbsp; **Sessions:** 4
+
+---
 
 | Date | Topic |
 |------|-------|

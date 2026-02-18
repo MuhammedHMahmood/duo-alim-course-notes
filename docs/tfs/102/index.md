@@ -1,6 +1,8 @@
 # TFS 102 (Spring 2024)
 
-Tafseer Foundation Series 102
+**Tafseer Foundation Series 102** &nbsp;|&nbsp; **Semester:** Spring 2024 &nbsp;|&nbsp; **Teacher:** Sheikh Yasir Nadeem &nbsp;|&nbsp; **Sessions:** 13
+
+---
 
 | Date | Topic |
 |------|-------|

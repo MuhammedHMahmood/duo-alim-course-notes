@@ -1,6 +1,8 @@
 # FQH 101 (Fall 2025)
 
-Fiqh 101
+**Fiqh 101** &nbsp;|&nbsp; **Semester:** Fall 2025 &nbsp;|&nbsp; **Teacher:** Molana Omar Abbasi &nbsp;|&nbsp; **Sessions:** 23
+
+---
 
 | Date | Topic |
 |------|-------|

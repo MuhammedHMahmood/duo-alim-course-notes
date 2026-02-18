@@ -1,6 +1,8 @@
 # SARF 102 (Spring 2026)
 
-Sarf 102
+**Sarf 102** &nbsp;|&nbsp; **Semester:** Spring 2026 &nbsp;|&nbsp; **Teacher:** Molana Ataaur Sarkar &nbsp;|&nbsp; **Sessions:** 3
+
+---
 
 | Date | Topic |
 |------|-------|

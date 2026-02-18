@@ -1,6 +1,8 @@
 # HADITH 101 (Spring 2026)
 
-Hadith 101
+**Hadith 101** &nbsp;|&nbsp; **Semester:** Spring 2026 &nbsp;|&nbsp; **Teacher:** Molana Omar Abbasi &nbsp;|&nbsp; **Sessions:** 17
+
+---
 
 | Date | Topic |
 |------|-------|

@@ -1,6 +1,8 @@
 # FQH 102 (Spring 2026)
 
-Fiqh 102
+**Fiqh 102** &nbsp;|&nbsp; **Semester:** Spring 2026 &nbsp;|&nbsp; **Teacher:** Molana Omar Abbasi &nbsp;|&nbsp; **Sessions:** 3
+
+---
 
 | Date | Topic |
 |------|-------|

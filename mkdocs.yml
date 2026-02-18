@@ -1,22 +1,73 @@
 site_name: DUO Alim Course Notes
 site_description: Study notes from the DUO 6-year Alim course
+site_url: https://MuhammedHMahmood.github.io/duo-alim-course-notes/
+
 theme:
   name: material
   palette:
-    primary: teal
-    accent: amber
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    logo: material/book-open-page-variant
   features:
-  - navigation.sections
-  - search.highlight
-  - search.suggest
-  - content.tabs.link
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.highlight
+    - search.suggest
+    - content.tabs.link
+    - toc.follow
+
 plugins:
-- search
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - stylesheets/extra.css
+
 extra_javascript:
-- https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
-- javascripts/tablesort.js
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js
+  - javascripts/home-search.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/MuhammedHMahmood/duo-alim-course-notes
 nav:
 - Home: index.md
+- Course Archive: archive.md
+- About: about.md
 - Fiqh:
   - FQH 101 (Fall 2025):
     - Overview: fqh/101/index.md

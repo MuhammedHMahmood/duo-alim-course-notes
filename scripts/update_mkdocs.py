@@ -262,6 +262,7 @@ def generate_course_index(subject, course, docs_course_dir, class_meta):
     meta = class_meta.get((subject, course), {})
     semester = meta.get("semester", "")
     course_name = meta.get("name", f"{subject.upper()} {course}")
+    teacher = meta.get("teacher", "")
 
     title = f"{subject.upper()} {course}"
     if semester:
@@ -278,15 +279,26 @@ def generate_course_index(subject, course, docs_course_dir, class_meta):
         except ValueError:
             date_display = date_str
 
-        topic = _extract_topic(note_file) or "—"
+        topic = _extract_topic(note_file) or "\u2014"
         rows.append(f"| [{date_display}]({note_file.name}) | {topic} |")
 
     if not rows:
         return
 
+    # Build metadata line
+    meta_parts = [f"**{course_name}**"]
+    if semester:
+        meta_parts.append(f"**Semester:** {semester}")
+    if teacher:
+        meta_parts.append(f"**Teacher:** {teacher}")
+    meta_parts.append(f"**Sessions:** {len(rows)}")
+    meta_line = " &nbsp;|&nbsp; ".join(meta_parts)
+
     content = f"""# {title}
 
-{course_name}
+{meta_line}
+
+---
 
 | Date | Topic |
 |------|-------|
@@ -298,8 +310,19 @@ def generate_course_index(subject, course, docs_course_dir, class_meta):
 
 
 def build_nav():
-    """Build mkdocs.yml nav structure from docs/ directory."""
-    nav = [{"Home": "index.md"}]
+    """Build mkdocs.yml nav structure from docs/ directory.
+
+    Top-level structure:
+      - Home (index.md)
+      - Course Archive (archive.md)  — links to all courses
+      - About (about.md)             — pipeline / architecture
+      - One section per subject containing course sub-sections
+    """
+    nav = [
+        {"Home": "index.md"},
+        {"Course Archive": "archive.md"},
+        {"About": "about.md"},
+    ]
     config = load_config()
 
     class_meta = {}
@@ -311,7 +334,7 @@ def build_nav():
         if not subject_dir.is_dir():
             continue
         subject = subject_dir.name
-        if subject in ("stylesheets", "assets"):
+        if subject in ("stylesheets", "assets", "javascripts"):
             continue
 
         subject_display = SUBJECT_NAMES.get(subject, subject.upper())
@@ -364,17 +387,26 @@ def build_nav():
 
 
 def update_mkdocs_yml(nav):
-    """Update the mkdocs.yml file with new navigation."""
+    """Update the mkdocs.yml file with new navigation.
+
+    Uses text-level replacement to preserve !!python/name: tags and other
+    special YAML constructs that yaml.safe_load cannot parse.
+    """
     mkdocs_path = PROJECT_ROOT / "mkdocs.yml"
 
     with open(mkdocs_path, "r", encoding="utf-8") as f:
-        mkdocs_config = yaml.safe_load(f)
+        content = f.read()
 
-    mkdocs_config["nav"] = nav
+    # Render the new nav section as YAML text
+    nav_yaml = yaml.dump({"nav": nav}, default_flow_style=False,
+                         allow_unicode=True, sort_keys=False)
+
+    # Replace everything from "nav:" to end of file (nav is always last)
+    import re
+    content = re.sub(r'^nav:.*', nav_yaml.rstrip(), content, flags=re.DOTALL | re.MULTILINE)
 
     with open(mkdocs_path, "w", encoding="utf-8") as f:
-        yaml.dump(mkdocs_config, f, default_flow_style=False,
-                  allow_unicode=True, sort_keys=False)
+        f.write(content)
 
 
 def main():

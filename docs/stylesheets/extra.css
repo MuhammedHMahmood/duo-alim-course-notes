@@ -1,0 +1,535 @@
+/* =======================================================
+   DUO Alim Course Notes — Custom Styles
+   ======================================================= */
+
+/* ------- Color palette ------- */
+:root {
+  --md-primary-fg-color:        #1a5c4c;
+  --md-primary-fg-color--light: #2d8a73;
+  --md-primary-fg-color--dark:  #0f3d33;
+  --md-accent-fg-color:         #c8963e;
+  --md-default-bg-color:        #fcfaf6;
+  --md-default-bg-color--light: #f5f0e8;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #3db893;
+  --md-primary-fg-color--light: #5ccfaa;
+  --md-primary-fg-color--dark:  #2a8a6d;
+  --md-accent-fg-color:         #d4a84b;
+  --md-default-bg-color:        #1e1e2e;
+  --md-default-bg-color--light: #272738;
+}
+
+
+/* ------- Typography ------- */
+
+.md-content {
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.md-content h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25em;
+  border-bottom: 3px solid var(--md-primary-fg-color);
+  padding-bottom: 0.4em;
+}
+
+.md-content h2 {
+  margin-top: 2.4em;
+  margin-bottom: 0.6em;
+  font-weight: 600;
+  color: var(--md-primary-fg-color--dark);
+  letter-spacing: -0.01em;
+}
+
+[data-md-color-scheme="slate"] .md-content h2 {
+  color: var(--md-primary-fg-color--light);
+}
+
+.md-content h3 {
+  margin-top: 1.8em;
+  color: var(--md-primary-fg-color);
+  font-weight: 600;
+}
+
+/* Horizontal rules — gradient fade */
+.md-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--md-primary-fg-color--light),
+    transparent
+  );
+  margin: 2.5em 0;
+}
+
+/* Bold text — Arabic terms, key concepts */
+.md-content strong {
+  color: var(--md-primary-fg-color--dark);
+}
+
+[data-md-color-scheme="slate"] .md-content strong {
+  color: var(--md-primary-fg-color--light);
+}
+
+/* Italic text — hadith translations */
+.md-content em {
+  color: #5a4e3a;
+}
+
+[data-md-color-scheme="slate"] .md-content em {
+  color: #c4b898;
+}
+
+/* Blockquotes — hadith and Quranic quotes */
+.md-content blockquote {
+  border-left: 4px solid var(--md-accent-fg-color);
+  background: var(--md-default-bg-color--light);
+  padding: 1em 1.5em;
+  margin: 1.5em 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+
+/* ------- Tables ------- */
+
+.md-typeset table:not([class]) {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  margin: 1.5em 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.md-typeset table:not([class]) thead {
+  background: var(--md-primary-fg-color);
+}
+
+.md-typeset table:not([class]) thead th {
+  color: #fff;
+  font-weight: 600;
+  padding: 0.8em 1em;
+  text-align: left;
+  border: none;
+}
+
+.md-typeset table:not([class]) tbody td {
+  padding: 0.7em 1em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background: var(--md-default-bg-color--light);
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+  background: rgba(26, 92, 76, 0.06);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody td {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:hover {
+  background: rgba(61, 184, 147, 0.08);
+}
+
+
+/* ------- Lists ------- */
+
+.md-content ul,
+.md-content ol {
+  padding-left: 1.4em;
+}
+
+.md-content li {
+  margin-bottom: 0.4em;
+  line-height: 1.7;
+}
+
+.md-content li li {
+  margin-bottom: 0.2em;
+}
+
+
+/* ------- Navigation ------- */
+
+.md-tabs {
+  background: var(--md-primary-fg-color--dark);
+}
+
+/* Left sidebar — green background on inner pages */
+.md-sidebar--primary {
+  background: var(--md-primary-fg-color);
+}
+
+.md-sidebar--primary .md-nav__link {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.md-sidebar--primary .md-nav__link:hover {
+  color: #fff;
+}
+
+.md-sidebar--primary .md-nav__link--active {
+  font-weight: 600;
+  color: #fff;
+}
+
+.md-sidebar--primary .md-nav__item--nested > .md-nav__link {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Section labels / toggles */
+.md-sidebar--primary .md-nav__item--section > .md-nav__link {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+}
+
+/* Nav toggle icons (arrows) */
+.md-sidebar--primary .md-nav__icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Dark mode sidebar */
+[data-md-color-scheme="slate"] .md-sidebar--primary {
+  background: var(--md-primary-fg-color--dark);
+}
+
+.md-footer {
+  background: var(--md-primary-fg-color--dark);
+}
+
+
+/* =======================================================
+   HOME PAGE — Side-by-side layout
+   ======================================================= */
+
+/*
+ * Strategy: the .home-layout grid bleeds out of .md-content__inner
+ * padding using negative margins + matching positive padding so the
+ * left panel runs flush to the viewport edge.
+ */
+
+/* Strip ALL wrapper constraints so the grid goes edge-to-edge */
+.md-main:has(.home-layout) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.md-main__inner:has(.home-layout) {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.md-content:has(.home-layout) {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.md-content__inner:has(.home-layout) {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Hide permalink anchors on home page */
+.home-layout .headerlink {
+  display: none !important;
+}
+
+/* Hide any leftover sidebar space on home page */
+.md-main__inner:has(.home-layout) > .md-sidebar {
+  display: none !important;
+}
+
+/* ---- Home page: completely hide the header bar + kill top gap ---- */
+body:has(.home-layout) .md-header {
+  display: none !important;
+}
+body:has(.home-layout) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body:has(.home-layout) .md-container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+body:has(.home-layout) .md-main {
+  margin-top: 0 !important;
+}
+
+/* ---- Top bar with search on the green panel ---- */
+.home-top-bar {
+  position: absolute;
+  top: 1em;
+  left: 1.5em;
+  right: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.home-search {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 0.35em 0.8em;
+  gap: 0.4em;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.home-search:hover,
+.home-search:focus-within {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.home-search svg {
+  width: 18px;
+  height: 18px;
+  fill: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+
+.home-search input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.85em;
+  width: 120px;
+  font-family: inherit;
+}
+
+.home-search input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---- Pill navigation buttons (on the green panel) ---- */
+.home-nav-pills {
+  display: flex;
+  gap: 0.7em;
+  margin-top: 1em;
+  align-items: center;
+}
+
+.home-pill {
+  display: inline-block;
+  padding: 0.5em 1.4em;
+  border: none;
+  border-radius: 999px;
+  text-decoration: none !important;
+  font-size: 0.88em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.home-pill:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* White solid pill */
+.home-pill--white {
+  background: #fff;
+  color: var(--md-primary-fg-color) !important;
+}
+
+/* Gray solid pill */
+.home-pill--gray {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff !important;
+}
+
+.home-pill--gray:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.home-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
+}
+
+/* ---- Left panel ---- */
+/* Top matches header bar exactly, fades to lighter green at bottom */
+.home-hero {
+  background: linear-gradient(
+    180deg,
+    var(--md-primary-fg-color) 0%,
+    var(--md-primary-fg-color) 40%,
+    var(--md-primary-fg-color--light) 100%
+  );
+  color: #fff;
+  padding: 4em 2.5em 2.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.home-hero h1 {
+  color: #fff !important;
+  border-bottom: none !important;
+  font-size: 2.2em !important;
+  line-height: 1.15;
+  margin: 0 0 0.6em !important;
+  padding: 0 !important;
+}
+
+.home-hero p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95em;
+  line-height: 1.65;
+  margin: 0 0 0.4em;
+}
+
+.home-hero strong {
+  color: #fff !important;
+  font-size: 1.05em;
+}
+
+/* ---- Right panel ---- */
+.home-courses {
+  padding: 3em 2.5em 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.home-courses h2 {
+  font-size: 1.8em !important;
+  font-weight: 700 !important;
+  margin: 0 0 0.8em !important;
+  letter-spacing: -0.02em;
+  color: var(--md-primary-fg-color--dark) !important;
+  border: none !important;
+}
+
+[data-md-color-scheme="slate"] .home-courses h2 {
+  color: var(--md-primary-fg-color--light) !important;
+}
+
+/* Table fills the available width */
+.home-courses table {
+  font-size: 1.35em;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.home-courses table td,
+.home-courses table th {
+  padding: 1.15em 1.5em !important;
+}
+
+/* Course link column — make it stand out */
+.home-courses table td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 1.08em;
+}
+
+/* ---- Responsive: stack vertically on mobile ---- */
+@media (max-width: 900px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .home-hero {
+    padding: 3.5em 1.5em 2em;
+  }
+
+  .home-hero h1 {
+    font-size: 1.7em !important;
+  }
+
+  .home-top-bar {
+    top: 0.8em;
+    left: 1em;
+    right: 1em;
+  }
+
+  .home-nav-pills {
+    margin-top: 1em;
+  }
+
+  .home-courses {
+    padding: 1.5em 1em;
+  }
+
+  .home-courses h2 {
+    font-size: 1.4em !important;
+  }
+
+  .home-courses table {
+    font-size: 0.95em;
+  }
+
+  .home-courses table td,
+  .home-courses table th {
+    padding: 0.7em 0.8em !important;
+  }
+}
+
+/* Large screens — scale text up */
+@media (min-width: 1400px) {
+  .home-courses h2 {
+    font-size: 2.2em !important;
+  }
+
+  .home-courses table {
+    font-size: 1.45em;
+  }
+
+  .home-courses table td,
+  .home-courses table th {
+    padding: 1.3em 2em !important;
+  }
+
+  .home-hero h1 {
+    font-size: 2.6em !important;
+  }
+}
+
+
+/* ------- Print ------- */
+
+@media print {
+  .md-sidebar,
+  .md-tabs,
+  .md-header,
+  .md-footer {
+    display: none !important;
+  }
+  .md-content {
+    max-width: 100% !important;
+  }
+}

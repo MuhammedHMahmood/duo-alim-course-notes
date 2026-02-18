@@ -14,7 +14,7 @@ echo ========================================
 echo.
 
 REM --- Step 1: Fetch new recordings from Google Drive ---
-echo [1/6] Fetching new recordings...
+echo [1/7] Fetching new recordings...
 python duo.py fetch --active-only
 if errorlevel 1 (
     echo ERROR: Fetch failed. Continuing anyway...
@@ -22,7 +22,7 @@ if errorlevel 1 (
 
 REM --- Step 2: Transcribe new videos with Whisper ---
 echo.
-echo [2/6] Transcribing new videos...
+echo [2/7] Transcribing new videos...
 python duo.py transcribe --active-only
 if errorlevel 1 (
     echo ERROR: Transcription failed. Continuing anyway...
@@ -30,7 +30,7 @@ if errorlevel 1 (
 
 REM --- Step 3: Generate notes via Claude CLI ---
 echo.
-echo [3/6] Generating study notes...
+echo [3/7] Generating study notes...
 python duo.py notes --active-only --workers 4
 if errorlevel 1 (
     echo ERROR: Note generation failed. Continuing anyway...
@@ -38,7 +38,7 @@ if errorlevel 1 (
 
 REM --- Step 4: Build MkDocs site ---
 echo.
-echo [4/6] Building MkDocs site...
+echo [4/7] Building MkDocs site...
 python duo.py build
 if errorlevel 1 (
     echo ERROR: Build failed. Stopping.
@@ -47,7 +47,7 @@ if errorlevel 1 (
 
 REM --- Step 5: Git commit ---
 echo.
-echo [5/6] Committing changes...
+echo [5/7] Committing changes...
 git add docs/ mkdocs.yml subjects/*/notes/ scripts/ duo.py run_pipeline.bat .gitignore
 git diff --cached --quiet
 if errorlevel 1 (
@@ -59,12 +59,22 @@ if errorlevel 1 (
 
 REM --- Step 6: Push to GitHub ---
 echo.
-echo [6/6] Pushing to GitHub...
+echo [6/7] Pushing to GitHub...
 git push origin main
 if errorlevel 1 (
     echo ERROR: Push failed. You may need to pull first.
 ) else (
     echo Pushed successfully.
+)
+
+REM --- Step 7: Deploy to GitHub Pages ---
+echo.
+echo [7/7] Deploying to GitHub Pages...
+mkdocs gh-deploy --force
+if errorlevel 1 (
+    echo ERROR: Deploy failed.
+) else (
+    echo Deployed to GitHub Pages.
 )
 
 :done
