@@ -34,6 +34,15 @@ def transcribe_for_class(subject, course, settings):
         for f in os.listdir(transcripts_dir) if f.endswith(".json")
     }
 
+    # If a combined transcript exists for a date, treat its part videos as done too
+    # e.g. 2026-01-30.json means 2026-01-30-p1 and 2026-01-30-p2 are already covered
+    import re
+    part_pattern = re.compile(r'^(\d{4}-\d{2}-\d{2})-p\d+$')
+    for video_base in [os.path.splitext(v)[0] for v in videos]:
+        m = part_pattern.match(video_base)
+        if m and m.group(1) in already_done:
+            already_done.add(video_base)
+
     remaining = [v for v in videos if os.path.splitext(v)[0] not in already_done]
 
     print(f"[{subject} {course}] {len(videos)} videos, "
@@ -58,7 +67,7 @@ def transcribe_for_class(subject, course, settings):
 
         env = os.environ.copy()
         env["PYTHONIOENCODING"] = "utf-8"
-        result = subprocess.run(cmd, env=env, capture_output=True, text=True)
+        result = subprocess.run(cmd, env=env, capture_output=True, text=True, encoding="utf-8")
 
         base_name = os.path.splitext(video)[0]
 
@@ -82,7 +91,68 @@ def transcribe_for_class(subject, course, settings):
             # Generate plain text version alongside JSON
             _generate_plain_text(transcripts_dir, base_name)
 
+    _merge_parts(transcripts_dir)
+
     return new_transcripts
+
+
+def _merge_parts(transcripts_dir):
+    """Merge multi-part transcripts (*-p1.json, *-p2.json, ...) into a single file.
+
+    If a combined transcript already exists for that date, the part files are
+    simply removed (preserving any manually created combined transcript).
+    Otherwise the parts are merged in order, with timestamps adjusted for
+    continuity, and written as {date}.json / {date}.txt.
+    """
+    import re
+    part_pattern = re.compile(r'^(\d{4}-\d{2}-\d{2})-p(\d+)\.json$')
+
+    groups = {}
+    for f in Path(transcripts_dir).glob("*-p*.json"):
+        m = part_pattern.match(f.name)
+        if m:
+            date = m.group(1)
+            part_num = int(m.group(2))
+            groups.setdefault(date, []).append((part_num, f))
+
+    for date, parts in groups.items():
+        parts.sort(key=lambda x: x[0])
+        combined_path = Path(transcripts_dir) / f"{date}.json"
+
+        if combined_path.exists():
+            print(f"  [{date}] Combined transcript already exists — removing part files.")
+        else:
+            # Merge: concatenate text and segments, adjusting timestamps
+            combined_text = ""
+            combined_segments = []
+            time_offset = 0.0
+
+            for _, part_file in parts:
+                with open(part_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                combined_text += data.get("text", "")
+                for seg in data.get("segments", []):
+                    adjusted = dict(seg)
+                    adjusted["start"] = seg["start"] + time_offset
+                    adjusted["end"] = seg["end"] + time_offset
+                    combined_segments.append(adjusted)
+                if combined_segments:
+                    time_offset = combined_segments[-1]["end"]
+
+            with open(combined_path, "w", encoding="utf-8") as f:
+                json.dump({"text": combined_text, "segments": combined_segments},
+                          f, ensure_ascii=False, indent=2)
+            txt_path = combined_path.with_suffix(".txt")
+            with open(txt_path, "w", encoding="utf-8") as f:
+                f.write(combined_text)
+            print(f"  [{date}] Merged {len(parts)} parts into {date}.json")
+
+        # Remove part files regardless
+        for _, part_file in parts:
+            part_file.unlink()
+            txt_file = part_file.with_suffix(".txt")
+            if txt_file.exists():
+                txt_file.unlink()
 
 
 def _generate_plain_text(transcripts_dir, base_name):

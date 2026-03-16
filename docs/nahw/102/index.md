@@ -8,3 +8,4 @@ Nahw 102
 | [Feb 05, 2026](2026-02-05.md) | Three special types: Damir ... |
 | [Feb 10, 2026](2026-02-10.md) | Dhul as a relative pronoun ... |
 | [Feb 12, 2026](2026-02-12.md) | Advanced concepts including... |
+| [Feb 17, 2026](2026-02-17.md) | Asma'ul Af'al |

@@ -133,17 +133,25 @@ def cmd_pipeline(args):
 
 def cmd_status(args):
     """Show status of all classes."""
-    import os
     config = load_config()
 
-    print(f"{'Subject':<10} {'Course':<8} {'Videos':<8} {'Trans':<8} {'Notes':<8} {'Active'}")
-    print("-" * 58)
+    # Try to connect to Drive for remote counts; degrade gracefully if unavailable
+    drive_service = None
+    try:
+        import fetch
+        drive_service = fetch.get_drive_service()
+    except Exception as e:
+        print(f"[Drive unavailable: {e}]\n")
 
-    total_v = total_t = total_n = 0
+    print(f"{'Subject':<10} {'Course':<8} {'Remote':<8} {'Local':<8} {'Trans':<8} {'Notes':<8} {'Active':<8} Status")
+    print("-" * 80)
+
+    total_r = total_v = total_t = total_n = 0
 
     for c in config["classes"]:
         subject, course = c["subject"], c["course"]
         active = "yes" if c.get("active") else ""
+        folder_id = c.get("gdrive_folder_id", "")
 
         vids_dir = SUBJECTS_DIR / subject / course / "videos"
         trans_dir = SUBJECTS_DIR / subject / course / "transcripts"
@@ -157,10 +165,35 @@ def cmd_status(args):
         total_t += trans
         total_n += notes
 
-        print(f"{subject:<10} {course:<8} {vids:<8} {trans:<8} {notes:<8} {active}")
+        # Remote video count
+        remote = None
+        if not folder_id:
+            remote_str = "-"
+        elif drive_service is None:
+            remote_str = "?"
+        else:
+            try:
+                import fetch
+                remote = len(fetch.list_mp4s_in_folder(drive_service, folder_id))
+                remote_str = str(remote)
+                total_r += remote
+            except Exception:
+                remote_str = "?"
 
-    print("-" * 58)
-    print(f"{'TOTAL':<10} {'':<8} {total_v:<8} {total_t:<8} {total_n:<8}")
+        # Status
+        if remote is not None and remote > vids:
+            status = "fetch needed"
+        elif vids > trans:
+            status = "transcribe needed"
+        elif trans > notes:
+            status = "notes needed"
+        else:
+            status = "up to date"
+
+        print(f"{subject:<10} {course:<8} {remote_str:<8} {vids:<8} {trans:<8} {notes:<8} {active:<8} {status}")
+
+    print("-" * 80)
+    print(f"{'TOTAL':<10} {'':<8} {total_r:<8} {total_v:<8} {total_t:<8} {total_n:<8}")
 
 
 def main():
