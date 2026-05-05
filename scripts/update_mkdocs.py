@@ -371,6 +371,7 @@ def update_mkdocs_yml(nav):
         mkdocs_config = yaml.safe_load(f)
 
     mkdocs_config["nav"] = nav
+    mkdocs_config["copyright"] = f"Last updated: {datetime.now().strftime('%B %d, %Y')}"
 
     with open(mkdocs_path, "w", encoding="utf-8") as f:
         yaml.dump(mkdocs_config, f, default_flow_style=False,

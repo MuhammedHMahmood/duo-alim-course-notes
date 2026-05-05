@@ -6,8 +6,10 @@ for CUDA acceleration on RTX 5080 (Blackwell / sm_120).
 
 import os
 import json
+import re
 import subprocess
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -15,6 +17,88 @@ from common import make_parser, resolve_classes, course_dir, get_settings
 
 # Whisper runs in a separate venv with CUDA 12.8 PyTorch for RTX 5080 support
 WHISPER_PYTHON = r"C:\Users\moham\whisper-env\Scripts\python.exe"
+WHISPER_WORKER = str(Path(__file__).parent / "whisper_worker.py")
+
+# faster-whisper uses "large-v3" where openai-whisper used "large-v3-turbo"
+_MODEL_MAP = {"large-v3-turbo": "large-v3"}
+
+_SEGMENT_RE = re.compile(r'^\[(\d{2}:\d{2}\.\d+) --> (\d{2}:\d{2}\.\d+)\]')
+
+
+def _parse_ts(ts):
+    m, s = ts.split(':')
+    return float(m) * 60 + float(s)
+
+
+def _fmt_time(secs):
+    m, s = divmod(int(secs), 60)
+    h, m = divmod(m, 60)
+    return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+
+
+def _get_duration(video_path):
+    try:
+        r = subprocess.run(
+            ["ffprobe", "-v", "quiet", "-show_entries", "format=duration",
+             "-of", "csv=p=0", str(video_path)],
+            capture_output=True, text=True, timeout=10
+        )
+        val = r.stdout.strip()
+        return float(val) if val and val != "N/A" else None
+    except Exception:
+        return None
+
+
+def _run_whisper_with_progress(cmd, env, partial_path, duration=None):
+    """Run Whisper with live progress via --verbose segment output. Returns (returncode, stderr_text)."""
+    process = subprocess.Popen(
+        cmd, env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True, encoding="utf-8", errors="replace",
+    )
+    stderr_lines = []
+
+    def read_stderr():
+        for line in process.stderr:
+            stderr_lines.append(line.rstrip())
+
+    def read_stdout():
+        last_print = 0.0
+        for line in process.stdout:
+            line = line.rstrip()
+            m = _SEGMENT_RE.match(line)
+            if m:
+                now = time.time()
+                if now - last_print >= 2.0:
+                    pos = _parse_ts(m.group(2))
+                    if duration:
+                        pct = min(100, int(pos / duration * 100))
+                        print(f"\r    {pct}%  [{_fmt_time(pos)} / {_fmt_time(duration)}]   ", end="", flush=True)
+                    else:
+                        print(f"\r    [{_fmt_time(pos)} transcribed]   ", end="", flush=True)
+                    last_print = now
+            elif line:
+                print(f"\n    {line}", flush=True)
+
+    t_err = threading.Thread(target=read_stderr, daemon=True)
+    t_out = threading.Thread(target=read_stdout, daemon=True)
+    t_err.start()
+    t_out.start()
+    try:
+        process.wait()
+    except (KeyboardInterrupt, Exception):
+        process.kill()
+        process.wait()
+        raise
+    finally:
+        t_err.join(timeout=2)
+        t_out.join(timeout=2)
+        print()
+        if process.returncode != 0 and os.path.exists(partial_path):
+            os.remove(partial_path)
+
+    return process.returncode, "\n".join(stderr_lines)
 
 
 def transcribe_for_class(subject, course, settings):
@@ -36,7 +120,6 @@ def transcribe_for_class(subject, course, settings):
 
     # If a combined transcript exists for a date, treat its part videos as done too
     # e.g. 2026-01-30.json means 2026-01-30-p1 and 2026-01-30-p2 are already covered
-    import re
     part_pattern = re.compile(r'^(\d{4}-\d{2}-\d{2})-p\d+$')
     for video_base in [os.path.splitext(v)[0] for v in videos]:
         m = part_pattern.match(video_base)
@@ -46,46 +129,50 @@ def transcribe_for_class(subject, course, settings):
     remaining = [v for v in videos if os.path.splitext(v)[0] not in already_done]
 
     print(f"[{subject} {course}] {len(videos)} videos, "
-          f"{len(already_done)} done, {len(remaining)} to transcribe.")
+          f"{len(videos) - len(remaining)} done, {len(remaining)} to transcribe.")
 
     new_transcripts = []
 
     for i, video in enumerate(remaining, 1):
         video_path = os.path.join(videos_dir, video)
-        print(f"  [{i}/{len(remaining)}] Transcribing: {video}")
+        base_name = os.path.splitext(video)[0]
+        partial_path = os.path.join(str(transcripts_dir), f"{base_name}.json")
+        duration = _get_duration(video_path)
+        dur_str = f"  ({_fmt_time(duration)})" if duration else ""
+        print(f"  [{i}/{len(remaining)}] Transcribing: {video}{dur_str}", flush=True)
 
+        fw_model = _MODEL_MAP.get(model, model)
+        language = settings.get("whisper_language")
         cmd = [
-            WHISPER_PYTHON, "-m", "whisper",
+            WHISPER_PYTHON, "-u", WHISPER_WORKER,
             video_path,
-            "--model", model,
-            "--word_timestamps", "True",
-            "--output_format", "json",
+            "--model", fw_model,
             "--output_dir", str(transcripts_dir),
             "--device", "cuda",
             "--condition_on_previous_text", "False",
         ]
+        if language:
+            cmd += ["--language", language]
 
         env = os.environ.copy()
         env["PYTHONIOENCODING"] = "utf-8"
-        result = subprocess.run(cmd, env=env, capture_output=True, text=True, encoding="utf-8")
 
-        base_name = os.path.splitext(video)[0]
+        start = time.time()
+        returncode, error_msg = _run_whisper_with_progress(cmd, env, partial_path, duration)
+        elapsed = int(time.time() - start)
+        mins, secs = divmod(elapsed, 60)
 
-        if result.returncode != 0:
-            error_msg = result.stderr or ""
+        if returncode != 0:
             is_cuda = any(s in error_msg.lower() for s in ["cuda", "out of memory", "oom"])
             if is_cuda:
-                print(f"    CUDA ERROR: {video} — skipping (GPU may have run out of memory)")
-                partial = os.path.join(transcripts_dir, f"{base_name}.json")
-                if os.path.exists(partial):
-                    os.remove(partial)
+                print(f"    CUDA ERROR: {video} — skipping (GPU may have run out of memory)", flush=True)
                 time.sleep(5)
             else:
-                print(f"    ERROR: Failed to transcribe {video}")
+                print(f"    ERROR: Failed to transcribe {video}", flush=True)
                 if error_msg:
-                    print(f"    {error_msg[:200]}")
+                    print(f"    {error_msg[:200]}", flush=True)
         else:
-            print(f"    Done.")
+            print(f"    Done in {mins}m {secs}s", flush=True)
             new_transcripts.append(base_name)
 
             # Generate plain text version alongside JSON

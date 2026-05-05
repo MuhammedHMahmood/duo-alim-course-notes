@@ -223,6 +223,10 @@ python duo.py fetch      --active-only
 python duo.py transcribe --active-only
 python duo.py notes      --active-only --backend cli --workers 4
 python duo.py build
+python duo.py deploy
+
+# Preview locally before deploying
+python duo.py serve
 
 # Check status
 python duo.py status
@@ -247,8 +251,10 @@ Commands:
   fetch        Download new recordings from Google Drive
   transcribe   Transcribe videos using Whisper
   notes        Generate study notes from transcripts
-  build        Sync notes to docs/ and update MkDocs
-  pipeline     Run all four steps in sequence
+  build        Sync notes to docs/ and update MkDocs nav
+  serve        Launch MkDocs local preview server
+  deploy       Deploy site to GitHub Pages (mkdocs gh-deploy)
+  pipeline     Run all steps in sequence: fetch -> transcribe -> notes -> build -> deploy
   status       Show counts of videos / transcripts / notes per class
 
 Class selection (required for fetch / transcribe / notes / pipeline):
@@ -277,10 +283,12 @@ Notes options:
 
 ```bash
 python duo.py status          # check what's new / behind
-run_pipeline.bat              # or: fetch → transcribe → notes → build → push
+python duo.py pipeline --active-only   # fetch → transcribe → notes → build → deploy
 ```
 
-`status` now checks Google Drive live, so the **Remote** column tells you if new recordings are available before you commit to a full run.
+Or use `run_pipeline.bat` which also commits and pushes the source files to main before deploying.
+
+`status` checks Google Drive live, so the **Remote** column tells you if new recordings are available before committing to a full run.
 
 ### New semester
 

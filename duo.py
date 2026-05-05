@@ -5,6 +5,8 @@ Usage:
     python duo.py transcribe --active-only
     python duo.py notes --subject hadith --course 101
     python duo.py build
+    python duo.py serve
+    python duo.py deploy
     python duo.py pipeline --active-only
     python duo.py status
 """
@@ -101,32 +103,51 @@ def cmd_build(args):
     print("Updating mkdocs.yml...")
     update_mkdocs.update_mkdocs_yml(nav)
 
-    print("Done. Run 'mkdocs serve' to preview.")
+    print("Done. Run 'duo.py serve' to preview or 'duo.py deploy' to publish.")
+
+
+def cmd_serve(args):
+    """Launch MkDocs local preview server."""
+    import subprocess
+    subprocess.run(["mkdocs", "serve"], check=True)
+
+
+def cmd_deploy(args):
+    """Deploy the site to GitHub Pages via mkdocs gh-deploy."""
+    import subprocess
+    print("Deploying to GitHub Pages...")
+    subprocess.run(["mkdocs", "gh-deploy", "--force"], check=True)
+    print("Done. Site is live on gh-pages.")
 
 
 def cmd_pipeline(args):
-    """Run the full pipeline: fetch -> transcribe -> notes -> build."""
+    """Run the full pipeline: fetch -> transcribe -> notes -> build -> deploy."""
     args_copy = argparse.Namespace(**vars(args))
 
     print("=" * 50)
-    print("Step 1/4: Fetching new recordings...")
+    print("Step 1/5: Fetching new recordings...")
     print("=" * 50)
     cmd_fetch(args_copy)
 
     print("\n" + "=" * 50)
-    print("Step 2/4: Transcribing new videos...")
+    print("Step 2/5: Transcribing new videos...")
     print("=" * 50)
     cmd_transcribe(args_copy)
 
     print("\n" + "=" * 50)
-    print("Step 3/4: Generating notes...")
+    print("Step 3/5: Generating notes...")
     print("=" * 50)
     cmd_notes(args_copy)
 
     print("\n" + "=" * 50)
-    print("Step 4/4: Building site...")
+    print("Step 4/5: Building site...")
     print("=" * 50)
     cmd_build(args_copy)
+
+    print("\n" + "=" * 50)
+    print("Step 5/5: Deploying to GitHub Pages...")
+    print("=" * 50)
+    cmd_deploy(args_copy)
 
     print("\nPipeline complete.")
 
@@ -157,7 +178,10 @@ def cmd_status(args):
         trans_dir = SUBJECTS_DIR / subject / course / "transcripts"
         notes_dir = SUBJECTS_DIR / subject / course / "notes"
 
-        vids = len([f for f in vids_dir.glob("*.mp4")]) if vids_dir.exists() else 0
+        # Count unique session dates — p1/p2 parts count as one session
+        import re as _re
+        _part = _re.compile(r'-p\d+$')
+        vids = len({_part.sub('', f.stem) for f in vids_dir.glob("*.mp4")}) if vids_dir.exists() else 0
         trans = len([f for f in trans_dir.glob("*.json")]) if trans_dir.exists() else 0
         notes = len([f for f in notes_dir.glob("*.md")]) if notes_dir.exists() else 0
 
@@ -239,8 +263,16 @@ def main():
     p_build = sub.add_parser("build", help="Sync notes to docs/ and update MkDocs")
     p_build.set_defaults(func=cmd_build)
 
+    # serve
+    p_serve = sub.add_parser("serve", help="Launch MkDocs local preview server")
+    p_serve.set_defaults(func=cmd_serve)
+
+    # deploy
+    p_deploy = sub.add_parser("deploy", help="Deploy site to GitHub Pages (mkdocs gh-deploy)")
+    p_deploy.set_defaults(func=cmd_deploy)
+
     # pipeline
-    p_pipe = sub.add_parser("pipeline", help="Run full pipeline: fetch -> transcribe -> notes -> build")
+    p_pipe = sub.add_parser("pipeline", help="Run full pipeline: fetch -> transcribe -> notes -> build -> deploy")
     add_class_args(p_pipe)
     p_pipe.add_argument("--force", action="store_true",
                         help="Regenerate notes even if they exist")
