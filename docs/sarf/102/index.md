@@ -9,5 +9,5 @@ Sarf 102
 | [Feb 15, 2026](2026-02-15.md) | Awzan |
 | [Apr 03, 2026](2026-04-03.md) | Fundamental three-letter ve... |
 | [Apr 10, 2026](2026-04-10.md) | Jumla ismiyya |
-| [Apr 19, 2026](2026-04-19.md) | Understanding the fundament... |
+| [Apr 19, 2026](2026-04-19.md) | Patterns |
 | [May 03, 2026](2026-05-03.md) | Analyzing the book's title ... |
