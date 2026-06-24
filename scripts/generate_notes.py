@@ -127,7 +127,7 @@ def generate_notes_for_class(subject, course, settings, force=False, backend="cl
     notes_dir = course_dir(subject, course, "notes")
 
     template = load_template(subject)
-    model = settings.get("llm_model", "claude-sonnet-4-20250514")
+    model = settings.get("llm_model", "claude-sonnet-4-6")
 
     # Find transcripts (JSON) that don't have corresponding notes
     transcripts = sorted(

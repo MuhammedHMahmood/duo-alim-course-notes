@@ -8,7 +8,9 @@ Writes final JSON to output_dir/{stem}.json in openai-whisper format.
 
 import argparse
 import json
+import os
 import sys
+import traceback
 from pathlib import Path
 
 from faster_whisper import WhisperModel
@@ -54,6 +56,19 @@ def main():
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump({"text": full_text, "segments": segments_list}, f, ensure_ascii=False, indent=2)
 
+    # The transcript is safely on disk at this point. Skip normal Python/CUDA
+    # teardown (model destructor, CUDA context release) entirely — on this
+    # machine that teardown reliably crashes with STATUS_STACK_BUFFER_OVERRUN
+    # (0xC0000409) after the work is already done, which would otherwise make
+    # transcribe.py treat a successful run as a failure and delete the output.
+    sys.stdout.flush()
+    os._exit(0)
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        traceback.print_exc(file=sys.stderr)
+        sys.stderr.flush()
+        sys.exit(1)

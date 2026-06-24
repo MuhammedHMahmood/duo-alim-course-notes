@@ -22,7 +22,7 @@ WHISPER_WORKER = str(Path(__file__).parent / "whisper_worker.py")
 # faster-whisper uses "large-v3" where openai-whisper used "large-v3-turbo"
 _MODEL_MAP = {"large-v3-turbo": "large-v3"}
 
-_SEGMENT_RE = re.compile(r'^\[(\d{2}:\d{2}\.\d+) --> (\d{2}:\d{2}\.\d+)\]')
+_SEGMENT_RE = re.compile(r'^\[(\d+:\d{2}\.\d+) --> (\d+:\d{2}\.\d+)\]')
 
 
 def _parse_ts(ts):
@@ -168,9 +168,11 @@ def transcribe_for_class(subject, course, settings):
                 print(f"    CUDA ERROR: {video} — skipping (GPU may have run out of memory)", flush=True)
                 time.sleep(5)
             else:
-                print(f"    ERROR: Failed to transcribe {video}", flush=True)
+                print(f"    ERROR: Failed to transcribe {video} (exit code {returncode})", flush=True)
                 if error_msg:
                     print(f"    {error_msg[:200]}", flush=True)
+                else:
+                    print("    No error output captured — likely a hard crash (driver/CUDA fault) rather than a Python exception.", flush=True)
         else:
             print(f"    Done in {mins}m {secs}s", flush=True)
             new_transcripts.append(base_name)

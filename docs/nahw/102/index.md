@@ -16,3 +16,12 @@ Nahw 102
 | [Apr 23, 2026](2026-04-23.md) | Grammatical inflection |
 | [Apr 28, 2026](2026-04-28.md) | Different types of nouns (ص... |
 | [Apr 30, 2026](2026-04-30.md) | Sound plurals (Jamʿ Sālim),... |
+| [May 05, 2026](2026-05-05.md) | How Arabic distinguishes be... |
+| [May 07, 2026](2026-05-07.md) | Marfu'at |
+| [May 12, 2026](2026-05-12.md) | Section 3.8 — المنصوبات |
+| [May 19, 2026](2026-05-19.md) | Maf'ool Fihi |
+| [May 21, 2026](2026-05-21.md) | Hal and Dhul-Hal |
+| [Jun 02, 2026](2026-06-02.md) | Arabic numbers (Al-Adad wal... |
+| [Jun 04, 2026](2026-06-04.md) | Decades (20–90), compound n... |
+| [Jun 11, 2026](2026-06-11.md) | Istithna (الاستثناء) |
+| [Jun 16, 2026](2026-06-16.md) | Completion of Mustasna (Exc... |

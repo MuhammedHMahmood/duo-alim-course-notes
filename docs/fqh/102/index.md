@@ -13,3 +13,8 @@ Fiqh 102
 | [Apr 20, 2026](2026-04-20.md) | Practical rulings for clean... |
 | [Apr 27, 2026](2026-04-27.md) | Ritual impurity |
 | [May 04, 2026](2026-05-04.md) | Impurities |
+| [May 11, 2026](2026-05-11.md) | Hukm al-Wudu |
+| [May 18, 2026](2026-05-18.md) | Shortened |
+| [Jun 01, 2026](2026-06-01.md) | Book of Purification |
+| [Jun 08, 2026](2026-06-08.md) | Nawaqid al-Wudu |
+| [Jun 15, 2026](2026-06-15.md) | Aqsam al-Ghusl |
