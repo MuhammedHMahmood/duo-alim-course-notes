@@ -30,14 +30,33 @@ docs/{subject}/{course}/  ← synced copies for MkDocs (never edit directly)
 
 Notes live in `subjects/*/notes/`. The `docs/` folder is generated — always edit source notes in `subjects/`.
 
-## Pipeline commands
+## Running the full pipeline (the "full loop")
+
+When asked to "run the pipeline" / "run the full loop" for this repo, run these steps in order
+(active classes only). Run each `duo.py` subcommand **directly** — there is no batch orchestrator.
 
 ```bash
-python duo.py pipeline --active-only          # full run, active classes only
-python duo.py notes --active-only --workers 4 # parallel note generation
-python duo.py build                           # sync docs + rebuild nav
-python duo.py status                          # counts per class
+python duo.py status                                # 0. see what's behind (queries Drive live)
+python duo.py fetch      --active-only              # 1. fetch new recordings from Google Drive
+python duo.py transcribe --active-only              # 2. transcribe (Whisper GPU venv)
+python duo.py notes      --active-only --workers 4  # 3. generate notes (Claude CLI backend)
+python duo.py build                                 # 4. build site: sync notes -> docs/ + rebuild nav
+python duo.py deploy                                # 5. deploy: publish rendered site to gh-pages
+git add -A && git commit -m "Update notes — <date>" && git push   # 6. persist source to main
 ```
+
+Steps 1–5 are the user's "full loop." **Step 6 is required too** — `deploy` only updates the live
+site (`gh-pages`); committing/pushing saves the generated notes/docs to `main` (the source of truth).
+There is no CI, so a `main` push alone does NOT update the live site, and `deploy` alone does NOT
+save the source — both are needed.
+
+- `python duo.py pipeline --active-only` runs steps 1–5 in one shot but **does not** do step 6.
+- Any step with nothing to do is a safe no-op (e.g. fetch/transcribe when there are no new recordings).
+- **Environment requirement:** this loop only works on the Windows machine that has the Whisper venv +
+  GPU, `config/service_account.json` (Google Drive), and the keyring credentials (see sections below).
+  A fresh/cloud environment without those cannot run fetch/transcribe — check `duo.py status` first.
+
+Other handy commands: `python duo.py serve` (local preview), `python duo.py notes --force` (regenerate).
 
 ## Whisper venv (hardcoded path)
 
