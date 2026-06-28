@@ -263,6 +263,7 @@ Commands:
   serve        Launch MkDocs local preview server
   deploy       Deploy site to GitHub Pages (mkdocs gh-deploy)
   pipeline     Run all steps in sequence: fetch -> transcribe -> notes -> prune -> build -> deploy
+  notify       Send a Discord notification + log to logs/runs.log (--level/--title/--field/--footer)
   status       Show counts of videos / transcripts / notes per class
 
 Class selection (required for fetch / transcribe / notes / prune / pipeline):

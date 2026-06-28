@@ -57,6 +57,7 @@ def cmd_fetch(args):
         total += count
 
     print(f"\nTotal: {total} new file(s) downloaded.")
+    return total
 
 
 def cmd_transcribe(args):
@@ -71,6 +72,7 @@ def cmd_transcribe(args):
         total += len(new)
 
     print(f"\nTotal: {total} new transcript(s).")
+    return total
 
 
 def cmd_notes(args):
@@ -88,6 +90,7 @@ def cmd_notes(args):
         total += len(new)
 
     print(f"\nTotal: {total} new note(s) generated.")
+    return total
 
 
 def cmd_prune(args):
@@ -126,6 +129,7 @@ def cmd_prune(args):
 
     verb = "Would free" if dry else "Freed"
     print(f"\n{verb} {total_bytes / 1e9:.2f} GB across {total_files} video file(s).")
+    return total_files, total_bytes
 
 
 def cmd_build(args):
@@ -159,40 +163,72 @@ def cmd_deploy(args):
 
 
 def cmd_pipeline(args):
-    """Run the full pipeline: fetch -> transcribe -> notes -> build -> deploy."""
+    """Run the full pipeline: fetch -> transcribe -> notes -> prune -> build -> deploy.
+
+    Posts a Discord summary on success and a failure alert (naming the failing step)
+    on any exception — see scripts/notify.py. Both also append to logs/runs.log.
+    """
+    import time
+    import notify as notifier
+
     args_copy = argparse.Namespace(**vars(args))
+    start = time.time()
 
-    print("=" * 50)
-    print("Step 1/5: Fetching new recordings...")
-    print("=" * 50)
-    cmd_fetch(args_copy)
+    def _elapsed():
+        s = int(time.time() - start)
+        return f"{s // 60}m {s % 60}s"
 
-    print("\n" + "=" * 50)
-    print("Step 2/5: Transcribing new videos...")
-    print("=" * 50)
-    cmd_transcribe(args_copy)
+    def _step(num, name, fn):
+        print("\n" + "=" * 50)
+        print(f"Step {num}/6: {name}...")
+        print("=" * 50)
+        try:
+            return fn(args_copy)
+        except Exception as e:
+            notifier.notify(
+                "error",
+                f"Pipeline failed at: {name}",
+                description=str(e)[:500],
+                fields=[("Failed step", name), ("Ran for", _elapsed())],
+                footer="duo.py pipeline · nothing committed",
+            )
+            print(f"\nPIPELINE FAILED at '{name}': {e}")
+            sys.exit(1)
 
-    print("\n" + "=" * 50)
-    print("Step 3/6: Generating notes...")
-    print("=" * 50)
-    cmd_notes(args_copy)
+    fetched = _step(1, "fetch", cmd_fetch)
+    transcribed = _step(2, "transcribe", cmd_transcribe)
+    noted = _step(3, "notes", cmd_notes)
+    pruned_files, pruned_bytes = _step(4, "prune", cmd_prune)
+    _step(5, "build", cmd_build)
+    _step(6, "deploy", cmd_deploy)
 
-    print("\n" + "=" * 50)
-    print("Step 4/6: Pruning transcribed+noted videos...")
-    print("=" * 50)
-    cmd_prune(args_copy)
-
-    print("\n" + "=" * 50)
-    print("Step 5/6: Building site...")
-    print("=" * 50)
-    cmd_build(args_copy)
-
-    print("\n" + "=" * 50)
-    print("Step 6/6: Deploying to GitHub Pages...")
-    print("=" * 50)
-    cmd_deploy(args_copy)
-
+    notifier.notify(
+        "success",
+        "Pipeline complete — all classes up to date",
+        fields=[
+            ("Fetched", f"{fetched} videos"),
+            ("New transcripts", transcribed),
+            ("New notes", noted),
+            ("Pruned", f"{pruned_files} files · {pruned_bytes / 1e9:.2f} GB"),
+            ("Deployed", "gh-pages"),
+            ("Duration", _elapsed()),
+        ],
+        footer="duo.py pipeline · remember to commit & push to main",
+    )
     print("\nPipeline complete. Remember to commit & push the new notes/docs to main.")
+
+
+def cmd_notify(args):
+    """Send a Discord notification (+ log it). For ad-hoc / runbook use."""
+    import notify as notifier
+    fields = []
+    for f in (args.field or []):
+        if "=" in f:
+            k, v = f.split("=", 1)
+            fields.append((k.strip(), v.strip()))
+    ok = notifier.notify(args.level, args.title, description=args.body,
+                         fields=fields or None, footer=args.footer)
+    print("Sent to Discord." if ok else "Logged to logs/runs.log (no webhook configured or post failed).")
 
 
 def cmd_status(args):
@@ -338,6 +374,16 @@ def main():
     p_pipe.add_argument("--workers", type=int, default=1,
                         help="Number of parallel workers (default: 1)")
     p_pipe.set_defaults(func=cmd_pipeline)
+
+    # notify
+    p_notify = sub.add_parser("notify", help="Send a Discord notification + log it")
+    p_notify.add_argument("--level", choices=["success", "error", "info"], default="info")
+    p_notify.add_argument("--title", required=True, help="Embed title")
+    p_notify.add_argument("--body", help="Embed description")
+    p_notify.add_argument("--field", action="append", metavar="NAME=VALUE",
+                          help="Inline field (repeatable)")
+    p_notify.add_argument("--footer", help="Embed footer text")
+    p_notify.set_defaults(func=cmd_notify)
 
     # status
     p_status = sub.add_parser("status", help="Show status of all classes")

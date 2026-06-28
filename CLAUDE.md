@@ -64,6 +64,19 @@ update the live site, and `deploy` alone does NOT save the source — both are n
 
 Other handy commands: `python duo.py serve` (local preview), `python duo.py notes --force` (regenerate).
 
+## Notifications & logging
+
+`duo.py pipeline` posts a Discord summary on success and a **failure alert** (naming the failing
+step + error) on any exception, and appends every run to `logs/runs.log` (gitignored). The failure
+alert fires from the script's own error handler, so a broken run is reported even unattended.
+
+- Webhook URL is read from keyring: service `duo-class-notes`, key `discord_webhook_url`. If unset,
+  runs still log to `logs/runs.log` and the Discord post is skipped (no crash) — see `scripts/notify.py`.
+- `python duo.py notify --level success|error|info --title "..." [--body ...] [--field "Name=Value"] [--footer ...]`
+  sends an ad-hoc message — use it from the runbook to post a final summary after the commit step.
+- Known gap: a transcribe step that *self-skips* (e.g. CUDA OOM) is logged/printed but does not raise,
+  so it won't trigger the red alert yet. Hard crashes, deploy failures, and other exceptions do.
+
 ## Whisper venv (hardcoded path)
 
 `scripts/transcribe.py` calls a **separate venv** via a hardcoded path:
