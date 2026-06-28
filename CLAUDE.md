@@ -45,12 +45,12 @@ python duo.py deploy                                # 5. deploy: publish rendere
 git add -A && git commit -m "Update notes — <date>" && git push   # 6. persist source to main
 ```
 
-Steps 1–5 are the user's "full loop." **Step 6 is required too** — `deploy` only updates the live
-site (`gh-pages`); committing/pushing saves the generated notes/docs to `main` (the source of truth).
-There is no CI, so a `main` push alone does NOT update the live site, and `deploy` alone does NOT
-save the source — both are needed.
+The full loop is all **6 steps** — fetch, transcribe, notes, build, deploy, **commit**. Step 6 is not
+optional: `deploy` only updates the live site (`gh-pages`), while committing/pushing saves the
+generated notes/docs to `main` (the source of truth). There is no CI, so a `main` push alone does NOT
+update the live site, and `deploy` alone does NOT save the source — both are needed to close the loop.
 
-- `python duo.py pipeline --active-only` runs steps 1–5 in one shot but **does not** do step 6.
+- `python duo.py pipeline --active-only` runs steps 1–5 in one shot but **does not** do step 6 (commit/push).
 - Any step with nothing to do is a safe no-op (e.g. fetch/transcribe when there are no new recordings).
 - **Environment requirement:** this loop only works on the Windows machine that has the Whisper venv +
   GPU, `config/service_account.json` (Google Drive), and the keyring credentials (see sections below).
