@@ -198,7 +198,12 @@ def cmd_status(args):
         else:
             try:
                 import fetch
-                remote = len(fetch.list_mp4s_in_folder(drive_service, folder_id))
+                # Dedupe remote the same way as local: p1/p2 parts = one session
+                remote_files = fetch.list_mp4s_in_folder(drive_service, folder_id)
+                remote = len({
+                    _part.sub('', fetch.normalize_filename(rf["name"]).rsplit('.', 1)[0])
+                    for rf in remote_files
+                })
                 remote_str = str(remote)
                 total_r += remote
             except Exception:
