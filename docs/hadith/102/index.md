@@ -16,3 +16,4 @@ Hadith 102
 | [May 20, 2026](2026-05-20.md) | Translation and vocabulary |
 | [Jun 10, 2026](2026-06-10.md) | Hadith #32 |
 | [Jun 17, 2026](2026-06-17.md) | Hadith 34 |
+| [Jun 24, 2026](2026-06-24.md) | final session |

@@ -25,3 +25,5 @@ Nahw 102
 | [Jun 04, 2026](2026-06-04.md) | Decades (20–90), compound n... |
 | [Jun 11, 2026](2026-06-11.md) | Istithna (الاستثناء) |
 | [Jun 16, 2026](2026-06-16.md) | Completion of Mustasna (Exc... |
+| [Jun 23, 2026](2026-06-23.md) | Na't Sababi (Indirect Descr... |
+| [Jun 25, 2026](2026-06-25.md) | Ta'kid (التأكيد) |

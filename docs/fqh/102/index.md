@@ -18,3 +18,4 @@ Fiqh 102
 | [Jun 01, 2026](2026-06-01.md) | Book of Purification |
 | [Jun 08, 2026](2026-06-08.md) | Nawaqid al-Wudu |
 | [Jun 15, 2026](2026-06-15.md) | Aqsam al-Ghusl |
+| [Jun 22, 2026](2026-06-22.md) | Three major topics: (1) the... |
