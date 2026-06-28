@@ -8,7 +8,7 @@ An automated pipeline that turns recorded class sessions from the [DUO 6-year Al
 2. **Transcribe** — Converts audio to text using OpenAI Whisper (`large-v3-turbo`)
 3. **Generate notes** — Uses Claude (Sonnet) to produce structured Markdown study notes from each transcript
 4. **Build** — Syncs notes into `docs/` and regenerates the MkDocs navigation
-5. **Publish** — Commits and pushes everything to GitHub (via `run_pipeline.bat`)
+5. **Publish** — Deploys the rendered site to GitHub Pages (`python duo.py deploy`)
 
 ## Subjects
 
@@ -23,8 +23,7 @@ An automated pipeline that turns recorded class sessions from the [DUO 6-year Al
 ## Project layout
 
 ```
-duo.py                  # Main CLI entry point
-run_pipeline.bat        # Windows batch script — runs the full pipeline end-to-end
+duo.py                  # Main CLI entry point — run subcommands directly
 requirements.txt        # Python dependencies
 
 config/
@@ -232,9 +231,16 @@ python duo.py serve
 python duo.py status
 ```
 
-### Windows shortcut
+### Commit & push the source
 
-Double-click `run_pipeline.bat` — it runs all steps, commits, and pushes to GitHub.
+`pipeline` (and `deploy`) publishes the rendered site to the `gh-pages` branch, but
+does not commit the source. After a run, push the new notes/docs to `main`:
+
+```bash
+git add -A
+git commit -m "Update notes"
+git push
+```
 
 ### Preview the site locally
 
@@ -282,11 +288,12 @@ Notes options:
 ### Weekly routine
 
 ```bash
-python duo.py status          # check what's new / behind
+python duo.py status                   # check what's new / behind
 python duo.py pipeline --active-only   # fetch → transcribe → notes → build → deploy
+git add -A && git commit -m "Update notes" && git push   # commit source to main
 ```
 
-Or use `run_pipeline.bat` which also commits and pushes the source files to main before deploying.
+Or run the steps individually (`fetch` → `transcribe` → `notes` → `build` → `deploy`) for more control.
 
 `status` checks Google Drive live, so the **Remote** column tells you if new recordings are available before committing to a full run.
 

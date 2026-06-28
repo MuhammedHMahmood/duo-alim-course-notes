@@ -8,8 +8,7 @@ An automated pipeline that processes recorded lectures from the DUO 6-year Alim 
 
 | File | Purpose |
 |------|---------|
-| `duo.py` | Main CLI — entry point for all commands |
-| `run_pipeline.bat` | Windows batch script — full pipeline + git push |
+| `duo.py` | Main CLI — entry point for all commands (run subcommands directly) |
 | `config/classes.yaml` | Class registry (subjects, courses, Google Drive IDs, `active` flag) |
 | `config/templates/{subject}.md` | Per-subject prompts used by Claude to generate notes |
 | `scripts/common.py` | Shared utilities: config loading, path helpers, credential access via `keyring` |
