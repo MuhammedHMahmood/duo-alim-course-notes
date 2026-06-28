@@ -40,17 +40,23 @@ python duo.py status                                # 0. see what's behind (quer
 python duo.py fetch      --active-only              # 1. fetch new recordings from Google Drive
 python duo.py transcribe --active-only              # 2. transcribe (Whisper GPU venv)
 python duo.py notes      --active-only --workers 4  # 3. generate notes (Claude CLI backend)
-python duo.py build                                 # 4. build site: sync notes -> docs/ + rebuild nav
-python duo.py deploy                                # 5. deploy: publish rendered site to gh-pages
-git add -A && git commit -m "Update notes — <date>" && git push   # 6. persist source to main
+python duo.py prune      --active-only              # 4. delete MP4s now transcribed+noted (disk hygiene)
+python duo.py build                                 # 5. build site: sync notes -> docs/ + rebuild nav
+python duo.py deploy                                # 6. deploy: publish rendered site to gh-pages
+git add -A && git commit -m "Update notes — <date>" && git push   # 7. persist source to main
 ```
 
-The full loop is all **6 steps** — fetch, transcribe, notes, build, deploy, **commit**. Step 6 is not
+The loop is fetch → transcribe → notes → prune → build → deploy → **commit**. The final commit is not
 optional: `deploy` only updates the live site (`gh-pages`), while committing/pushing saves the
 generated notes/docs to `main` (the source of truth). There is no CI, so a `main` push alone does NOT
 update the live site, and `deploy` alone does NOT save the source — both are needed to close the loop.
 
-- `python duo.py pipeline --active-only` runs steps 1–5 in one shot but **does not** do step 6 (commit/push).
+- `python duo.py pipeline --active-only` runs steps 1–6 (including prune) in one shot but **does not**
+  do the final commit/push — do that manually after.
+- **Videos are disposable.** `prune` deletes an MP4 once both its transcript and note exist; they're
+  large and re-downloadable from Drive. `fetch` won't re-download a pruned video (it skips sessions
+  that already have a transcript). So `status` normally shows **Local 0** — that's expected, a session
+  counts as "held" via its transcript. (To re-transcribe a pruned session you'd re-fetch deliberately.)
 - Any step with nothing to do is a safe no-op (e.g. fetch/transcribe when there are no new recordings).
 - **Environment requirement:** this loop only works on the Windows machine that has the Whisper venv +
   GPU, `config/service_account.json` (Google Drive), and the keyring credentials (see sections below).

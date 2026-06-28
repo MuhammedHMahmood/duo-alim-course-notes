@@ -118,10 +118,14 @@ def fetch_for_class(service, subject, course, class_config):
         return 0
 
     videos_dir = course_dir(subject, course, "videos")
+    transcripts_dir = course_dir(subject, course, "transcripts")
     existing = {
         f.name for f in videos_dir.iterdir()
         if f.suffix.lower() == ".mp4" and f.stat().st_size > 0
     }
+    # Sessions already transcribed — don't re-download videos that were pruned
+    # after transcription (mp4 deleted, but the transcript remains).
+    transcribed = {f.stem for f in transcripts_dir.glob("*.json")}
 
     remote_files = list_mp4s_in_folder(service, folder_id)
     new_count = 0
@@ -129,6 +133,9 @@ def fetch_for_class(service, subject, course, class_config):
     for remote_file in remote_files:
         local_name = normalize_filename(remote_file["name"])
         if local_name in existing:
+            continue
+        session = re.sub(r'-p\d+$', '', os.path.splitext(local_name)[0])
+        if session in transcribed:
             continue
 
         dest_path = videos_dir / local_name

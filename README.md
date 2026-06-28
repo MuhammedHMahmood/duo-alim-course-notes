@@ -221,6 +221,7 @@ python duo.py pipeline --active-only
 python duo.py fetch      --active-only
 python duo.py transcribe --active-only
 python duo.py notes      --active-only --backend cli --workers 4
+python duo.py prune      --active-only   # delete MP4s once transcribed + noted
 python duo.py build
 python duo.py deploy
 
@@ -257,13 +258,14 @@ Commands:
   fetch        Download new recordings from Google Drive
   transcribe   Transcribe videos using Whisper
   notes        Generate study notes from transcripts
+  prune        Delete MP4s whose transcript + note both exist (free disk; --dry-run to preview)
   build        Sync notes to docs/ and update MkDocs nav
   serve        Launch MkDocs local preview server
   deploy       Deploy site to GitHub Pages (mkdocs gh-deploy)
-  pipeline     Run all steps in sequence: fetch -> transcribe -> notes -> build -> deploy
+  pipeline     Run all steps in sequence: fetch -> transcribe -> notes -> prune -> build -> deploy
   status       Show counts of videos / transcripts / notes per class
 
-Class selection (required for fetch / transcribe / notes / pipeline):
+Class selection (required for fetch / transcribe / notes / prune / pipeline):
   --all              All classes (active and inactive)
   --active-only      Active classes only
   --subject SUBJECT  Specific subject: tfs | hadith | nahw | sarf | fqh

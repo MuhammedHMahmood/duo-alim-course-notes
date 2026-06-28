@@ -90,6 +90,44 @@ def cmd_notes(args):
     print(f"\nTotal: {total} new note(s) generated.")
 
 
+def cmd_prune(args):
+    """Delete MP4s whose transcript AND note both exist (free disk; videos are regeneratable)."""
+    import re
+    classes = _resolve(args)
+    dry = getattr(args, "dry_run", False)
+    part_re = re.compile(r'-p\d+$')
+
+    total_files = 0
+    total_bytes = 0
+    for subject, course, config in classes:
+        videos_dir = SUBJECTS_DIR / subject / course / "videos"
+        trans_dir = SUBJECTS_DIR / subject / course / "transcripts"
+        notes_dir = SUBJECTS_DIR / subject / course / "notes"
+        if not videos_dir.exists():
+            continue
+        transcripts = {f.stem for f in trans_dir.glob("*.json")} if trans_dir.exists() else set()
+        notes = {f.stem for f in notes_dir.glob("*.md")} if notes_dir.exists() else set()
+        # A session is safe to prune only once both its transcript and note exist.
+        done = transcripts & notes
+
+        removed = 0
+        for vid in videos_dir.glob("*.mp4"):
+            if part_re.sub("", vid.stem) in done:
+                size = vid.stat().st_size
+                action = "would delete" if dry else "deleting"
+                print(f"  {action}: {subject}/{course}/{vid.name} ({size / 1e6:.0f} MB)")
+                if not dry:
+                    vid.unlink()
+                removed += 1
+                total_files += 1
+                total_bytes += size
+        if removed == 0:
+            print(f"[{subject} {course}] nothing to prune.")
+
+    verb = "Would free" if dry else "Freed"
+    print(f"\n{verb} {total_bytes / 1e9:.2f} GB across {total_files} video file(s).")
+
+
 def cmd_build(args):
     """Sync notes to docs/ and update MkDocs site."""
     import update_mkdocs
@@ -135,21 +173,26 @@ def cmd_pipeline(args):
     cmd_transcribe(args_copy)
 
     print("\n" + "=" * 50)
-    print("Step 3/5: Generating notes...")
+    print("Step 3/6: Generating notes...")
     print("=" * 50)
     cmd_notes(args_copy)
 
     print("\n" + "=" * 50)
-    print("Step 4/5: Building site...")
+    print("Step 4/6: Pruning transcribed+noted videos...")
+    print("=" * 50)
+    cmd_prune(args_copy)
+
+    print("\n" + "=" * 50)
+    print("Step 5/6: Building site...")
     print("=" * 50)
     cmd_build(args_copy)
 
     print("\n" + "=" * 50)
-    print("Step 5/5: Deploying to GitHub Pages...")
+    print("Step 6/6: Deploying to GitHub Pages...")
     print("=" * 50)
     cmd_deploy(args_copy)
 
-    print("\nPipeline complete.")
+    print("\nPipeline complete. Remember to commit & push the new notes/docs to main.")
 
 
 def cmd_status(args):
@@ -178,19 +221,21 @@ def cmd_status(args):
         trans_dir = SUBJECTS_DIR / subject / course / "transcripts"
         notes_dir = SUBJECTS_DIR / subject / course / "notes"
 
-        # Count unique session dates — p1/p2 parts count as one session
+        # Work with sets of session dates (p1/p2 parts = one session) so status stays
+        # correct after videos are pruned — a transcript implies we still "have" the session.
         import re as _re
         _part = _re.compile(r'-p\d+$')
-        vids = len({_part.sub('', f.stem) for f in vids_dir.glob("*.mp4")}) if vids_dir.exists() else 0
-        trans = len([f for f in trans_dir.glob("*.json")]) if trans_dir.exists() else 0
-        notes = len([f for f in notes_dir.glob("*.md")]) if notes_dir.exists() else 0
+        vid_dates = {_part.sub('', f.stem) for f in vids_dir.glob("*.mp4")} if vids_dir.exists() else set()
+        trans_dates = {f.stem for f in trans_dir.glob("*.json")} if trans_dir.exists() else set()
+        note_dates = {f.stem for f in notes_dir.glob("*.md")} if notes_dir.exists() else set()
+        vids, trans, notes = len(vid_dates), len(trans_dates), len(note_dates)
 
         total_v += vids
         total_t += trans
         total_n += notes
 
-        # Remote video count
-        remote = None
+        # Remote session count (deduped the same way as local)
+        remote_dates = None
         if not folder_id:
             remote_str = "-"
         elif drive_service is None:
@@ -198,23 +243,23 @@ def cmd_status(args):
         else:
             try:
                 import fetch
-                # Dedupe remote the same way as local: p1/p2 parts = one session
                 remote_files = fetch.list_mp4s_in_folder(drive_service, folder_id)
-                remote = len({
+                remote_dates = {
                     _part.sub('', fetch.normalize_filename(rf["name"]).rsplit('.', 1)[0])
                     for rf in remote_files
-                })
-                remote_str = str(remote)
-                total_r += remote
+                }
+                remote_str = str(len(remote_dates))
+                total_r += len(remote_dates)
             except Exception:
                 remote_str = "?"
 
-        # Status
-        if remote is not None and remote > vids:
+        # Status — a session is "held" if it has a video OR a transcript (videos may be pruned).
+        have = vid_dates | trans_dates
+        if remote_dates is not None and (remote_dates - have):
             status = "fetch needed"
-        elif vids > trans:
+        elif vid_dates - trans_dates:
             status = "transcribe needed"
-        elif trans > notes:
+        elif trans_dates - note_dates:
             status = "notes needed"
         else:
             status = "up to date"
@@ -264,6 +309,13 @@ def main():
                          help="Number of parallel workers (default: 1)")
     p_notes.set_defaults(func=cmd_notes)
 
+    # prune
+    p_prune = sub.add_parser("prune", help="Delete MP4s whose transcript+note both exist (free disk)")
+    add_class_args(p_prune)
+    p_prune.add_argument("--dry-run", action="store_true",
+                         help="Show what would be deleted without deleting")
+    p_prune.set_defaults(func=cmd_prune)
+
     # build
     p_build = sub.add_parser("build", help="Sync notes to docs/ and update MkDocs")
     p_build.set_defaults(func=cmd_build)
@@ -277,7 +329,7 @@ def main():
     p_deploy.set_defaults(func=cmd_deploy)
 
     # pipeline
-    p_pipe = sub.add_parser("pipeline", help="Run full pipeline: fetch -> transcribe -> notes -> build -> deploy")
+    p_pipe = sub.add_parser("pipeline", help="Run full pipeline: fetch -> transcribe -> notes -> prune -> build -> deploy")
     add_class_args(p_pipe)
     p_pipe.add_argument("--force", action="store_true",
                         help="Regenerate notes even if they exist")
