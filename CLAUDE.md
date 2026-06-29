@@ -87,37 +87,35 @@ These are sent as **rich Discord embeds** (built in `cmd_pipeline`, rendered by 
 - Known gap: a transcribe step that *self-skips* (e.g. CUDA OOM) is logged/printed but does not raise,
   so it won't trigger the red alert yet. Hard crashes, deploy failures, and other exceptions do.
 
-### Posting the run summary (manual / scheduled runs — via Discord MCP)
+### Posting the run summary
 
-`duo.py notify`/`scripts/notify.py` is only `cmd_pipeline`'s own internal crash safety-net (fires
-from the script's error handler if `duo.py pipeline` raises, unattended or not) — it is **not** how
-the agent reports a manual or scheduled full-loop run.
+**`duo.py pipeline` posts the summary itself** — a rich embed via the Discord **webhook**
+(see above), on both success and failure, even unattended. This is the canonical notification for
+the scheduled `duo-notes-pipeline` routine and manual full-loop runs alike.
 
-When Claude runs the full loop itself (the runbook above, including the `duo-notes-pipeline`
-scheduled task), it posts the summary directly via the Discord MCP tool
-(`mcp__discord__send-message`, channel `duo-class-notes`). To keep these predictable, always use
-this exact template — same line order, same labels, fill in placeholders only, no added commentary:
+So when the loop runs via `duo.py pipeline` (e.g. `--active-only --commit`, as the routine does),
+**do not** post a separate summary via the Discord MCP (`mcp__discord__send-message`) — it would
+duplicate the embed in a plainer format. Let the webhook handle it. (`duo.py notify` /
+`scripts/notify.py` is the same webhook path exposed for ad-hoc messages and is also
+`cmd_pipeline`'s internal crash safety-net.)
 
-**Success:**
+**Fallback only** — if the webhook is unconfigured (a run prints `no webhook configured`), post a
+markdown summary to `#duo-class-notes` via the Discord MCP that mirrors the embed:
+
+Success:
 ```
-✅ **DUO pipeline — <YYYY-MM-DD>**
-
-Fetched: <n> videos
-Transcribed: <n>
-Notes: <n>
-Pruned: <n> files · <x.xx> GB
-Deployed: gh-pages
-Committed: <short-sha> (or `nothing to commit`)
-Duration: <m>m <s>s
+✅ **Pipeline complete** — <YYYY-MM-DD>
+**New notes this run:** nahw 102 — 1 · sarf 102 — 2   (or "everything up to date")
+📥 Fetched <n> · 🎙️ Transcribed <n> · 📝 Notes <n>
+🧹 Pruned <n> files · <x.xx> GB · 🚀 Deployed gh-pages · 💾 Commit <short-sha>
+Ran in <m>m <s>s
 ```
 
-**Failure:**
+Failure:
 ```
-❌ **DUO pipeline failed — <YYYY-MM-DD>**
-Failed step: <step name>
+❌ **Pipeline failed** — <YYYY-MM-DD>
+Failed step: <step> · Ran for: <m>m <s>s · ⚠️ nothing committed
 Error: <message, ~300 chars>
-Ran for: <m>m <s>s
-Nothing committed.
 ```
 
 ## Whisper venv (hardcoded path)
