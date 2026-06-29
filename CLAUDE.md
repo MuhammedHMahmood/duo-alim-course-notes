@@ -52,7 +52,9 @@ generated notes/docs to `main` (the source of truth). There is no CI, so a `main
 update the live site, and `deploy` alone does NOT save the source — both are needed to close the loop.
 
 - `python duo.py pipeline --active-only` runs steps 1–6 (including prune) in one shot but **does not**
-  do the final commit/push — do that manually after.
+  do the final commit/push — do that manually after. Add **`--commit`** to also run step 7
+  (`git add -A && commit && push`) in the same command, which closes the loop for unattended/scheduled
+  runs; the commit's short-SHA (linked to GitHub) then appears in the Discord success embed.
 - **Videos are disposable.** `prune` deletes an MP4 once both its transcript and note exist; they're
   large and re-downloadable from Drive. `fetch` won't re-download a pruned video (it skips sessions
   that already have a transcript). So `status` normally shows **Local 0** — that's expected, a session
@@ -70,8 +72,18 @@ Other handy commands: `python duo.py serve` (local preview), `python duo.py note
 step + error) on any exception, and appends every run to `logs/runs.log` (gitignored). The failure
 alert fires from the script's own error handler, so a broken run is reported even unattended.
 
+These are sent as **rich Discord embeds** (built in `cmd_pipeline`, rendered by `scripts/notify.py`):
+- **Success** — green sidebar, title `✅ Pipeline complete`; description lists per-class new notes
+  (or "Everything already up to date — site redeployed."); an inline field grid with emoji labels
+  (`📥 Fetched`, `🎙️ Transcribed`, `📝 Notes`, `🧹 Pruned`, `🚀 Deployed`, `💾 Commit`); footer with
+  duration + date. The `💾 Commit` field is a clickable short-SHA link when run with `--commit`,
+  else `not committed`.
+- **Failure** — red sidebar, title `❌ Pipeline failed`; the error in a code block; fields for the
+  failed step + elapsed time; footer `⚠️ Nothing committed`.
+
 - Webhook URL is read from keyring: service `duo-class-notes`, key `discord_webhook_url`. If unset,
   runs still log to `logs/runs.log` and the Discord post is skipped (no crash) — see `scripts/notify.py`.
+  This webhook path is what drives **unattended/scheduled** runs (no live Claude session needed).
 - Known gap: a transcribe step that *self-skips* (e.g. CUDA OOM) is logged/printed but does not raise,
   so it won't trigger the red alert yet. Hard crashes, deploy failures, and other exceptions do.
 
@@ -89,6 +101,7 @@ this exact template — same line order, same labels, fill in placeholders only,
 **Success:**
 ```
 ✅ **DUO pipeline — <YYYY-MM-DD>**
+
 Fetched: <n> videos
 Transcribed: <n>
 Notes: <n>

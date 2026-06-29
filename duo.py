@@ -76,21 +76,28 @@ def cmd_transcribe(args):
 
 
 def cmd_notes(args):
-    """Generate study notes from transcripts."""
+    """Generate study notes from transcripts.
+
+    Returns (total, breakdown) where breakdown is a list of (label, count)
+    for each class that gained new notes — used for the Discord summary.
+    """
     import generate_notes
     classes = _resolve(args)
     settings = get_settings()
     workers = getattr(args, "workers", 1)
 
     total = 0
+    breakdown = []
     for subject, course, config in classes:
         new = generate_notes.generate_notes_for_class(
             subject, course, settings, args.force, args.backend, workers,
         )
+        if new:
+            breakdown.append((f"{subject} {course}", len(new)))
         total += len(new)
 
     print(f"\nTotal: {total} new note(s) generated.")
-    return total
+    return total, breakdown
 
 
 def cmd_prune(args):
@@ -162,10 +169,57 @@ def cmd_deploy(args):
     print("Done. Site is live on gh-pages.")
 
 
-def cmd_pipeline(args):
-    """Run the full pipeline: fetch -> transcribe -> notes -> prune -> build -> deploy.
+def _run_git(*cmdargs):
+    """Run a git command in the repo root; return CompletedProcess (capturing output)."""
+    import subprocess
+    return subprocess.run(
+        ["git", *cmdargs],
+        cwd=str(Path(__file__).resolve().parent),
+        capture_output=True, text=True,
+    )
 
-    Posts a Discord summary on success and a failure alert (naming the failing step)
+
+def _commit_url(sha):
+    """Build a GitHub commit URL from origin's remote, or None if it can't be derived."""
+    remote = _run_git("remote", "get-url", "origin").stdout.strip()
+    if not remote:
+        return None
+    if remote.endswith(".git"):
+        remote = remote[:-4]
+    if remote.startswith("git@"):  # git@github.com:user/repo -> https://github.com/user/repo
+        host, _, path = remote[4:].partition(":")
+        remote = f"https://{host}/{path}"
+    return f"{remote}/commit/{sha}"
+
+
+def _commit_and_push(message):
+    """Stage, commit, and push everything. Returns a Discord field value:
+    a clickable short-SHA link if a commit was made, or 'nothing to commit'.
+    Raises on commit/push failure so the pipeline's error handler reports it.
+    """
+    _run_git("add", "-A")
+    if not _run_git("status", "--porcelain").stdout.strip():
+        return "`nothing to commit`"
+
+    r = _run_git("commit", "-m", message)
+    if r.returncode != 0:
+        raise RuntimeError(f"git commit failed: {r.stderr.strip() or r.stdout.strip()}")
+
+    sha = _run_git("rev-parse", "--short", "HEAD").stdout.strip()
+
+    p = _run_git("push")
+    if p.returncode != 0:
+        raise RuntimeError(f"git push failed (committed {sha} locally): {p.stderr.strip()}")
+
+    url = _commit_url(sha)
+    return f"[`{sha}`]({url})" if url else f"`{sha}`"
+
+
+def cmd_pipeline(args):
+    """Run the full pipeline: fetch -> transcribe -> notes -> prune -> build -> deploy,
+    plus an optional commit/push step with --commit.
+
+    Posts a rich Discord embed on success and a failure alert (naming the failing step)
     on any exception — see scripts/notify.py. Both also append to logs/runs.log.
     """
     import time
@@ -174,6 +228,14 @@ def cmd_pipeline(args):
 
     args_copy = argparse.Namespace(**vars(args))
     start = time.time()
+    date = datetime.now().strftime("%Y-%m-%d")
+    do_commit = getattr(args, "commit", False)
+    n_steps = 7 if do_commit else 6
+
+    # Embeds size to their widest code-block line. A fixed-width rule in both the success
+    # and failure code blocks pins them to the same (near-max) width — 54 chars is the
+    # widest that fits on one line before Discord wraps it on desktop.
+    RULE = "─" * 54
 
     def _elapsed():
         s = int(time.time() - start)
@@ -181,42 +243,59 @@ def cmd_pipeline(args):
 
     def _step(num, name, fn):
         print("\n" + "=" * 50)
-        print(f"Step {num}/6: {name}...")
+        print(f"Step {num}/{n_steps}: {name}...")
         print("=" * 50)
         try:
             return fn(args_copy)
         except Exception as e:
             notifier.notify(
                 "error",
-                f"Pipeline failed at: {name}",
-                description=str(e)[:500],
+                "❌ Pipeline failed",
+                description=f"**Error**\n```\n{RULE}\n{str(e)[:300]}\n```",
                 fields=[("Failed step", name), ("Ran for", _elapsed())],
-                footer="duo.py pipeline · nothing committed",
+                footer="⚠️ Nothing committed",
             )
             print(f"\nPIPELINE FAILED at '{name}': {e}")
             sys.exit(1)
 
     fetched = _step(1, "fetch", cmd_fetch)
     transcribed = _step(2, "transcribe", cmd_transcribe)
-    noted = _step(3, "notes", cmd_notes)
+    noted, breakdown = _step(3, "notes", cmd_notes)
     pruned_files, pruned_bytes = _step(4, "prune", cmd_prune)
     _step(5, "build", cmd_build)
     _step(6, "deploy", cmd_deploy)
 
+    if do_commit:
+        commit_value = _step(7, "commit", lambda a: _commit_and_push(f"Update notes — {date}"))
+        footer = f"Ran in {_elapsed()}"
+    else:
+        commit_value = "`not committed`"
+        footer = f"Ran in {_elapsed()} · commit manually"
+
+    # The RULE line forces a consistent full embed width; rows align in monospace.
+    if breakdown:
+        rows = "\n".join(f"{label:<12} +{n} note{'' if n == 1 else 's'}" for label, n in breakdown)
+        desc = f"**New notes this run**\n```\n{RULE}\n{rows}\n```"
+    else:
+        desc = f"**Up to date**\n```\n{RULE}\nNo new sessions — site redeployed.\n```"
+
     notifier.notify(
         "success",
-        f"Pipeline complete — {datetime.now().strftime('%Y-%m-%d')}",
+        "✅ Pipeline complete",
+        description=desc,
         fields=[
-            ("Fetched", f"{fetched} videos"),
-            ("Transcribed", transcribed),
-            ("Notes", noted),
-            ("Pruned", f"{pruned_files} files · {pruned_bytes / 1e9:.2f} GB"),
-            ("Deployed", "gh-pages"),
-            ("Duration", _elapsed()),
+            ("📥 Fetched", f"{fetched} videos"),
+            ("🎙️ Transcribed", str(transcribed)),
+            ("📝 Notes", str(noted)),
+            ("🧹 Pruned", f"{pruned_files} files · {pruned_bytes / 1e9:.2f} GB"),
+            ("🚀 Deployed", "gh-pages"),
+            ("💾 Commit", commit_value),
         ],
-        footer="duo.py pipeline · remember to commit & push to main",
+        footer=footer,
     )
-    print("\nPipeline complete. Remember to commit & push the new notes/docs to main.")
+    print("\nPipeline complete.")
+    if not do_commit:
+        print("Remember to commit & push the new notes/docs to main (or re-run with --commit).")
 
 
 def cmd_notify(args):
@@ -374,6 +453,8 @@ def main():
                         help="Backend: 'api' (Anthropic API) or 'cli' (Claude Code CLI)")
     p_pipe.add_argument("--workers", type=int, default=1,
                         help="Number of parallel workers (default: 1)")
+    p_pipe.add_argument("--commit", action="store_true",
+                        help="After deploy, git add -A && commit && push to main (closes the loop unattended)")
     p_pipe.set_defaults(func=cmd_pipeline)
 
     # notify

@@ -63,7 +63,11 @@ def notify(level, title, description=None, fields=None, footer=None):
         embed["footer"] = {"text": footer}
 
     data = json.dumps({"embeds": [embed]}).encode("utf-8")
-    req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+    # Discord's Cloudflare edge 403s the default "Python-urllib" UA — send a real one.
+    req = urllib.request.Request(
+        url, data=data,
+        headers={"Content-Type": "application/json", "User-Agent": "duo-class-notes/1.0"},
+    )
     try:
         urllib.request.urlopen(req, timeout=10)
         return True
