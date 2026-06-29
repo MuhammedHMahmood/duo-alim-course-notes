@@ -72,10 +72,40 @@ alert fires from the script's own error handler, so a broken run is reported eve
 
 - Webhook URL is read from keyring: service `duo-class-notes`, key `discord_webhook_url`. If unset,
   runs still log to `logs/runs.log` and the Discord post is skipped (no crash) — see `scripts/notify.py`.
-- `python duo.py notify --level success|error|info --title "..." [--body ...] [--field "Name=Value"] [--footer ...]`
-  sends an ad-hoc message — use it from the runbook to post a final summary after the commit step.
 - Known gap: a transcribe step that *self-skips* (e.g. CUDA OOM) is logged/printed but does not raise,
   so it won't trigger the red alert yet. Hard crashes, deploy failures, and other exceptions do.
+
+### Posting the run summary (manual / scheduled runs — via Discord MCP)
+
+`duo.py notify`/`scripts/notify.py` is only `cmd_pipeline`'s own internal crash safety-net (fires
+from the script's error handler if `duo.py pipeline` raises, unattended or not) — it is **not** how
+the agent reports a manual or scheduled full-loop run.
+
+When Claude runs the full loop itself (the runbook above, including the `duo-notes-pipeline`
+scheduled task), it posts the summary directly via the Discord MCP tool
+(`mcp__discord__send-message`, channel `duo-class-notes`). To keep these predictable, always use
+this exact template — same line order, same labels, fill in placeholders only, no added commentary:
+
+**Success:**
+```
+✅ **DUO pipeline — <YYYY-MM-DD>**
+Fetched: <n> videos
+Transcribed: <n>
+Notes: <n>
+Pruned: <n> files · <x.xx> GB
+Deployed: gh-pages
+Committed: <short-sha> (or `nothing to commit`)
+Duration: <m>m <s>s
+```
+
+**Failure:**
+```
+❌ **DUO pipeline failed — <YYYY-MM-DD>**
+Failed step: <step name>
+Error: <message, ~300 chars>
+Ran for: <m>m <s>s
+Nothing committed.
+```
 
 ## Whisper venv (hardcoded path)
 

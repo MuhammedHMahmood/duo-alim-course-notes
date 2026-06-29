@@ -169,6 +169,7 @@ def cmd_pipeline(args):
     on any exception — see scripts/notify.py. Both also append to logs/runs.log.
     """
     import time
+    from datetime import datetime
     import notify as notifier
 
     args_copy = argparse.Namespace(**vars(args))
@@ -204,11 +205,11 @@ def cmd_pipeline(args):
 
     notifier.notify(
         "success",
-        "Pipeline complete — all classes up to date",
+        f"Pipeline complete — {datetime.now().strftime('%Y-%m-%d')}",
         fields=[
             ("Fetched", f"{fetched} videos"),
-            ("New transcripts", transcribed),
-            ("New notes", noted),
+            ("Transcribed", transcribed),
+            ("Notes", noted),
             ("Pruned", f"{pruned_files} files · {pruned_bytes / 1e9:.2f} GB"),
             ("Deployed", "gh-pages"),
             ("Duration", _elapsed()),
