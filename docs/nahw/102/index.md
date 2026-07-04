@@ -27,3 +27,5 @@ Nahw 102
 | [Jun 16, 2026](2026-06-16.md) | Completion of Mustasna (Exc... |
 | [Jun 23, 2026](2026-06-23.md) | Na't Sababi (Indirect Descr... |
 | [Jun 25, 2026](2026-06-25.md) | Ta'kid (التأكيد) |
+| [Jun 29, 2026](2026-06-29.md) | section 3.10.3: البدل (Al-B... |
+| [Jun 30, 2026](2026-06-30.md) | ʿAtf bi-Ḥarfin |

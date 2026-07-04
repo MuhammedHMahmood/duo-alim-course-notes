@@ -16,3 +16,5 @@ Sarf 102
 | [May 22, 2026](2026-05-22.md) | Fi'l Mudari' Majhul |
 | [Jun 05, 2026](2026-06-05.md) | The nature of Alif and Hamz... |
 | [Jun 12, 2026](2026-06-12.md) | Jazm-giving particles |
+| [Jun 26, 2026](2026-06-26.md) | Laam and Noon al-Tawkid |
+| [Jun 27, 2026](2026-06-27.md) | Sifat al-Mubalagha |
