@@ -8,15 +8,6 @@ from pathlib import Path
 
 from common import load_config, SUBJECTS_DIR, DOCS_DIR, PROJECT_ROOT
 
-SUBJECT_NAMES = {
-    "tfs": "Tafseer",
-    "hadith": "Hadith",
-    "nahw": "Nahw",
-    "sarf": "Sarf",
-    "fqh": "Fiqh",
-}
-
-
 def sync_notes_to_docs():
     """Copy all notes from subjects/*/notes/ to docs/{subject}/{course}/."""
     for subject_dir in sorted(SUBJECTS_DIR.iterdir()):
@@ -297,8 +288,46 @@ def generate_course_index(subject, course, docs_course_dir, class_meta):
     index_path.write_text(content, encoding="utf-8")
 
 
+SEASON_RANK = {"spring": 0, "summer": 1, "fall": 2, "winter": 3}
+
+
+def _semester_sort_key(semester):
+    """Sort key for a 'Season Year' string, e.g. 'Fall 2025' -> (2025, 2)."""
+    parts = semester.split()
+    if len(parts) == 2:
+        season, year = parts
+        if year.isdigit():
+            return (int(year), SEASON_RANK.get(season.lower(), 99))
+    return (0, 99)
+
+
+def _build_course_nav(subject, course, course_dir, class_meta):
+    """Generate the course index page and return its session nav entries."""
+    generate_course_index(subject, course, course_dir, class_meta)
+
+    course_nav = [{"Overview": f"{subject}/{course}/index.md"}]
+
+    for note_file in sorted(course_dir.glob("*.md")):
+        if note_file.name == "index.md":
+            continue
+        date_str = note_file.stem
+        try:
+            dt = datetime.strptime(date_str, "%Y-%m-%d")
+            display = dt.strftime("%b %d")
+        except ValueError:
+            display = date_str
+
+        topic = _extract_topic(note_file)
+        label = f"{display} - {topic}" if topic else display
+
+        rel_path = f"{subject}/{course}/{note_file.name}"
+        course_nav.append({label: rel_path})
+
+    return course_nav
+
+
 def build_nav():
-    """Build mkdocs.yml nav structure from docs/ directory."""
+    """Build mkdocs.yml nav: Home, Active Classes, Archived Classes (by year/semester)."""
     nav = [{"Home": "index.md"}]
     config = load_config()
 
@@ -307,6 +336,9 @@ def build_nav():
         key = (c["subject"], c["course"])
         class_meta[key] = c
 
+    active_courses = []
+    archived_by_semester = {}
+
     for subject_dir in sorted(DOCS_DIR.iterdir()):
         if not subject_dir.is_dir():
             continue
@@ -314,51 +346,35 @@ def build_nav():
         if subject in ("stylesheets", "assets"):
             continue
 
-        subject_display = SUBJECT_NAMES.get(subject, subject.upper())
-        subject_nav = []
-
         for course_dir in sorted(subject_dir.iterdir()):
             if not course_dir.is_dir():
                 continue
             course = course_dir.name
-
             meta = class_meta.get((subject, course), {})
             semester = meta.get("semester", "")
-            course_display = f"{subject.upper()} {course}"
-            if semester:
-                course_display += f" ({semester})"
 
-            # Generate the course index page
-            generate_course_index(subject, course, course_dir, class_meta)
+            course_nav = _build_course_nav(subject, course, course_dir, class_meta)
+            if len(course_nav) <= 1:
+                continue  # no session notes yet
 
-            course_nav = []
-            # First entry: the course overview/index
-            course_nav.append({"Overview": f"{subject}/{course}/index.md"})
+            if meta.get("active", False):
+                label = f"{subject.upper()} {course} ({semester})" if semester else f"{subject.upper()} {course}"
+                active_courses.append((label, course_nav))
+            else:
+                label = f"{subject.upper()} {course}"
+                archived_by_semester.setdefault(semester or "Unknown", []).append((label, course_nav))
 
-            for note_file in sorted(course_dir.glob("*.md")):
-                if note_file.name == "index.md":
-                    continue
-                date_str = note_file.stem
-                try:
-                    dt = datetime.strptime(date_str, "%Y-%m-%d")
-                    display = dt.strftime("%b %d")
-                except ValueError:
-                    display = date_str
+    active_courses.sort(key=lambda x: x[0])
+    if active_courses:
+        nav.append({"Active Classes": [{label: n} for label, n in active_courses]})
 
-                topic = _extract_topic(note_file)
-                if topic:
-                    label = f"{display} - {topic}"
-                else:
-                    label = display
+    archived_nav = []
+    for semester in sorted(archived_by_semester, key=_semester_sort_key, reverse=True):
+        courses = sorted(archived_by_semester[semester], key=lambda x: x[0])
+        archived_nav.append({semester: [{label: n} for label, n in courses]})
 
-                rel_path = f"{subject}/{course}/{note_file.name}"
-                course_nav.append({label: rel_path})
-
-            if course_nav:
-                subject_nav.append({course_display: course_nav})
-
-        if subject_nav:
-            nav.append({subject_display: subject_nav})
+    if archived_nav:
+        nav.append({"Archived Classes": archived_nav})
 
     return nav
 

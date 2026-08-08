@@ -1,4 +1,4 @@
-# HADITH 101 (Spring 2026)
+# HADITH 101 (Fall 2025)
 
 Hadith 101
 
