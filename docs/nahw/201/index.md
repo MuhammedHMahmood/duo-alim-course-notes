@@ -8,3 +8,4 @@ Nahw 201
 | [Aug 07, 2026](2026-08-07.md) | Kalima |
 | [Aug 10, 2026](2026-08-10.md) | Alamat |
 | [Aug 14, 2026](2026-08-14.md) | The first chapter |
+| [Aug 17, 2026](2026-08-17.md) | Faslun fī Asnāfi I'rābi l-Ism |
