@@ -8,3 +8,4 @@ Fiqh 201
 | [Aug 08, 2026](2026-08-08.md) | Three main areas: (1) a rev... |
 | [Aug 12, 2026](2026-08-12.md) | In detail |
 | [Aug 15, 2026](2026-08-15.md) | sunan (recommended acts) an... |
+| [Aug 22, 2026](2026-08-22.md) | Two major topics: (1) a bri... |

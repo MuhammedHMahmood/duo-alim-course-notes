@@ -8,3 +8,4 @@ Tafseer Foundation Series 201
 | [Aug 06, 2026](2026-08-06.md) | Surah Al-Fatiha |
 | [Aug 13, 2026](2026-08-13.md) | Surah Al-Baqarah (Ayat 3) |
 | [Aug 18, 2026](2026-08-18.md) | Surah Al-Baqarah |
+| [Aug 20, 2026](2026-08-20.md) | Surah Al-Baqarah (contd.) |

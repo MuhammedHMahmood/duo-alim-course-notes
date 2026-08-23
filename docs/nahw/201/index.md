@@ -9,3 +9,4 @@ Nahw 201
 | [Aug 10, 2026](2026-08-10.md) | Alamat |
 | [Aug 14, 2026](2026-08-14.md) | The first chapter |
 | [Aug 17, 2026](2026-08-17.md) | Faslun fī Asnāfi I'rābi l-Ism |
+| [Aug 21, 2026](2026-08-21.md) | I'rab of Tasniyah and Kila/... |
