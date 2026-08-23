@@ -17,6 +17,9 @@ extra_javascript:
 - javascripts/tablesort.js
 nav:
 - Home: index.md
+- Weekly Review:
+  - Overview: weekly/index.md
+  - Week ending Aug 22, 2026: weekly/2026-08-22.md
 - Active Classes:
   - FQH 201 (Fall 2026):
     - Overview: fqh/201/index.md

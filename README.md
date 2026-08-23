@@ -259,10 +259,11 @@ Commands:
   transcribe   Transcribe videos using Whisper
   notes        Generate study notes from transcripts
   prune        Delete MP4s whose transcript + note both exist (free disk; --dry-run to preview)
+  weekly-review  Generate a self-test quiz (concepts + vocab) covering the past week across active classes
   build        Sync notes to docs/ and update MkDocs nav
   serve        Launch MkDocs local preview server
   deploy       Deploy site to GitHub Pages (mkdocs gh-deploy)
-  pipeline     Run all steps in sequence: fetch -> transcribe -> notes -> prune -> build -> deploy
+  pipeline     Run all steps in sequence: fetch -> transcribe -> notes -> prune -> weekly-review (Sundays) -> build -> deploy
   notify       Send a Discord notification + log to logs/runs.log (--level/--title/--field/--footer)
   status       Show counts of videos / transcripts / notes per class
 
@@ -276,6 +277,10 @@ Notes options:
   --force            Regenerate notes even if they already exist
   --backend {api,cli}  Use Anthropic API or Claude Code CLI (default: cli)
   --workers N        Parallel workers for note generation (default: 1)
+
+Weekly review options (also --force / --backend):
+  --force            Regenerate this week's quiz even if it already exists
+  --backend {api,cli}  Use Anthropic API or Claude Code CLI (default: cli)
 ```
 
 ## Adding a new class

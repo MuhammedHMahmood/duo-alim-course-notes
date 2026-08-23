@@ -8,6 +8,10 @@ from pathlib import Path
 
 from common import load_config, SUBJECTS_DIR, DOCS_DIR, PROJECT_ROOT
 
+WEEKLY_SRC_DIR = PROJECT_ROOT / "weekly" / "reviews"
+WEEKLY_DOCS_DIR = DOCS_DIR / "weekly"
+
+
 def sync_notes_to_docs():
     """Copy all notes from subjects/*/notes/ to docs/{subject}/{course}/."""
     for subject_dir in sorted(SUBJECTS_DIR.iterdir()):
@@ -33,6 +37,50 @@ def sync_notes_to_docs():
 
             for note_file in notes:
                 shutil.copy2(note_file, docs_dest / note_file.name)
+
+
+def sync_weekly_reviews():
+    """Copy weekly review quizzes from weekly/reviews/ to docs/weekly/."""
+    if not WEEKLY_SRC_DIR.exists():
+        return
+
+    reviews = list(WEEKLY_SRC_DIR.glob("*.md"))
+    if not reviews:
+        return
+
+    WEEKLY_DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    for review_file in reviews:
+        shutil.copy2(review_file, WEEKLY_DOCS_DIR / review_file.name)
+
+
+def generate_weekly_index():
+    """Generate docs/weekly/index.md listing every week, most recent first."""
+    if not WEEKLY_DOCS_DIR.exists():
+        return
+
+    rows = []
+    for review_file in sorted(WEEKLY_DOCS_DIR.glob("*.md"), reverse=True):
+        if review_file.name == "index.md":
+            continue
+        try:
+            dt = datetime.strptime(review_file.stem, "%Y-%m-%d")
+            display = dt.strftime("%b %d, %Y")
+        except ValueError:
+            display = review_file.stem
+        rows.append(f"| [Week ending {display}]({review_file.name}) |")
+
+    if not rows:
+        return
+
+    content = f"""# Weekly Review
+
+Self-test quizzes covering that week's sessions across all active classes.
+
+| Week |
+|------|
+{chr(10).join(rows)}
+"""
+    (WEEKLY_DOCS_DIR / "index.md").write_text(content, encoding="utf-8")
 
 
 def _extract_topic(md_path):
@@ -326,9 +374,39 @@ def _build_course_nav(subject, course, course_dir, class_meta):
     return course_nav
 
 
+def _build_weekly_nav():
+    """Generate the weekly index page and return its nav entries, or None if empty."""
+    generate_weekly_index()
+    if not WEEKLY_DOCS_DIR.exists():
+        return None
+
+    review_files = sorted(
+        (f for f in WEEKLY_DOCS_DIR.glob("*.md") if f.name != "index.md"),
+        reverse=True,
+    )
+    if not review_files:
+        return None
+
+    entries = [{"Overview": "weekly/index.md"}]
+    for review_file in review_files:
+        try:
+            dt = datetime.strptime(review_file.stem, "%Y-%m-%d")
+            label = f"Week ending {dt.strftime('%b %d, %Y')}"
+        except ValueError:
+            label = review_file.stem
+        entries.append({label: f"weekly/{review_file.name}"})
+
+    return entries
+
+
 def build_nav():
-    """Build mkdocs.yml nav: Home, Active Classes, Archived Classes (by year/semester)."""
+    """Build mkdocs.yml nav: Home, Weekly Review, Active Classes, Archived Classes."""
     nav = [{"Home": "index.md"}]
+
+    weekly_nav = _build_weekly_nav()
+    if weekly_nav:
+        nav.append({"Weekly Review": weekly_nav})
+
     config = load_config()
 
     class_meta = {}
@@ -343,7 +421,7 @@ def build_nav():
         if not subject_dir.is_dir():
             continue
         subject = subject_dir.name
-        if subject in ("stylesheets", "assets"):
+        if subject in ("stylesheets", "assets", "weekly"):
             continue
 
         for course_dir in sorted(subject_dir.iterdir()):
@@ -397,6 +475,7 @@ def update_mkdocs_yml(nav):
 def main():
     print("Syncing notes to docs/...")
     sync_notes_to_docs()
+    sync_weekly_reviews()
 
     print("Building navigation...")
     nav = build_nav()

@@ -139,12 +139,31 @@ def cmd_prune(args):
     return total_files, total_bytes
 
 
+def cmd_weekly_review(args):
+    """Generate the weekly self-test quiz (concepts + vocab) across active classes."""
+    import weekly_review
+    settings = get_settings()
+    return weekly_review.generate_weekly_review(
+        settings, backend=args.backend, force=args.force,
+    )
+
+
+def cmd_weekly_review_gated(args):
+    """Pipeline step: only generate the weekly review on Sundays."""
+    from datetime import datetime
+    if datetime.now().weekday() != 6:  # Monday=0 ... Sunday=6
+        print("Not Sunday — skipping weekly review.")
+        return None
+    return cmd_weekly_review(args)
+
+
 def cmd_build(args):
     """Sync notes to docs/ and update MkDocs site."""
     import update_mkdocs
 
     print("Syncing notes to docs/...")
     update_mkdocs.sync_notes_to_docs()
+    update_mkdocs.sync_weekly_reviews()
 
     print("Building navigation...")
     nav = update_mkdocs.build_nav()
@@ -230,7 +249,7 @@ def cmd_pipeline(args):
     start = time.time()
     date = datetime.now().strftime("%Y-%m-%d")
     do_commit = getattr(args, "commit", False)
-    n_steps = 7 if do_commit else 6
+    n_steps = 8 if do_commit else 7
 
     # Embeds size to their widest code-block line. A fixed-width rule in both the success
     # and failure code blocks pins them to the same (near-max) width — 54 chars is the
@@ -262,11 +281,12 @@ def cmd_pipeline(args):
     transcribed = _step(2, "transcribe", cmd_transcribe)
     noted, breakdown = _step(3, "notes", cmd_notes)
     pruned_files, pruned_bytes = _step(4, "prune", cmd_prune)
-    _step(5, "build", cmd_build)
-    _step(6, "deploy", cmd_deploy)
+    weekly_path = _step(5, "weekly-review", cmd_weekly_review_gated)
+    _step(6, "build", cmd_build)
+    _step(7, "deploy", cmd_deploy)
 
     if do_commit:
-        commit_value = _step(7, "commit", lambda a: _commit_and_push(f"Update notes — {date}"))
+        commit_value = _step(8, "commit", lambda a: _commit_and_push(f"Update notes — {date}"))
         footer = f"Ran in {_elapsed()}"
     else:
         commit_value = "`not committed`"
@@ -279,6 +299,11 @@ def cmd_pipeline(args):
     else:
         desc = f"**Up to date**\n```\n{RULE}\nNo new sessions — site redeployed.\n```"
 
+    if datetime.now().weekday() == 6:
+        weekly_value = f"`{weekly_path.name}`" if weekly_path else "`no new sessions`"
+    else:
+        weekly_value = "`not sunday`"
+
     notifier.notify(
         "success",
         "✅ Pipeline complete",
@@ -288,6 +313,7 @@ def cmd_pipeline(args):
             ("🎙️ Transcribed", str(transcribed)),
             ("📝 Notes", str(noted)),
             ("🧹 Pruned", f"{pruned_files} files · {pruned_bytes / 1e9:.2f} GB"),
+            ("🧠 Weekly Review", weekly_value),
             ("🚀 Deployed", "gh-pages"),
             ("💾 Commit", commit_value),
         ],
@@ -432,6 +458,14 @@ def main():
                          help="Show what would be deleted without deleting")
     p_prune.set_defaults(func=cmd_prune)
 
+    # weekly-review
+    p_weekly = sub.add_parser("weekly-review", help="Generate a self-test quiz covering the past week across active classes")
+    p_weekly.add_argument("--force", action="store_true",
+                          help="Regenerate even if this week's review already exists")
+    p_weekly.add_argument("--backend", choices=["api", "cli"], default="cli",
+                          help="Backend: 'api' (Anthropic API) or 'cli' (Claude Code CLI)")
+    p_weekly.set_defaults(func=cmd_weekly_review)
+
     # build
     p_build = sub.add_parser("build", help="Sync notes to docs/ and update MkDocs")
     p_build.set_defaults(func=cmd_build)
@@ -445,7 +479,7 @@ def main():
     p_deploy.set_defaults(func=cmd_deploy)
 
     # pipeline
-    p_pipe = sub.add_parser("pipeline", help="Run full pipeline: fetch -> transcribe -> notes -> prune -> build -> deploy")
+    p_pipe = sub.add_parser("pipeline", help="Run full pipeline: fetch -> transcribe -> notes -> prune -> weekly-review (Sundays) -> build -> deploy")
     add_class_args(p_pipe)
     p_pipe.add_argument("--force", action="store_true",
                         help="Regenerate notes even if they exist")
