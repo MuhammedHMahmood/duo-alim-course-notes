@@ -19,9 +19,16 @@ def load_weekly_template():
 
 
 def _week_range(reference_date=None):
-    """Return (start, end) dates for the 7-day window ending on reference_date
-    (inclusive), defaulting to today."""
-    end = reference_date or datetime.now().date()
+    """Return (start, end) dates for the Mon-Sun calendar week most recently
+    completed on or before reference_date (defaults to today).
+
+    Snapping to the nearest Sunday (rather than treating reference_date itself
+    as the end of the window) means running this on any day of the week always
+    lands on the same file for that week, instead of producing a new
+    near-duplicate every time the reference day shifts.
+    """
+    ref = reference_date or datetime.now().date()
+    end = ref - timedelta(days=(ref.weekday() + 1) % 7)  # snap back to the last Sunday
     start = end - timedelta(days=6)
     return start, end
 
