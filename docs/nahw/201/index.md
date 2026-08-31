@@ -10,3 +10,5 @@ Nahw 201
 | [Aug 14, 2026](2026-08-14.md) | The first chapter |
 | [Aug 17, 2026](2026-08-17.md) | Faslun fī Asnāfi I'rābi l-Ism |
 | [Aug 21, 2026](2026-08-21.md) | I'rab of Tasniyah and Kila/... |
+| [Aug 24, 2026](2026-08-24.md) | Gender and number matching |
+| [Aug 28, 2026](2026-08-28.md) | Nine categories of I'rab (إ... |

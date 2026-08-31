@@ -9,3 +9,5 @@ Fiqh 201
 | [Aug 12, 2026](2026-08-12.md) | In detail |
 | [Aug 15, 2026](2026-08-15.md) | sunan (recommended acts) an... |
 | [Aug 22, 2026](2026-08-22.md) | Two major topics: (1) a bri... |
+| [Aug 26, 2026](2026-08-26.md) | Dabaghat |
+| [Aug 29, 2026](2026-08-29.md) | Su'r |
