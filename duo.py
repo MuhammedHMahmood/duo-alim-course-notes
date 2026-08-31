@@ -23,6 +23,8 @@ from common import (
     course_dir, VALID_SUBJECTS, SUBJECTS_DIR,
 )
 
+SITE_URL = "https://muhammedhmahmood.github.io/duo-alim-course-notes/"
+
 
 def _resolve(args):
     """Resolve which classes to process from args."""
@@ -302,7 +304,7 @@ def cmd_pipeline(args):
             ("🎙️ Transcribed", str(transcribed)),
             ("📝 Notes", str(noted)),
             ("🧹 Pruned", f"{pruned_files} files · {pruned_bytes / 1e9:.2f} GB"),
-            ("🚀 Deployed", "gh-pages"),
+            ("🚀 Deployed", f"[gh-pages]({SITE_URL})"),
             ("💾 Commit", commit_value),
         ],
         footer=footer,
@@ -374,7 +376,7 @@ def cmd_weekly_pipeline(args):
         description=desc,
         fields=[
             ("🧠 Review", f"`{weekly_path.name}`" if weekly_path else "`skipped`"),
-            ("🚀 Deployed", "gh-pages"),
+            ("🚀 Deployed", f"[gh-pages]({SITE_URL})"),
             ("💾 Commit", commit_value),
         ],
         footer=footer,

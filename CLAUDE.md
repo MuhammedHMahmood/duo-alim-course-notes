@@ -97,14 +97,31 @@ Other handy commands: `python duo.py serve` (local preview), `python duo.py note
 
 ## Cloud pipeline (GitHub Actions, daily + weekly, unattended, $0 marginal cost)
 
-Two GitHub Actions workflows ([daily-pipeline.yml](.github/workflows/daily-pipeline.yml),
+**Why this exists:** the pipeline used to run manually, weekly, on the home Windows machine (GPU
+required for transcription, so the machine had to be on). This automates it so the site stays current
+even while traveling / the home machine is off — and was built to add **zero new recurring expense**,
+which ruled out both Groq-hosted transcription (real per-hour cost) and a metered Anthropic API key.
+
+**Why GitHub Actions, not a Claude Code cloud routine:** a routine was considered first, but its
+config had no field for arbitrary secrets/env vars (only a git source + prompt), so there was no
+established way to get the Drive credential, webhook, etc. into that sandbox. GitHub Actions has a
+native encrypted-secrets store built for exactly this, is free on this public repo, and the pipeline
+is deterministic script execution anyway — no agentic reasoning needed to orchestrate it.
+
+Two workflows ([daily-pipeline.yml](.github/workflows/daily-pipeline.yml),
 [weekly-review.yml](.github/workflows/weekly-review.yml)) run this pipeline without the home machine
 needing to be on. Each starts from a fresh checkout (no GPU, no local disk persistence between runs —
 transcripts/videos are gitignored and don't persist; only what's committed to `main` carries over).
-Deliberately designed to add **no new recurring expense**:
 
-- **Daily** — `python duo.py pipeline --active-only --transcribe-backend cpu --backend cli --commit`
-- **Weekly** (Sunday night) — `python duo.py weekly-pipeline --backend cli --commit`
+- **Daily**, 6:00 AM Pacific (`cron: "0 13 * * *"`, drifts an hour across DST) —
+  `python duo.py pipeline --active-only --transcribe-backend cpu --backend cli --commit`
+- **Weekly**, Sunday 11:00 PM Pacific (`cron: "0 6 * * 1"`, drifts an hour across DST) —
+  `python duo.py weekly-pipeline --backend cli --commit`
+
+Both are also runnable on demand — `gh workflow run daily-pipeline.yml` /
+`gh workflow run weekly-review.yml` (add `--repo MuhammedHMahmood/duo-alim-course-notes` from
+elsewhere), then `gh run watch <run-id>` or `gh run view <run-id> --log` to check it. Useful for
+validating a change without waiting for the next scheduled fire.
 
 Both use `--transcribe-backend cpu` (faster-whisper int8, no GPU, no third-party API — see above) and
 `--backend cli` (Claude Code CLI, authenticated via a **subscription OAuth token**, not a metered API
@@ -112,6 +129,11 @@ key — draws from the Pro/Max plan's included usage). Generate that token once 
 `claude setup-token` (opens a browser auth flow, prints a token valid for a year) and store it as the
 `CLAUDE_CODE_OAUTH_TOKEN` secret. **Do not also set `ANTHROPIC_API_KEY`** in the workflow — it takes
 precedence over the token and switches billing to metered API calls.
+
+**Token expiry:** the token generated 2026-08-31 is valid for about a year — both workflows will start
+failing on the `notes`/`weekly-review` step (Discord failure alert will name it) once it expires around
+2027-08-31. Re-run `claude setup-token` and `gh secret set CLAUDE_CODE_OAUTH_TOKEN --repo
+MuhammedHMahmood/duo-alim-course-notes --body "<new token>"` to renew.
 
 GitHub Actions itself is free on this public repo (unlimited minutes) — the daily job's `timeout-minutes: 300`
 just gives CPU transcription of one lecture room to finish. Because the sandbox has no Windows
@@ -138,8 +160,9 @@ These are sent as **rich Discord embeds** (built in `cmd_pipeline`, rendered by 
 - **Success** — green sidebar, title `✅ Pipeline complete`; description lists per-class new notes
   (or "Everything already up to date — site redeployed."); an inline field grid with emoji labels
   (`📥 Fetched`, `🎙️ Transcribed`, `📝 Notes`, `🧹 Pruned`, `🚀 Deployed`, `💾 Commit`); footer with
-  duration + date. The `💾 Commit` field is a clickable short-SHA link when run with `--commit`,
-  else `not committed`.
+  duration + date. `🚀 Deployed` is a clickable link to the live site (`SITE_URL` in `duo.py`,
+  currently `https://muhammedhmahmood.github.io/duo-alim-course-notes/`). The `💾 Commit` field is a
+  clickable short-SHA link when run with `--commit`, else `not committed`.
 - **Failure** — red sidebar, title `❌ Pipeline failed`; the error in a code block; fields for the
   failed step + elapsed time; footer `⚠️ Nothing committed`.
 
@@ -173,7 +196,7 @@ Success:
 ✅ **Pipeline complete** — <YYYY-MM-DD>
 **New notes this run:** nahw 102 — 1 · sarf 102 — 2   (or "everything up to date")
 📥 Fetched <n> · 🎙️ Transcribed <n> · 📝 Notes <n>
-🧹 Pruned <n> files · <x.xx> GB · 🚀 Deployed gh-pages · 💾 Commit <short-sha>
+🧹 Pruned <n> files · <x.xx> GB · 🚀 Deployed [gh-pages](https://muhammedhmahmood.github.io/duo-alim-course-notes/) · 💾 Commit <short-sha>
 Ran in <m>m <s>s
 ```
 
