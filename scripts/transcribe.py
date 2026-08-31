@@ -1,7 +1,9 @@
-"""Transcribe video recordings using OpenAI Whisper.
+"""Transcribe video recordings using faster-whisper.
 
-Uses a dedicated virtual environment with GPU-compatible PyTorch
-for CUDA acceleration on RTX 5080 (Blackwell / sm_120).
+--backend cuda (default) uses a dedicated virtual environment with GPU-compatible
+PyTorch for CUDA acceleration on RTX 5080 (Blackwell / sm_120) — the home machine.
+--backend cpu runs the same whisper_worker.py under the current interpreter instead,
+using faster-whisper's int8 CPU path — no GPU needed, used by the GitHub Actions runner.
 """
 
 import os
@@ -101,10 +103,17 @@ def _run_whisper_with_progress(cmd, env, partial_path, duration=None):
     return process.returncode, "\n".join(stderr_lines)
 
 
-def transcribe_for_class(subject, course, settings):
-    """Transcribe all untranscribed videos for a class. Returns list of new base names."""
+def transcribe_for_class(subject, course, settings, backend="cuda"):
+    """Transcribe all untranscribed videos for a class. Returns list of new base names.
+
+    backend: "cuda" (default) runs whisper_worker.py in the dedicated GPU venv on the
+    home machine. "cpu" runs the same worker under the current interpreter instead — no
+    GPU needed, used by the free GitHub Actions runner (faster-whisper's int8 CPU path is
+    fast enough for the ~1 new video/day this normally sees).
+    """
     videos_dir = course_dir(subject, course, "videos")
     transcripts_dir = course_dir(subject, course, "transcripts")
+    notes_dir = course_dir(subject, course, "notes")
 
     model = settings.get("whisper_model", "large-v3-turbo")
 
@@ -113,9 +122,15 @@ def transcribe_for_class(subject, course, settings):
         if f.lower().endswith((".mp4", ".mkv", ".avi", ".mov", ".webm"))
     )
 
+    # A session whose note is already committed is done even if its transcript isn't
+    # present locally — cloud routine runs start from a fresh checkout each time, so only
+    # committed notes persist across runs.
     already_done = {
         f.replace(".json", "")
         for f in os.listdir(transcripts_dir) if f.endswith(".json")
+    } | {
+        f.replace(".md", "")
+        for f in os.listdir(notes_dir) if f.endswith(".md")
     }
 
     # If a combined transcript exists for a date, treat its part videos as done too
@@ -141,14 +156,24 @@ def transcribe_for_class(subject, course, settings):
         dur_str = f"  ({_fmt_time(duration)})" if duration else ""
         print(f"  [{i}/{len(remaining)}] Transcribing: {video}{dur_str}", flush=True)
 
-        fw_model = _MODEL_MAP.get(model, model)
         language = settings.get("whisper_language")
+
+        if backend == "cpu":
+            # No dedicated venv on a CI runner — use the current interpreter, which has
+            # faster-whisper installed via requirements.txt. The turbo model (not
+            # downgraded to large-v3 the way the GPU path is) keeps CPU runs fast.
+            python_exe = sys.executable
+            fw_model = model
+        else:
+            python_exe = WHISPER_PYTHON
+            fw_model = _MODEL_MAP.get(model, model)
+
         cmd = [
-            WHISPER_PYTHON, "-u", WHISPER_WORKER,
+            python_exe, "-u", WHISPER_WORKER,
             video_path,
             "--model", fw_model,
             "--output_dir", str(transcripts_dir),
-            "--device", "cuda",
+            "--device", backend,
             "--condition_on_previous_text", "False",
         ]
         if language:
@@ -261,13 +286,15 @@ def _generate_plain_text(transcripts_dir, base_name):
 
 def main():
     parser = make_parser("Transcribe video recordings using Whisper")
+    parser.add_argument("--backend", choices=["cuda", "cpu"], default="cuda",
+                        help="'cuda' uses the GPU whisper-env venv, 'cpu' runs faster-whisper under the current interpreter (no GPU needed)")
     args = parser.parse_args()
     classes = resolve_classes(args)
     settings = get_settings()
 
     all_new = {}
     for subject, course, config in classes:
-        new = transcribe_for_class(subject, course, settings)
+        new = transcribe_for_class(subject, course, settings, backend=args.backend)
         if new:
             all_new[(subject, course)] = new
 

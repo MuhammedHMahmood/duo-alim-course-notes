@@ -10,8 +10,12 @@ site/
 # Pipeline logs
 logs/
 
-# Config (contains Drive folder IDs and credentials)
-config/
+# Config secrets — classes.yaml's Drive folder IDs act as shareable view-links (folders
+# are "anyone with the link"), and this is a public repo; service_account.json is a real
+# credential. Both are supplied to CI as GitHub Actions secrets instead. Templates aren't
+# sensitive and are tracked normally.
+config/classes.yaml
+config/service_account.json
 
 # Claude Code
 .claude/

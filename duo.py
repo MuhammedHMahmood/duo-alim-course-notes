@@ -65,10 +65,11 @@ def cmd_transcribe(args):
     import transcribe
     classes = _resolve(args)
     settings = get_settings()
+    backend = getattr(args, "transcribe_backend", "cuda")
 
     total = 0
     for subject, course, config in classes:
-        new = transcribe.transcribe_for_class(subject, course, settings)
+        new = transcribe.transcribe_for_class(subject, course, settings, backend=backend)
         total += len(new)
 
     print(f"\nTotal: {total} new transcript(s).")
@@ -146,15 +147,6 @@ def cmd_weekly_review(args):
     return weekly_review.generate_weekly_review(
         settings, backend=args.backend, force=args.force,
     )
-
-
-def cmd_weekly_review_gated(args):
-    """Pipeline step: only generate the weekly review on Sundays."""
-    from datetime import datetime
-    if datetime.now().weekday() != 6:  # Monday=0 ... Sunday=6
-        print("Not Sunday — skipping weekly review.")
-        return None
-    return cmd_weekly_review(args)
 
 
 def cmd_build(args):
@@ -235,8 +227,11 @@ def _commit_and_push(message):
 
 
 def cmd_pipeline(args):
-    """Run the full pipeline: fetch -> transcribe -> notes -> prune -> build -> deploy,
+    """Run the daily pipeline: fetch -> transcribe -> notes -> prune -> build -> deploy,
     plus an optional commit/push step with --commit.
+
+    Weekly review generation lives in its own `weekly-pipeline` command so it can run on
+    a separate Sunday-night schedule without re-running fetch/transcribe/notes here.
 
     Posts a rich Discord embed on success and a failure alert (naming the failing step)
     on any exception — see scripts/notify.py. Both also append to logs/runs.log.
@@ -249,7 +244,7 @@ def cmd_pipeline(args):
     start = time.time()
     date = datetime.now().strftime("%Y-%m-%d")
     do_commit = getattr(args, "commit", False)
-    n_steps = 8 if do_commit else 7
+    n_steps = 7 if do_commit else 6
 
     # Embeds size to their widest code-block line. A fixed-width rule in both the success
     # and failure code blocks pins them to the same (near-max) width — 54 chars is the
@@ -281,12 +276,11 @@ def cmd_pipeline(args):
     transcribed = _step(2, "transcribe", cmd_transcribe)
     noted, breakdown = _step(3, "notes", cmd_notes)
     pruned_files, pruned_bytes = _step(4, "prune", cmd_prune)
-    weekly_path = _step(5, "weekly-review", cmd_weekly_review_gated)
-    _step(6, "build", cmd_build)
-    _step(7, "deploy", cmd_deploy)
+    _step(5, "build", cmd_build)
+    _step(6, "deploy", cmd_deploy)
 
     if do_commit:
-        commit_value = _step(8, "commit", lambda a: _commit_and_push(f"Update notes — {date}"))
+        commit_value = _step(7, "commit", lambda a: _commit_and_push(f"Update notes — {date}"))
         footer = f"Ran in {_elapsed()}"
     else:
         commit_value = "`not committed`"
@@ -299,11 +293,6 @@ def cmd_pipeline(args):
     else:
         desc = f"**Up to date**\n```\n{RULE}\nNo new sessions — site redeployed.\n```"
 
-    if datetime.now().weekday() == 6:
-        weekly_value = f"`{weekly_path.name}`" if weekly_path else "`no new sessions`"
-    else:
-        weekly_value = "`not sunday`"
-
     notifier.notify(
         "success",
         "✅ Pipeline complete",
@@ -313,7 +302,6 @@ def cmd_pipeline(args):
             ("🎙️ Transcribed", str(transcribed)),
             ("📝 Notes", str(noted)),
             ("🧹 Pruned", f"{pruned_files} files · {pruned_bytes / 1e9:.2f} GB"),
-            ("🧠 Weekly Review", weekly_value),
             ("🚀 Deployed", "gh-pages"),
             ("💾 Commit", commit_value),
         ],
@@ -322,6 +310,76 @@ def cmd_pipeline(args):
     print("\nPipeline complete.")
     if not do_commit:
         print("Remember to commit & push the new notes/docs to main (or re-run with --commit).")
+
+
+def cmd_weekly_pipeline(args):
+    """Run the weekly review pipeline: weekly-review -> build -> deploy, plus an optional
+    commit/push step with --commit.
+
+    Separate from `pipeline` so it can run on its own Sunday-night schedule without
+    re-running fetch/transcribe/notes. Safe to run any day: generate_weekly_review()
+    snaps to the most recently completed week and skips if that week's file already
+    exists, so an accidental extra run is a no-op rather than a duplicate.
+    """
+    import time
+    from datetime import datetime
+    import notify as notifier
+
+    start = time.time()
+    date = datetime.now().strftime("%Y-%m-%d")
+    do_commit = getattr(args, "commit", False)
+    n_steps = 4 if do_commit else 3
+    RULE = "─" * 54
+
+    def _elapsed():
+        s = int(time.time() - start)
+        return f"{s // 60}m {s % 60}s"
+
+    def _step(num, name, fn):
+        print("\n" + "=" * 50)
+        print(f"Step {num}/{n_steps}: {name}...")
+        print("=" * 50)
+        try:
+            return fn(args)
+        except Exception as e:
+            notifier.notify(
+                "error",
+                "❌ Weekly review failed",
+                description=f"**Error**\n```\n{RULE}\n{str(e)[:300]}\n```",
+                fields=[("Failed step", name), ("Ran for", _elapsed())],
+                footer="⚠️ Nothing committed",
+            )
+            print(f"\nWEEKLY PIPELINE FAILED at '{name}': {e}")
+            sys.exit(1)
+
+    weekly_path = _step(1, "weekly-review", cmd_weekly_review)
+    _step(2, "build", cmd_build)
+    _step(3, "deploy", cmd_deploy)
+
+    if do_commit:
+        commit_value = _step(4, "commit", lambda a: _commit_and_push(f"Weekly review — {date}"))
+        footer = f"Ran in {_elapsed()}"
+    else:
+        commit_value = "`not committed`"
+        footer = f"Ran in {_elapsed()} · commit manually"
+
+    if weekly_path:
+        desc = f"**Weekly review generated**\n```\n{RULE}\n{weekly_path.name}\n```"
+    else:
+        desc = f"**Nothing to generate**\n```\n{RULE}\nAlready up to date, or no sessions this week.\n```"
+
+    notifier.notify(
+        "success",
+        "✅ Weekly review complete",
+        description=desc,
+        fields=[
+            ("🧠 Review", f"`{weekly_path.name}`" if weekly_path else "`skipped`"),
+            ("🚀 Deployed", "gh-pages"),
+            ("💾 Commit", commit_value),
+        ],
+        footer=footer,
+    )
+    print("\nWeekly review pipeline complete.")
 
 
 def cmd_notify(args):
@@ -438,6 +496,8 @@ def main():
     # transcribe
     p_trans = sub.add_parser("transcribe", help="Transcribe videos using Whisper")
     add_class_args(p_trans)
+    p_trans.add_argument("--transcribe-backend", choices=["cuda", "cpu"], default="cuda",
+                         help="'cuda' uses the GPU whisper-env venv, 'cpu' runs faster-whisper under the current interpreter (no GPU needed)")
     p_trans.set_defaults(func=cmd_transcribe)
 
     # notes
@@ -478,18 +538,30 @@ def main():
     p_deploy = sub.add_parser("deploy", help="Deploy site to GitHub Pages (mkdocs gh-deploy)")
     p_deploy.set_defaults(func=cmd_deploy)
 
-    # pipeline
-    p_pipe = sub.add_parser("pipeline", help="Run full pipeline: fetch -> transcribe -> notes -> prune -> weekly-review (Sundays) -> build -> deploy")
+    # pipeline (daily)
+    p_pipe = sub.add_parser("pipeline", help="Run daily pipeline: fetch -> transcribe -> notes -> prune -> build -> deploy")
     add_class_args(p_pipe)
     p_pipe.add_argument("--force", action="store_true",
                         help="Regenerate notes even if they exist")
     p_pipe.add_argument("--backend", choices=["api", "cli"], default="cli",
                         help="Backend: 'api' (Anthropic API) or 'cli' (Claude Code CLI)")
+    p_pipe.add_argument("--transcribe-backend", choices=["cuda", "cpu"], default="cuda",
+                        help="'cuda' uses the GPU whisper-env venv, 'cpu' runs faster-whisper under the current interpreter (no GPU needed)")
     p_pipe.add_argument("--workers", type=int, default=1,
                         help="Number of parallel workers (default: 1)")
     p_pipe.add_argument("--commit", action="store_true",
                         help="After deploy, git add -A && commit && push to main (closes the loop unattended)")
     p_pipe.set_defaults(func=cmd_pipeline)
+
+    # weekly-pipeline (Sunday-night quiz + publish)
+    p_weekly_pipe = sub.add_parser("weekly-pipeline", help="Run weekly-review -> build -> deploy (+ optional --commit); meant for its own Sunday schedule")
+    p_weekly_pipe.add_argument("--force", action="store_true",
+                               help="Regenerate this week's quiz even if it already exists")
+    p_weekly_pipe.add_argument("--backend", choices=["api", "cli"], default="cli",
+                               help="Backend: 'api' (Anthropic API) or 'cli' (Claude Code CLI)")
+    p_weekly_pipe.add_argument("--commit", action="store_true",
+                               help="After deploy, git add -A && commit && push to main")
+    p_weekly_pipe.set_defaults(func=cmd_weekly_pipeline)
 
     # notify
     p_notify = sub.add_parser("notify", help="Send a Discord notification + log it")

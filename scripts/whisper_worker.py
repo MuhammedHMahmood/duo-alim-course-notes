@@ -33,7 +33,10 @@ def main():
 
     condition = args.condition_on_previous_text.lower() not in ("false", "0", "no")
 
-    model = WhisperModel(args.model, device=args.device, compute_type="float16")
+    # float16 has no fast path on CPU (CTranslate2 falls back to slow emulation) —
+    # int8 is the standard CPU compute type and keeps CPU runs fast.
+    compute_type = "float16" if args.device == "cuda" else "int8"
+    model = WhisperModel(args.model, device=args.device, compute_type=compute_type)
 
     segments_iter, info = model.transcribe(
         args.audio,

@@ -11,9 +11,9 @@ An automated pipeline that processes recorded lectures from the DUO 6-year Alim 
 | `duo.py` | Main CLI — entry point for all commands (run subcommands directly) |
 | `config/classes.yaml` | Class registry (subjects, courses, Google Drive IDs, `active` flag) |
 | `config/templates/{subject}.md` | Per-subject prompts used by Claude to generate notes |
-| `scripts/common.py` | Shared utilities: config loading, path helpers, credential access via `keyring` |
+| `scripts/common.py` | Shared utilities: config loading, path helpers, credential access (env var first, `keyring` fallback) |
 | `scripts/fetch.py` | Downloads MP4s from Google Drive using service account |
-| `scripts/transcribe.py` | Whisper transcription (outputs JSON to `subjects/*/transcripts/`) |
+| `scripts/transcribe.py` | Whisper transcription (outputs JSON to `subjects/*/transcripts/`); `--transcribe-backend cuda\|cpu` |
 | `scripts/generate_notes.py` | Claude note generation — supports `api` and `cli` backends |
 | `scripts/weekly_review.py` | Claude weekly quiz generation (concepts + vocab) from that week's notes across all active classes |
 | `scripts/update_mkdocs.py` | Syncs `subjects/*/notes/*.md` and `weekly/reviews/*.md` → `docs/` and rebuilds `mkdocs.yml` nav |
@@ -38,47 +38,95 @@ is the synced copy, same rule applies.
 
 ## Running the full pipeline (the "full loop")
 
-When asked to "run the pipeline" / "run the full loop" for this repo, run these steps in order
+The loop is split into two independent pipelines so they can run on separate schedules
+(daily vs. Sunday-night):
+
+- **Daily pipeline** (`duo.py pipeline`): fetch → transcribe → notes → prune → build → deploy → commit.
+- **Weekly pipeline** (`duo.py weekly-pipeline`): weekly-review → build → deploy → commit.
+
+When asked to "run the pipeline" / "run the full loop" for this repo, run the daily steps in order
 (active classes only). Run each `duo.py` subcommand **directly** — there is no batch orchestrator.
 
 ```bash
 python duo.py status                                # 0. see what's behind (queries Drive live)
 python duo.py fetch      --active-only              # 1. fetch new recordings from Google Drive
-python duo.py transcribe --active-only              # 2. transcribe (Whisper GPU venv)
+python duo.py transcribe --active-only              # 2. transcribe (Whisper GPU venv locally; --transcribe-backend cpu in CI)
 python duo.py notes      --active-only --workers 4  # 3. generate notes (Claude CLI backend)
 python duo.py prune      --active-only              # 4. delete MP4s now transcribed+noted (disk hygiene)
-python duo.py weekly-review                         # 5. generate the weekly quiz (Sundays only in the pipeline)
-python duo.py build                                 # 6. build site: sync notes -> docs/ + rebuild nav
-python duo.py deploy                                # 7. deploy: publish rendered site to gh-pages
-git add -A && git commit -m "Update notes — <date>" && git push   # 8. persist source to main
+python duo.py build                                 # 5. build site: sync notes -> docs/ + rebuild nav
+python duo.py deploy                                # 6. deploy: publish rendered site to gh-pages
+git add -A && git commit -m "Update notes — <date>" && git push   # 7. persist source to main
 ```
 
-The loop is fetch → transcribe → notes → prune → weekly-review → build → deploy → **commit**. The final
-commit is not optional: `deploy` only updates the live site (`gh-pages`), while committing/pushing saves
-the generated notes/docs to `main` (the source of truth). There is no CI, so a `main` push alone does NOT
+The daily loop is fetch → transcribe → notes → prune → build → deploy → **commit**. The final commit is
+not optional: `deploy` only updates the live site (`gh-pages`), while committing/pushing saves the
+generated notes/docs to `main` (the source of truth). There is no CI, so a `main` push alone does NOT
 update the live site, and `deploy` alone does NOT save the source — both are needed to close the loop.
 
-- `python duo.py pipeline --active-only` runs steps 1–7 (including prune and weekly-review) in one shot
-  but **does not** do the final commit/push — do that manually after. Add **`--commit`** to also run
-  step 8 (`git add -A && commit && push`) in the same command, which closes the loop for
-  unattended/scheduled runs; the commit's short-SHA (linked to GitHub) then appears in the Discord
-  success embed.
-- **Weekly review is Sunday-gated.** Inside `duo.py pipeline`, the weekly-review step only actually
-  generates a quiz when run on a Sunday (`datetime.now().weekday() == 6`) — every other day it's a
-  no-op ("not Sunday — skipping"). It combines that week's notes (last 7 days, across every active
-  class) into one self-test quiz at `weekly/reviews/{week-ending-date}.md`, testing concepts and
-  vocabulary. Run `python duo.py weekly-review` directly (any day, add `--force` to regenerate) for
-  on-demand/manual generation — that command is never day-gated.
+- `python duo.py pipeline --active-only` runs steps 1–6 (including prune) in one shot but **does not**
+  do the final commit/push — do that manually after. Add **`--commit`** to also run step 7
+  (`git add -A && commit && push`) in the same command, which closes the loop for unattended/scheduled
+  runs; the commit's short-SHA (linked to GitHub) then appears in the Discord success embed.
+- **Transcription backend.** `--transcribe-backend cuda` (default) uses the GPU whisper-env venv —
+  only works on the home Windows machine. `--transcribe-backend cpu` runs the exact same
+  `scripts/whisper_worker.py` (faster-whisper) under the current interpreter instead, with int8
+  quantization instead of float16 — no GPU needed, no third-party API, $0 marginal cost. This is what
+  the GitHub Actions daily workflow uses; it's slower than the GPU path but the daily job normally only
+  has ~1 new video to transcribe, so it comfortably finishes within a job.
+- **Weekly review runs separately.** `duo.py weekly-pipeline` generates the quiz + builds + deploys +
+  commits in one shot; add `--commit` the same way as `pipeline`. It combines that week's notes (last
+  7 days, across every active class) into one self-test quiz at
+  `weekly/reviews/{week-ending-date}.md`, testing concepts and vocabulary. It's safe to run any day —
+  `generate_weekly_review()` snaps to the most recently completed week and skips if that week's file
+  already exists — but it's meant to be scheduled for Sunday night. `python duo.py weekly-review` runs
+  just the generation step on its own (no build/deploy/commit), `--force` to regenerate.
 - **Videos are disposable.** `prune` deletes an MP4 once both its transcript and note exist; they're
-  large and re-downloadable from Drive. `fetch` won't re-download a pruned video (it skips sessions
-  that already have a transcript). So `status` normally shows **Local 0** — that's expected, a session
-  counts as "held" via its transcript. (To re-transcribe a pruned session you'd re-fetch deliberately.)
+  large and re-downloadable from Drive. `fetch` won't re-download a session that already has a
+  transcript **or** a note (a note alone is enough — matters for the GitHub Actions workflow, which starts from
+  a fresh git checkout every run: transcripts/videos are gitignored and don't persist between runs,
+  only committed notes do). So `status` normally shows **Local 0** on the home machine — that's
+  expected, a session counts as "held" via its transcript. (To re-transcribe a pruned session you'd
+  re-fetch deliberately.)
 - Any step with nothing to do is a safe no-op (e.g. fetch/transcribe when there are no new recordings).
-- **Environment requirement:** this loop only works on the Windows machine that has the Whisper venv +
-  GPU, `config/service_account.json` (Google Drive), and the keyring credentials (see sections below).
-  A fresh/cloud environment without those cannot run fetch/transcribe — check `duo.py status` first.
+- **Environment requirement (local run):** the `--transcribe-backend cuda` path only works on the
+  Windows machine that has the Whisper venv + GPU, `config/service_account.json` (Google Drive), and
+  the keyring credentials (see sections below). See "Cloud pipeline" below for the daily/weekly jobs
+  that run unattended without that machine.
 
 Other handy commands: `python duo.py serve` (local preview), `python duo.py notes --force` (regenerate).
+
+## Cloud pipeline (GitHub Actions, daily + weekly, unattended, $0 marginal cost)
+
+Two GitHub Actions workflows ([daily-pipeline.yml](.github/workflows/daily-pipeline.yml),
+[weekly-review.yml](.github/workflows/weekly-review.yml)) run this pipeline without the home machine
+needing to be on. Each starts from a fresh checkout (no GPU, no local disk persistence between runs —
+transcripts/videos are gitignored and don't persist; only what's committed to `main` carries over).
+Deliberately designed to add **no new recurring expense**:
+
+- **Daily** — `python duo.py pipeline --active-only --transcribe-backend cpu --backend cli --commit`
+- **Weekly** (Sunday night) — `python duo.py weekly-pipeline --backend cli --commit`
+
+Both use `--transcribe-backend cpu` (faster-whisper int8, no GPU, no third-party API — see above) and
+`--backend cli` (Claude Code CLI, authenticated via a **subscription OAuth token**, not a metered API
+key — draws from the Pro/Max plan's included usage). Generate that token once locally with
+`claude setup-token` (opens a browser auth flow, prints a token valid for a year) and store it as the
+`CLAUDE_CODE_OAUTH_TOKEN` secret. **Do not also set `ANTHROPIC_API_KEY`** in the workflow — it takes
+precedence over the token and switches billing to metered API calls.
+
+GitHub Actions itself is free on this public repo (unlimited minutes) — the daily job's `timeout-minutes: 300`
+just gives CPU transcription of one lecture room to finish. Because the sandbox has no Windows
+Credential Manager, every credential normally read from keyring must instead be a repo secret (see
+`get_api_key()` in `scripts/common.py`, which checks the env first):
+
+| Secret | Used for |
+|---|---|
+| `CLAUDE_CODE_OAUTH_TOKEN` | note/quiz generation via `claude -p` (`--backend cli`), billed against the subscription |
+| `DISCORD_WEBHOOK_URL` | pipeline success/failure notifications |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` | raw JSON contents of the Drive service account key (read directly, no file needed — see `fetch.get_drive_service()`) |
+| `DUO_CLASSES_YAML` | raw contents of `config/classes.yaml` (not committed — its Drive folder IDs act as shareable view-links and this is a public repo; see `load_config()` in `scripts/common.py`) |
+
+The repo's default Actions workflow permission must be "Read and write permissions" (Settings > Actions
+> General) for the commit/push step to succeed.
 
 ## Notifications & logging
 
@@ -89,12 +137,15 @@ alert fires from the script's own error handler, so a broken run is reported eve
 These are sent as **rich Discord embeds** (built in `cmd_pipeline`, rendered by `scripts/notify.py`):
 - **Success** — green sidebar, title `✅ Pipeline complete`; description lists per-class new notes
   (or "Everything already up to date — site redeployed."); an inline field grid with emoji labels
-  (`📥 Fetched`, `🎙️ Transcribed`, `📝 Notes`, `🧹 Pruned`, `🧠 Weekly Review`, `🚀 Deployed`,
-  `💾 Commit`); footer with
+  (`📥 Fetched`, `🎙️ Transcribed`, `📝 Notes`, `🧹 Pruned`, `🚀 Deployed`, `💾 Commit`); footer with
   duration + date. The `💾 Commit` field is a clickable short-SHA link when run with `--commit`,
   else `not committed`.
 - **Failure** — red sidebar, title `❌ Pipeline failed`; the error in a code block; fields for the
   failed step + elapsed time; footer `⚠️ Nothing committed`.
+
+`duo.py weekly-pipeline` posts its own analogous embed (`✅ Weekly review complete` / `❌ Weekly
+review failed`) with fields `🧠 Review`, `🚀 Deployed`, `💾 Commit` — same webhook, same
+success/failure/logging behavior as above.
 
 - Webhook URL is read from keyring: service `duo-class-notes`, key `discord_webhook_url`. If unset,
   runs still log to `logs/runs.log` and the Discord post is skipped (no crash) — see `scripts/notify.py`.
@@ -106,9 +157,9 @@ These are sent as **rich Discord embeds** (built in `cmd_pipeline`, rendered by 
 
 **`duo.py pipeline` posts the summary itself** — a rich embed via the Discord **webhook**
 (see above), on both success and failure, even unattended. This is the canonical notification for
-the scheduled `duo-notes-pipeline` routine and manual full-loop runs alike.
+the scheduled GitHub Actions workflow and manual full-loop runs alike.
 
-So when the loop runs via `duo.py pipeline` (e.g. `--active-only --commit`, as the routine does),
+So when the loop runs via `duo.py pipeline` (e.g. `--active-only --commit`, as the workflow does),
 **do not** post a separate summary via the Discord MCP (`mcp__discord__send-message`) — it would
 duplicate the embed in a plainer format. Let the webhook handle it. (`duo.py notify` /
 `scripts/notify.py` is the same webhook path exposed for ad-hoc messages and is also
@@ -133,39 +184,52 @@ Failed step: <step> · Ran for: <m>m <s>s · ⚠️ nothing committed
 Error: <message, ~300 chars>
 ```
 
-## Whisper venv (hardcoded path)
+## Whisper venv (hardcoded path, `--transcribe-backend cuda` only)
 
-`scripts/transcribe.py` calls a **separate venv** via a hardcoded path:
+`scripts/transcribe.py`'s cuda backend calls a **separate venv** via a hardcoded path:
 ```python
 WHISPER_PYTHON = r"C:\Users\moham\whisper-env\Scripts\python.exe"
 ```
-This venv has CUDA 12.8 PyTorch for RTX 5080 GPU acceleration. On another machine, update this constant and the `--device cuda` flag. See README for setup steps.
+This venv has CUDA 12.8 PyTorch for RTX 5080 GPU acceleration. On another machine, update this constant. See README for setup steps. `--transcribe-backend cpu` (used by the GitHub Actions daily workflow) bypasses this entirely, running `scripts/whisper_worker.py` under the current interpreter with faster-whisper's int8 CPU path — no venv, GPU, or third-party API needed.
 
 ## Config directory (gitignored — must be created manually)
 
-The entire `config/` directory is in `.gitignore`. On a fresh clone, create:
+`config/classes.yaml` and `config/service_account.json` are gitignored (see `.gitignore` for why —
+in short, both hold data you don't want in a public repo). `config/templates/` is tracked normally.
+On a fresh clone, create:
 
 ```
 config/
   classes.yaml              # class registry — see README "Configuration setup"
   service_account.json      # Google Drive service account JSON key
-  templates/{subject}.md    # one template per subject (tfs, hadith, nahw, sarf, fqh)
+  templates/{subject}.md    # one template per subject (tfs, hadith, nahw, sarf, fqh) — already in git
 ```
 
 See the **Configuration setup** section of the README for the full `classes.yaml` schema, how to get the Google Drive service account, and template format.
 
-## Credentials (Windows Credential Manager)
+## Credentials (Windows Credential Manager locally, GitHub Actions secrets in the cloud)
 
-API keys are **never stored in files**. They are read at runtime via `keyring`:
+API keys are **never stored in files**. `scripts/common.py`'s `get_api_key()` checks an env var
+first (`KEY_NAME.upper()`, e.g. `discord_webhook_url` → `DISCORD_WEBHOOK_URL`) — this is how the
+GitHub Actions workflows supply secrets, since a runner has no Credential Manager — then falls back
+to `keyring` for local runs:
 
 ```python
 import keyring
 keyring.set_password("duo-class-notes", "anthropic_api_key", "sk-ant-...")
 ```
 
+The Google Drive service account key and `classes.yaml` follow the same env-first pattern but as a
+different mechanism, since they're not simple key/value strings: `fetch.get_drive_service()` reads
+the full JSON from `GOOGLE_SERVICE_ACCOUNT_JSON` when set (else falls back to
+`config/service_account.json`), and `common.load_config()` reads raw YAML from `DUO_CLASSES_YAML`
+when set (else falls back to `config/classes.yaml`). See "Cloud pipeline" above for the full list of
+secrets a workflow needs — note generation there authenticates via a subscription OAuth token
+(`CLAUDE_CODE_OAUTH_TOKEN`), not `anthropic_api_key`/`ANTHROPIC_API_KEY`.
+
 ## Active vs inactive classes
 
-`config/classes.yaml` has an `active` boolean per class. `--active-only` skips inactive ones. Toggle `active: true/false` to control what the weekly pipeline processes.
+`config/classes.yaml` has an `active` boolean per class. `--active-only` skips inactive ones. Toggle `active: true/false` to control what the daily pipeline processes.
 
 ## Note generation backends
 

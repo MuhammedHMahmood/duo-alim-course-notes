@@ -3,7 +3,6 @@
 import os
 import argparse
 import yaml
-import keyring
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -15,7 +14,16 @@ VALID_SUBJECTS = ["tfs", "hadith", "nahw", "sarf", "fqh"]
 
 
 def load_config():
-    """Load classes.yaml configuration."""
+    """Load classes.yaml configuration.
+
+    Reads the raw YAML from the DUO_CLASSES_YAML env var when set — used by the GitHub
+    Actions workflows, since classes.yaml isn't committed (its Drive folder IDs act as
+    shareable view-links and this is a public repo) — otherwise falls back to the local
+    config/classes.yaml file.
+    """
+    env_yaml = os.environ.get("DUO_CLASSES_YAML")
+    if env_yaml:
+        return yaml.safe_load(env_yaml)
     config_path = CONFIG_DIR / "classes.yaml"
     with open(config_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
@@ -100,11 +108,24 @@ SERVICE_NAME = "duo-class-notes"
 
 
 def get_api_key(key_name):
-    """Retrieve an API key from Windows Credential Manager."""
+    """Retrieve an API key.
+
+    Checks the environment first — the cloud routines have no Windows Credential
+    Manager, so their secrets are passed as env vars — then falls back to keyring
+    for local runs on the home machine.
+    """
+    env_name = key_name.upper().replace("-", "_")
+    value = os.environ.get(env_name)
+    if value:
+        return value
+
+    import keyring
     value = keyring.get_password(SERVICE_NAME, key_name)
     if not value:
         raise RuntimeError(
-            f"No credential found for '{key_name}' in Windows Credential Manager.\n"
-            f"Store it with: python -c \"import keyring; keyring.set_password('{SERVICE_NAME}', '{key_name}', 'your-key-here')\""
+            f"No credential found for '{key_name}' (checked env var {env_name} and "
+            f"Windows Credential Manager).\n"
+            f"Store it locally with: python -c \"import keyring; keyring.set_password('{SERVICE_NAME}', '{key_name}', 'your-key-here')\"\n"
+            f"Or set the {env_name} environment variable (used by the cloud routines)."
         )
     return value

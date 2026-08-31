@@ -20,7 +20,19 @@ SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 
 
 def get_drive_service():
-    """Build authenticated Google Drive API service using a service account."""
+    """Build authenticated Google Drive API service using a service account.
+
+    Reads the key JSON from the GOOGLE_SERVICE_ACCOUNT_JSON env var when set — used by
+    the cloud routines, which have no local config/ directory to hold the file — and
+    otherwise falls back to config/service_account.json for local runs.
+    """
+    env_json = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
+    if env_json:
+        import json
+        info = json.loads(env_json)
+        creds = service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
+        return build("drive", "v3", credentials=creds)
+
     if not SERVICE_ACCOUNT_FILE.exists():
         raise FileNotFoundError(
             f"Missing {SERVICE_ACCOUNT_FILE}\n"
@@ -119,13 +131,17 @@ def fetch_for_class(service, subject, course, class_config):
 
     videos_dir = course_dir(subject, course, "videos")
     transcripts_dir = course_dir(subject, course, "transcripts")
+    notes_dir = course_dir(subject, course, "notes")
     existing = {
         f.name for f in videos_dir.iterdir()
         if f.suffix.lower() == ".mp4" and f.stat().st_size > 0
     }
-    # Sessions already transcribed — don't re-download videos that were pruned
-    # after transcription (mp4 deleted, but the transcript remains).
-    transcribed = {f.stem for f in transcripts_dir.glob("*.json")}
+    # Sessions already transcribed or noted — don't re-download videos that were pruned
+    # after transcription (mp4 deleted, but the transcript remains), and don't re-download
+    # for a session whose note is already committed even if the transcript itself isn't
+    # present locally (cloud routine runs start from a fresh checkout each time, so only
+    # committed notes persist across runs — transcripts/videos are gitignored).
+    done = {f.stem for f in transcripts_dir.glob("*.json")} | {f.stem for f in notes_dir.glob("*.md")}
 
     remote_files = list_mp4s_in_folder(service, folder_id)
     new_count = 0
@@ -135,7 +151,7 @@ def fetch_for_class(service, subject, course, class_config):
         if local_name in existing:
             continue
         session = re.sub(r'-p\d+$', '', os.path.splitext(local_name)[0])
-        if session in transcribed:
+        if session in done:
             continue
 
         dest_path = videos_dir / local_name

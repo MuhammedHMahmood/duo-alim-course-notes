@@ -9,6 +9,7 @@ Use --workers N to run N note generations in parallel (default: 1).
 
 import os
 import json
+import shutil
 import subprocess
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -42,15 +43,25 @@ def _call_api(prompt, model):
     return response.content[0].text
 
 
+def _find_claude_cli():
+    """Locate the Claude Code CLI binary — on PATH (Linux cloud routine) or at its
+    default Windows install location (home machine)."""
+    exe = shutil.which("claude")
+    if exe:
+        return exe
+    win_path = os.path.join(os.environ.get("USERPROFILE", ""), ".local", "bin", "claude.exe")
+    if os.path.exists(win_path):
+        return win_path
+    raise RuntimeError("Claude Code CLI not found on PATH (and no local Windows install found).")
+
+
 def _call_cli(prompt, model):
     """Generate notes using Claude Code CLI (uses Pro plan).
 
     Pipes the full prompt via stdin to avoid Windows command-line length limits.
     Uses --max-turns 1 to prevent agentic behavior.
     """
-    CLAUDE_CMD = os.path.join(
-        os.environ.get("USERPROFILE", ""), ".local", "bin", "claude.exe"
-    )
+    CLAUDE_CMD = _find_claude_cli()
 
     # Prepend explicit instruction to output notes directly
     full_prompt = (
