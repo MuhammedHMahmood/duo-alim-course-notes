@@ -92,7 +92,10 @@ def _call_cli(prompt, model):
     stderr = result.stderr or ""
 
     if result.returncode != 0:
-        raise RuntimeError(f"Claude CLI failed (exit {result.returncode}): {stderr[:500]}")
+        # Claude Code CLI writes some errors (e.g. auth failures) to stdout, not stderr —
+        # surface whichever stream actually has content instead of only checking stderr.
+        detail = stderr.strip() or stdout.strip() or "(no output captured on either stream)"
+        raise RuntimeError(f"Claude CLI failed (exit {result.returncode}): {detail[:500]}")
 
     output = stdout.strip()
     if not output:
