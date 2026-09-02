@@ -11,3 +11,4 @@ Tafseer Foundation Series 201
 | [Aug 20, 2026](2026-08-20.md) | Surah Al-Baqarah (contd.) |
 | [Aug 25, 2026](2026-08-25.md) | Surah Al-Baqarah (Ayat 12) |
 | [Aug 27, 2026](2026-08-27.md) | Surah Al-Baqarah |
+| [Sep 01, 2026](2026-09-01.md) | Surah Al-Baqarah |
