@@ -11,3 +11,4 @@ Fiqh 201
 | [Aug 22, 2026](2026-08-22.md) | Two major topics: (1) a bri... |
 | [Aug 26, 2026](2026-08-26.md) | Dabaghat |
 | [Aug 29, 2026](2026-08-29.md) | Su'r |
+| [Sep 02, 2026](2026-09-02.md) | Dry ablution |
