@@ -13,3 +13,4 @@ Nahw 201
 | [Aug 24, 2026](2026-08-24.md) | Gender and number matching |
 | [Aug 28, 2026](2026-08-28.md) | Nine categories of I'rab (إ... |
 | [Aug 31, 2026](2026-08-31.md) | Al-Ism Al-Munsarif wa Ghayr... |
+| [Sep 04, 2026](2026-09-04.md) | third sabab (cause) of Ghay... |
