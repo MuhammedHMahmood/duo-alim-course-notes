@@ -4,5 +4,6 @@ Self-test quizzes covering that week's sessions across all active classes.
 
 | Week |
 |------|
+| [Week ending Sep 06, 2026](2026-09-06.md) |
 | [Week ending Aug 30, 2026](2026-08-30.md) |
 | [Week ending Aug 23, 2026](2026-08-23.md) |
