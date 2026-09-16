@@ -15,3 +15,4 @@ Tafseer Foundation Series 201
 | [Sep 03, 2026](2026-09-03.md) | Surah Al-Baqarah |
 | [Sep 05, 2026](2026-09-05.md) | Surah Al-Baqarah |
 | [Sep 08, 2026](2026-09-08.md) | Surah Al-Baqarah (Ayat 28) |
+| [Sep 15, 2026](2026-09-15.md) | Surah Al-Baqarah |
