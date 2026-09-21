@@ -16,3 +16,4 @@ Fiqh 201
 | [Sep 09, 2026](2026-09-09.md) | Menstruation |
 | [Sep 12, 2026](2026-09-12.md) | Two categories of najasa an... |
 | [Sep 16, 2026](2026-09-16.md) | The Book of Purification |
+| [Sep 19, 2026](2026-09-19.md) | Two major topics: (1) the c... |
