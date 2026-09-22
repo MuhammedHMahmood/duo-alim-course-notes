@@ -18,3 +18,4 @@ Nahw 201
 | [Sep 11, 2026](2026-09-11.md) | Wazn al-Fi'l (being on the ... |
 | [Sep 14, 2026](2026-09-14.md) | Ghayr Munṣarif |
 | [Sep 18, 2026](2026-09-18.md) | المرفوعات |
+| [Sep 21, 2026](2026-09-21.md) | Naib al-Fa'il |
