@@ -19,3 +19,4 @@ Tafseer Foundation Series 201
 | [Sep 17, 2026](2026-09-17.md) | Surah Al-Baqarah (Ayat 34) |
 | [Sep 19, 2026](2026-09-19.md) | Surah Al-Baqarah |
 | [Sep 22, 2026](2026-09-22.md) | Surah Al-Baqarah (Ayat 44) |
+| [Sep 26, 2026](2026-09-26.md) | Surah Al-Baqarah |
