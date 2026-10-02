@@ -4,5 +4,6 @@ keyring>=25.0.0
 google-api-python-client>=2.100.0
 google-auth>=2.23.0
 faster-whisper>=1.0.0
+av<19  # faster-whisper's decode_audio() calls av.open(metadata_errors=...), removed in PyAV 19.0.0
 mkdocs>=1.6.0
 mkdocs-material>=9.5.0

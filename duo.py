@@ -276,6 +276,24 @@ def cmd_pipeline(args):
 
     fetched = _step(1, "fetch", cmd_fetch)
     transcribed = _step(2, "transcribe", cmd_transcribe)
+
+    if fetched > 0 and transcribed == 0:
+        # transcribe_for_class catches per-video errors so one bad video doesn't block
+        # the rest, but that means a systemic failure (e.g. a broken dependency) looks
+        # identical to "nothing new" unless checked explicitly here.
+        notifier.notify(
+            "error",
+            "❌ Pipeline failed",
+            description=(
+                f"**Error**\n```\n{RULE}\nFetched {fetched} new video(s) but transcribed 0 "
+                f"— see the transcribe step's output above for the actual error.\n```"
+            ),
+            fields=[("Failed step", "transcribe"), ("Ran for", _elapsed())],
+            footer="⚠️ Nothing committed",
+        )
+        print(f"\nPIPELINE FAILED at 'transcribe': fetched {fetched} but transcribed 0")
+        sys.exit(1)
+
     noted, breakdown = _step(3, "notes", cmd_notes)
     pruned_files, pruned_bytes = _step(4, "prune", cmd_prune)
     _step(5, "build", cmd_build)

@@ -195,7 +195,7 @@ def transcribe_for_class(subject, course, settings, backend="cuda"):
             else:
                 print(f"    ERROR: Failed to transcribe {video} (exit code {returncode})", flush=True)
                 if error_msg:
-                    print(f"    {error_msg[:200]}", flush=True)
+                    print(f"    {error_msg[:1000]}", flush=True)
                 else:
                     print("    No error output captured — likely a hard crash (driver/CUDA fault) rather than a Python exception.", flush=True)
         else:
