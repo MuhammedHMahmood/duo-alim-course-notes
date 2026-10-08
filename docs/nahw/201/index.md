@@ -21,3 +21,4 @@ Nahw 201
 | [Sep 21, 2026](2026-09-21.md) | Naib al-Fa'il |
 | [Sep 25, 2026](2026-09-25.md) | Fi'l Majhul |
 | [Oct 02, 2026](2026-10-02.md) | Predicate |
+| [Oct 05, 2026](2026-10-05.md) | Mushabbeha to Laisa |

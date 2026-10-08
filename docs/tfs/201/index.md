@@ -23,3 +23,4 @@ Tafseer Foundation Series 201
 | [Sep 29, 2026](2026-09-29.md) | Surah Al-Baqarah (Ayat 55) |
 | [Oct 01, 2026](2026-10-01.md) | Surah Al-Baqarah (Ayat 60) |
 | [Oct 03, 2026](2026-10-03.md) | Surah Al-Baqarah (Ayat 63) |
+| [Oct 06, 2026](2026-10-06.md) | Surah Al-Baqarah (Ayat 71) |
