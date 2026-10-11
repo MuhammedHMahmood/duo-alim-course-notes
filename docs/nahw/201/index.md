@@ -22,3 +22,4 @@ Nahw 201
 | [Sep 25, 2026](2026-09-25.md) | Fi'l Majhul |
 | [Oct 02, 2026](2026-10-02.md) | Predicate |
 | [Oct 05, 2026](2026-10-05.md) | Mushabbeha to Laisa |
+| [Oct 09, 2026](2026-10-09.md) | Marfu'at |

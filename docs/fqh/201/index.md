@@ -22,3 +22,4 @@ Fiqh 201
 | [Sep 30, 2026](2026-09-30.md) | Bab Sifat al-Salah |
 | [Oct 03, 2026](2026-10-03.md) | Iftirash and Tawarruq |
 | [Oct 07, 2026](2026-10-07.md) | Two main areas |
+| [Oct 10, 2026](2026-10-10.md) | Damin |
