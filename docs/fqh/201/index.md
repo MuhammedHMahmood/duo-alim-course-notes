@@ -23,3 +23,4 @@ Fiqh 201
 | [Oct 03, 2026](2026-10-03.md) | Iftirash and Tawarruq |
 | [Oct 07, 2026](2026-10-07.md) | Two main areas |
 | [Oct 10, 2026](2026-10-10.md) | Damin |
+| [Oct 14, 2026](2026-10-14.md) | bana |
