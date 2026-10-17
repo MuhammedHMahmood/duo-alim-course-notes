@@ -24,3 +24,4 @@ Nahw 201
 | [Oct 05, 2026](2026-10-05.md) | Mushabbeha to Laisa |
 | [Oct 09, 2026](2026-10-09.md) | Marfu'at |
 | [Oct 12, 2026](2026-10-12.md) | المنصوبات |
+| [Oct 16, 2026](2026-10-16.md) | Mansubat |
