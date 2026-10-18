@@ -1,6 +1,7 @@
 # Weekly Review
 
-Self-test quizzes covering that week's sessions across all active classes.
+A condensed recap of each week's lessons across all active classes. Read the recap,
+then test yourself with the [weekly quiz](quiz/index.md).
 
 | Week |
 |------|

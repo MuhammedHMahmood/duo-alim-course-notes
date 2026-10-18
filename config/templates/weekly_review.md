@@ -1,43 +1,38 @@
 # Weekly Review — Week of {date_range}
 
-Self-test quiz covering everything taught this week across all active classes.
-Answer each question yourself before checking the Answer Key at the end — don't
-peek early.
+A condensed recap of this week's lessons, class by class. Read this first, then test
+yourself with the weekly quiz.
 
 ---
 
 ## {subject_name} {course}
 
-### Concept Questions
+*Sessions: {session dates, e.g. Oct 05 & Oct 09}*
 
-{4-6 numbered questions testing the grammar rules / fiqh rulings / tafseer
-points / hadith lessons actually covered this week for this class — one
-question per distinct concept, drawn only from the notes provided}
+**This week in a nutshell:** {2-3 sentences on what the class covered and how the
+sessions connect}
 
-### Vocabulary
+### Key Points
 
-{table of 5-10 Arabic terms introduced this week, each paired with a short
-question that tests recall of its meaning or usage rather than just asking
-"what does X mean"}
+{5-8 bullets. Each is a self-contained statement worth remembering, with the key
+term in bold. Match the subject:
+- Nahw / Sarf: the rule, when it applies, and a short example
+- Fiqh: the ruling, its conditions, and any exceptions
+- Tafseer: the ayat covered, their meaning, and the lesson drawn from them
+- Hadith: the hadith's message, its explanation, and the practical takeaway}
 
-| Arabic Term | Question |
+### Vocabulary to Know
+
+| Arabic Term | Meaning |
 |---|---|
-{vocab_rows}
+{8-12 of the most important terms from this week, with transliteration and a short meaning}
+
+### Easy to Mix Up
+
+{1-3 bullets contrasting things students commonly confuse. Omit this section if
+nothing in the notes warrants it.}
 
 ---
 
-{Repeat the "## {subject_name} {course}" section above once for every
-subject/course that had a session this week, in the order the notes are given}
-
-## Answer Key
-
-### {subject_name} {course}
-
-{numbered answers matching the Concept Questions above, one line each}
-
-**Vocabulary:**
-
-{one line per vocabulary row above, formatted as "**Term** — meaning"}
-
-{Repeat the "### {subject_name} {course}" answer section for every
-subject/course above, in the same order}
+{Repeat the "## {subject_name} {course}" section above once for every subject/course
+that had a session this week, in the order the notes are given}

@@ -15,8 +15,9 @@ An automated pipeline that processes recorded lectures from the DUO 6-year Alim 
 | `scripts/fetch.py` | Downloads MP4s from Google Drive using service account |
 | `scripts/transcribe.py` | Whisper transcription (outputs JSON to `subjects/*/transcripts/`); `--transcribe-backend cuda\|cpu` |
 | `scripts/generate_notes.py` | Claude note generation — supports `api` and `cli` backends |
-| `scripts/weekly_review.py` | Claude weekly quiz generation (concepts + vocab) from that week's notes across all active classes |
-| `scripts/update_mkdocs.py` | Syncs `subjects/*/notes/*.md` and `weekly/reviews/*.md` → `docs/` and rebuilds `mkdocs.yml` nav |
+| `scripts/weekly_review.py` | Claude generation of the weekly review (condensed recap) and weekly quiz (multiple choice, stored as JSON) from that week's notes across all active classes |
+| `scripts/update_mkdocs.py` | Syncs `subjects/*/notes/*.md`, `weekly/reviews/*.md` and `weekly/quizzes/*.json` (rendered to pages) → `docs/` and rebuilds `mkdocs.yml` nav |
+| `docs/javascripts/quiz.js`, `docs/stylesheets/quiz.css` | Front end for the interactive quiz pages (hand-written, not generated) |
 
 ## Directory conventions
 
@@ -28,21 +29,24 @@ subjects/{subject}/{course}/
 
 docs/{subject}/{course}/  ← synced copies for MkDocs (never edit directly)
 
-weekly/reviews/{week-ending-date}.md  ← Claude-generated quiz, one per week, source of truth
-docs/weekly/                          ← synced copies for MkDocs (never edit directly)
+weekly/reviews/{week-ending-date}.md   ← condensed weekly recap per class, source of truth
+weekly/quizzes/{week-ending-date}.json ← multiple-choice quiz data, source of truth
+docs/weekly/, docs/weekly/quiz/        ← generated for MkDocs (never edit directly)
 ```
 
 Notes live in `subjects/*/notes/`. The `docs/` folder is generated — always edit source notes in `subjects/`.
-Weekly review quizzes live in `weekly/reviews/`, keyed by the Sunday (week-ending) date; `docs/weekly/`
-is the synced copy, same rule applies.
+Weekly reviews and quizzes live in `weekly/`, keyed by the Sunday (week-ending) date; `docs/weekly/`
+is generated from them, same rule applies. A quiz page is rendered from its JSON by `update_mkdocs.py`
+into a `<div class="duo-quiz" data-quiz=...>` that `quiz.js` turns into the interactive quiz.
 
 ## Running the full pipeline (the "full loop")
 
-The loop is split into two independent pipelines so they can run on separate schedules
-(daily vs. Sunday-night):
+The loop is split into three independent pipelines so they can run on separate schedules
+(daily, and two staggered Sunday-night runs):
 
 - **Daily pipeline** (`duo.py pipeline`): fetch → transcribe → notes → prune → build → deploy → commit.
-- **Weekly pipeline** (`duo.py weekly-pipeline`): weekly-review → build → deploy → commit.
+- **Weekly review pipeline** (`duo.py weekly-review-pipeline`): weekly-review → build → deploy → commit.
+- **Weekly quiz pipeline** (`duo.py weekly-quiz-pipeline`): weekly-quiz → build → deploy → commit.
 
 When asked to "run the pipeline" / "run the full loop" for this repo, run the daily steps in order
 (active classes only). Run each `duo.py` subcommand **directly** — there is no batch orchestrator.
@@ -73,13 +77,17 @@ update the live site, and `deploy` alone does NOT save the source — both are n
   quantization instead of float16 — no GPU needed, no third-party API, $0 marginal cost. This is what
   the GitHub Actions daily workflow uses; it's slower than the GPU path but the daily job normally only
   has ~1 new video to transcribe, so it comfortably finishes within a job.
-- **Weekly review runs separately.** `duo.py weekly-pipeline` generates the quiz + builds + deploys +
-  commits in one shot; add `--commit` the same way as `pipeline`. It combines that week's notes (last
-  7 days, across every active class) into one self-test quiz at
-  `weekly/reviews/{week-ending-date}.md`, testing concepts and vocabulary. It's safe to run any day —
-  `generate_weekly_review()` snaps to the most recently completed week and skips if that week's file
-  already exists — but it's meant to be scheduled for Sunday night. `python duo.py weekly-review` runs
-  just the generation step on its own (no build/deploy/commit), `--force` to regenerate.
+- **Weekly review and quiz run separately.** Each is generated independently from that week's notes
+  (Mon-Sun, across every active class), then built, deployed and (with `--commit`) committed:
+  - `duo.py weekly-review-pipeline` → a condensed recap per class at `weekly/reviews/{week-ending-date}.md`.
+  - `duo.py weekly-quiz-pipeline` → a multiple-choice quiz at `weekly/quizzes/{week-ending-date}.json`
+    (~5 concept + ~5 vocab questions per class).
+
+  The review page's "Take the weekly quiz" link is added at build time (`update_mkdocs.sync_weekly_reviews()`)
+  only once that week's quiz exists, so the review never links to a quiz that hasn't been generated yet.
+  Both are safe to run any day — generation snaps to the most recently completed week and skips if
+  that week's file already exists — but they're meant for Sunday night. `python duo.py weekly-review` /
+  `python duo.py weekly-quiz` run just the generation step (no build/deploy/commit), `--force` to regenerate.
 - **Videos are disposable.** `prune` deletes an MP4 once both its transcript and note exist; they're
   large and re-downloadable from Drive. `fetch` won't re-download a session that already has a
   transcript **or** a note (a note alone is enough — matters for the GitHub Actions workflow, which starts from
@@ -108,18 +116,24 @@ established way to get the Drive credential, webhook, etc. into that sandbox. Gi
 native encrypted-secrets store built for exactly this, is free on this public repo, and the pipeline
 is deterministic script execution anyway — no agentic reasoning needed to orchestrate it.
 
-Two workflows ([daily-pipeline.yml](.github/workflows/daily-pipeline.yml),
-[weekly-review.yml](.github/workflows/weekly-review.yml)) run this pipeline without the home machine
+Three workflows ([daily-pipeline.yml](.github/workflows/daily-pipeline.yml),
+[weekly-review.yml](.github/workflows/weekly-review.yml),
+[weekly-quiz.yml](.github/workflows/weekly-quiz.yml)) run these pipelines without the home machine
 needing to be on. Each starts from a fresh checkout (no GPU, no local disk persistence between runs —
 transcripts/videos are gitignored and don't persist; only what's committed to `main` carries over).
 
 - **Daily**, 6:00 AM Pacific (`cron: "0 13 * * *"`, drifts an hour across DST) —
   `python duo.py pipeline --active-only --transcribe-backend cpu --backend cli --commit`
-- **Weekly**, Sunday 11:00 PM Pacific (`cron: "0 6 * * 1"`, drifts an hour across DST) —
-  `python duo.py weekly-pipeline --backend cli --commit`
+- **Weekly review**, Sunday 11:00 PM Pacific (`cron: "0 6 * * 1"`, drifts an hour across DST) —
+  `python duo.py weekly-review-pipeline --backend cli --commit`
+- **Weekly quiz**, Sunday 11:30 PM Pacific (`cron: "30 6 * * 1"`, drifts an hour across DST) —
+  `python duo.py weekly-quiz-pipeline --backend cli --commit`
 
-Both are also runnable on demand — `gh workflow run daily-pipeline.yml` /
-`gh workflow run weekly-review.yml` (add `--repo MuhammedHMahmood/duo-alim-course-notes` from
+The two weekly workflows share a `concurrency: weekly-pages` group, so if the review run is still
+going when the quiz fires, the quiz queues instead of checking out a stale `main` and failing its push.
+
+All are also runnable on demand — `gh workflow run daily-pipeline.yml` /
+`gh workflow run weekly-review.yml` / `gh workflow run weekly-quiz.yml` (add `--repo MuhammedHMahmood/duo-alim-course-notes` from
 elsewhere), then `gh run watch <run-id>` or `gh run view <run-id> --log` to check it. Useful for
 validating a change without waiting for the next scheduled fire.
 
@@ -130,8 +144,8 @@ key — draws from the Pro/Max plan's included usage). Generate that token once 
 `CLAUDE_CODE_OAUTH_TOKEN` secret. **Do not also set `ANTHROPIC_API_KEY`** in the workflow — it takes
 precedence over the token and switches billing to metered API calls.
 
-**Token expiry:** the token generated 2026-08-31 is valid for about a year — both workflows will start
-failing on the `notes`/`weekly-review` step (Discord failure alert will name it) once it expires around
+**Token expiry:** the token generated 2026-08-31 is valid for about a year — all workflows will start
+failing on the `notes`/`weekly-review`/`weekly-quiz` step (Discord failure alert will name it) once it expires around
 2027-08-31. Re-run `claude setup-token` and `gh secret set CLAUDE_CODE_OAUTH_TOKEN --repo
 MuhammedHMahmood/duo-alim-course-notes --body "<new token>"` to renew.
 
@@ -160,15 +174,17 @@ These are sent as **rich Discord embeds** (built in `cmd_pipeline`, rendered by 
 - **Success** — green sidebar, title `✅ Pipeline complete`; description lists per-class new notes
   (or "Everything already up to date — site redeployed."); an inline field grid with emoji labels
   (`📥 Fetched`, `🎙️ Transcribed`, `📝 Notes`, `🧹 Pruned`, `🚀 Deployed`, `💾 Commit`); footer with
-  duration + date. `🚀 Deployed` is a clickable link to the live site (`SITE_URL` in `duo.py`,
+  duration + date. Below the notes table, a **New pages** list links each newly generated note on the
+  live site (`_new_page_links()` in `duo.py`, capped at 10). `🚀 Deployed` is a clickable link to the live site (`SITE_URL` in `duo.py`,
   currently `https://muhammedhmahmood.github.io/duo-alim-course-notes/`). The `💾 Commit` field is a
   clickable short-SHA link when run with `--commit`, else `not committed`.
 - **Failure** — red sidebar, title `❌ Pipeline failed`; the error in a code block; fields for the
   failed step + elapsed time; footer `⚠️ Nothing committed`.
 
-`duo.py weekly-pipeline` posts its own analogous embed (`✅ Weekly review complete` / `❌ Weekly
-review failed`) with fields `🧠 Review`, `🚀 Deployed`, `💾 Commit` — same webhook, same
-success/failure/logging behavior as above.
+`duo.py weekly-review-pipeline` and `weekly-quiz-pipeline` each post their own analogous embed
+(`✅ Weekly review complete` / `✅ Weekly quiz complete`, or `❌ ... failed`) with fields
+`🧠 Review` or `📝 Quiz`, `🚀 Deployed`, `💾 Commit`, plus a **New page** link to the generated page —
+same webhook, same success/failure/logging behavior as above.
 
 - Webhook URL is read from keyring: service `duo-class-notes`, key `discord_webhook_url`. If unset,
   runs still log to `logs/runs.log` and the Discord post is skipped (no crash) — see `scripts/notify.py`.

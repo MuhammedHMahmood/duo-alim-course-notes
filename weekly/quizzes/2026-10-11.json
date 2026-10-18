@@ -1,0 +1,597 @@
+{
+ "week_start": "2026-10-05",
+ "week_end": "2026-10-11",
+ "sections": [
+  {
+   "title": "Nahw 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "What case does the Khabar of Inna take?",
+     "options": [
+      "Majrur",
+      "Marfu'",
+      "Mansoob, the same as the Khabar of Kana",
+      "Mansoob"
+     ],
+     "answer": 1,
+     "explanation": "The Khabar of Inna is always Marfu'. While Kana makes the Khabar Mansoob, Inna keeps the Khabar Marfu' and instead makes the Ism (Mubtada) Mansoob."
+    },
+    {
+     "type": "concept",
+     "question": "For which category of أَفْعَالٌ نَاقِصَةٌ is advancing the Khabar before the Ism (Khabar Muqaddam) prohibited?",
+     "options": [
+      "Those expressing proximity, such as كَادَ",
+      "Those beginning with ما, such as مَا زَالَ and مَا دَامَ",
+      "Those beginning with كَانَ and its sisters",
+      "All أَفْعَالٌ نَاقِصَةٌ prohibit Khabar Muqaddam"
+     ],
+     "answer": 1,
+     "explanation": "Khabar Muqaddam is prohibited for أَفْعَالٌ نَاقِصَةٌ beginning with ما (e.g., مَا زَالَ، مَا دَامَ). It is permissible for the first nine, such as كَانَ."
+    },
+    {
+     "type": "concept",
+     "question": "Which type of noun may لا Mushabbeha to Laisa take as its Ism?",
+     "options": [
+      "Nakira (indefinite) only",
+      "Ma'rifa (definite) only",
+      "Only a pronoun",
+      "Both Nakira and Ma'rifa"
+     ],
+     "answer": 0,
+     "explanation": "لا Mushabbeha comes only with Nakira (indefinite) nouns, unlike ما Mushabbeha which may come with both Ma'rifa and Nakira."
+    },
+    {
+     "type": "concept",
+     "question": "Which of the following is one of the three conditions for a Siga Sifat to function as the special Mubtada after ما نافية?",
+     "options": [
+      "It must be in the plural form",
+      "It appears after ما نافية or Istifham (e.g., هل)",
+      "It must precede the verb in the sentence",
+      "It must agree with the following noun in case (i'rab)"
+     ],
+     "answer": 1,
+     "explanation": "One of the three conditions is that the Siga Sifat appears after ما نافية or Istifham. All three conditions must be met together for the Sifat to function as the special Mubtada."
+    },
+    {
+     "type": "concept",
+     "question": "When a Siga Sifat after ما نافية shows مُطَابَقَة (agreement in number and gender) with the following noun, what grammatical role does the Sifat play?",
+     "options": [
+      "Mansoob as a Maf'ul Bihi of a hidden verb",
+      "The special Mubtada doing Amal on the noun",
+      "Khabar Muqaddam — the Ism Zahir is Mubtada Mu'akhkhar",
+      "Amil governing the following noun as a Khabar"
+     ],
+     "answer": 2,
+     "explanation": "If the Sifat matches (مُطَابَقَة) the following noun in number and gender, it is not doing Amal and is therefore Khabar Muqaddam, with the Ism Zahir functioning as Mubtada Mu'akhkhar."
+    },
+    {
+     "type": "concept",
+     "question": "Which example illustrates Bayan al-Naw' as a purpose of Maf'ul Mutlaq?",
+     "options": [
+      "شُكْرًا",
+      "جَلَسْتُ جَلْسَتَيْنِ",
+      "جَلَسْتُ جِلْسَةَ الْمَلِكِ",
+      "أَكْلًا كَثِيرًا"
+     ],
+     "answer": 2,
+     "explanation": "جَلَسْتُ جِلْسَةَ الْمَلِكِ ('I sat like a king') illustrates Bayan al-Naw' — specifying the type or manner of the action."
+    },
+    {
+     "type": "concept",
+     "question": "What single condition must be met for it to be permissible to place the Maf'ul Bihi before the Fa'il?",
+     "options": [
+      "The verb must be intransitive",
+      "Both nouns must carry clear i'rab markings so there is no ambiguity about their roles",
+      "The Fa'il must be Ma'rifa (definite)",
+      "The Maf'ul must be a pronoun attached to the verb"
+     ],
+     "answer": 1,
+     "explanation": "Inversion is only permissible when both nouns carry clear i'rab markings, so there is no ambiguity about which is the Fa'il and which is the Maf'ul."
+    },
+    {
+     "type": "concept",
+     "question": "Which of the following is a سَمَاعِي example where dropping the governing verb is obligatory (وُجُوبًا)?",
+     "options": [
+      "شُكْرًا",
+      "جَلَسْتُ جِلْسَةَ الْمَلِكِ",
+      "أَكْلًا كَثِيرًا said while watching someone eat excessively",
+      "سَقْيًا when a qareena is present"
+     ],
+     "answer": 0,
+     "explanation": "شُكْرًا is a fixed sam'i construction where the verb شَكَرْتُكَ is never stated — Arabs always drop it. These forms are transmitted as conventions; the verb cannot be re-inserted."
+    },
+    {
+     "type": "vocab",
+     "question": "Why are أَفْعَالٌ نَاقِصَةٌ called 'incomplete verbs'?",
+     "options": [
+      "They only appear in classical Arabic and are never used in speech",
+      "They lack a past tense form in classical Arabic",
+      "They cannot take a Maf'ul Bihi in any construction",
+      "They cannot form a full sentence with a subject alone; they require both an Ism and a Khabar"
+     ],
+     "answer": 3,
+     "explanation": "They are incomplete because they cannot form a full sentence with a subject alone; they require both an Ism and a Khabar (a complement structure) to complete their meaning."
+    },
+    {
+     "type": "vocab",
+     "question": "Why can بَلْ not follow a لا of نَفْيُ الْجِنْسِ?",
+     "options": [
+      "بَلْ is only used with verbs, not with the particle لا",
+      "The entire genus/category has been denied, leaving no room for any exception",
+      "The fathah on the Ism makes بَلْ grammatically incompatible",
+      "نَفْيُ الْجِنْسِ applies only to definite nouns, which cannot be followed by بَلْ"
+     ],
+     "answer": 1,
+     "explanation": "Because the negation is total — no member of the genus exists — بَلْ ('No, but...') cannot follow. You cannot make an exception to a complete denial of the entire category."
+    },
+    {
+     "type": "vocab",
+     "question": "In the context of the special Mubtada rule, if a Siga Sifat shows مُطَابَقَةٌ with the following noun, what does this reveal about the Sifat's grammatical role?",
+     "options": [
+      "It is a Badal (substitute) for the following noun",
+      "It is Mansoob as a Hal (circumstantial clause)",
+      "It is the special Mubtada doing Amal on the noun",
+      "It is Khabar Muqaddam — mُطَابَقَةٌ shows it is not doing Amal"
+     ],
+     "answer": 3,
+     "explanation": "Agreement (مُطَابَقَةٌ) means the Sifat is not doing Amal; it is therefore Khabar Muqaddam, with the Ism Zahir functioning as Mubtada Mu'akhkhar."
+    },
+    {
+     "type": "vocab",
+     "question": "In أَنْبَتَهُ اللَّهُ نَبَاتًا, what allows نَبَاتًا (from fi'l mujarrad) to serve as Maf'ul Mutlaq for the fi'l mazid أَنْبَتَ?",
+     "options": [
+      "The Maf'ul Mutlaq and its verb always share the same wazn (pattern)",
+      "They share exactly the same root letters in an identical order",
+      "The Maf'ul Mutlaq must always come from the fi'l mujarrad",
+      "They share the same core meaning of growing"
+     ],
+     "answer": 3,
+     "explanation": "A Maf'ul Mutlaq may come from a different root than its governing verb provided the core meaning is the same. Both أَنْبَتَ and نَبَات carry the core meaning of growing."
+    },
+    {
+     "type": "vocab",
+     "question": "What role does قَرِينَةٌ play in determining whether the governing verb may be dropped جَوَازًا?",
+     "options": [
+      "It signals that the verb must be explicitly stated alongside the Maf'ul",
+      "It determines the i'rab case of the Maf'ul Mutlaq",
+      "It is the contextual indicator that makes the full meaning retrievable without the verb",
+      "It marks the construction as سَمَاعِي and the verb permanently absent"
+     ],
+     "answer": 2,
+     "explanation": "A qareena is a contextual or circumstantial indicator. The verb may be dropped جَوَازًا only when there is a qareena that makes the full meaning retrievable without the verb being stated."
+    },
+    {
+     "type": "vocab",
+     "question": "Why can the dropped verb in a سَمَاعِي construction not be re-inserted?",
+     "options": [
+      "These constructions were transmitted from Arab usage as fixed forms — the verb's absence is itself part of the convention",
+      "The verb can always be re-inserted; dropping it is merely optional",
+      "Re-inserting the verb changes the i'rab of the masdar that follows",
+      "The original verb no longer exists in modern Arabic"
+     ],
+     "answer": 0,
+     "explanation": "Sami constructions were transmitted from Arab usage as fixed forms. The verb's absence is itself part of the established convention and cannot be undone."
+    },
+    {
+     "type": "vocab",
+     "question": "Which example illustrates بَيَانُ الْعَدَد as a purpose of Maf'ul Mutlaq?",
+     "options": [
+      "جَلَسْتُ جَلْسَتَيْنِ",
+      "أَكْلًا كَثِيرًا",
+      "شُكْرًا",
+      "جَلَسْتُ جِلْسَةَ الْمَلِكِ"
+     ],
+     "answer": 0,
+     "explanation": "جَلَسْتُ جَلْسَتَيْنِ ('I sat twice') illustrates Bayan al-'Adad — specifying the number of occurrences of the action."
+    },
+    {
+     "type": "vocab",
+     "question": "In أَنْبَتَهُ اللَّهُ نَبَاتًا, which word is the فِعْلٌ مَزِيدٌ?",
+     "options": [
+      "أَنْبَتَ",
+      "نَبَتَ",
+      "نَبَاتًا",
+      "اللَّهُ"
+     ],
+     "answer": 0,
+     "explanation": "أَنْبَتَ is the fi'l mazid — augmented with the أ of Bab If'al. نَبَات is derived from the fi'l mujarrad نَبَتَ."
+    }
+   ]
+  },
+  {
+   "title": "Tafseer 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "Which attribute of the cow in Ayah 71 required it to be completely uniform in color?",
+     "options": [
+      "لَا تُثِيرُ الأَرْضَ",
+      "لَا ذَلُولٌ",
+      "لَا شِيَةَ فِيهَا",
+      "وَلَا تَسْقِي الحَرْثَ"
+     ],
+     "answer": 2,
+     "explanation": "لَا شِيَةَ فِيهَا means 'no markings of a different color' — requiring a completely uniform yellow cow with no patches or spots of any other color anywhere on its body."
+    },
+    {
+     "type": "concept",
+     "question": "What does the verb كَادَ grammatically indicate, and what does وَمَا كَادُوا يَفْعَلُونَ mean about whether they slaughtered the cow?",
+     "options": [
+      "كَادَ indicates they ultimately refused to slaughter the cow at all",
+      "كَادَ indicates nearness to something that did not happen; they did slaughter — but almost did not",
+      "كَادَ indicates an action that continued for a prolonged period",
+      "كَادَ indicates they definitely completed the action; they slaughtered without hesitation"
+     ],
+     "answer": 1,
+     "explanation": "كَادَ is a verb of proximity indicating something was about to happen but did not. They were on the verge of not slaughtering — but they did slaughter the cow in the end."
+    },
+    {
+     "type": "concept",
+     "question": "According to Ayat 72–73, what was struck against the murdered man's body to miraculously revive him?",
+     "options": [
+      "A piece of the slaughtered cow",
+      "A staff carried by Musa عليه السلام",
+      "Water from a blessed spring in the valley",
+      "Soil from the location of the murder"
+     ],
+     "answer": 0,
+     "explanation": "Allah commanded them to strike the dead body with a piece of the slaughtered cow. When they did, the man was temporarily revived and named his killer, resolving the murder case miraculously."
+    },
+    {
+     "type": "concept",
+     "question": "What does the description of rocks in Ayah 74 — rivers bursting forth, rocks splitting, rocks crumbling — prove in comparison to Bani Israel's hearts?",
+     "options": [
+      "The land of Bani Israel was miraculously transformed to produce rivers after the incident",
+      "Rocks are contrasted with iron as spiritually superior in responding to Allah",
+      "Even inanimate rocks respond to Allah's greatness, making Bani Israel's spiritual hardness more reprehensible by contrast",
+      "Physical hardness like rock is a Quranic symbol of strength and purity"
+     ],
+     "answer": 2,
+     "explanation": "Rocks are the paradigm of hardness, yet even they respond to Allah's greatness. Bani Israel's hearts — which should be more responsive — did not, making their hardness more blameworthy."
+    },
+    {
+     "type": "concept",
+     "question": "What grammatical function does the بـ serve in وَمَا اللَّهُ بِغَافِلٍ عَمَّا تَعْمَلُونَ?",
+     "options": [
+      "It indicates instrumentality, meaning 'by means of awareness'",
+      "It is an inseparable prefix of غَافِلٍ with no standalone grammatical function",
+      "It makes the noun Majrur to indicate a relationship between Allah and the action",
+      "زَائِدَة (emphatic) — added after negation to intensify the denial"
+     ],
+     "answer": 3,
+     "explanation": "The بـ is زَائِدَة (extra/emphatic), added after negation to intensify the denial: Allah is absolutely, completely not unaware."
+    },
+    {
+     "type": "concept",
+     "question": "What made the first crime of the Jewish scholars in Ayah 76 — distorting the Torah — particularly grave?",
+     "options": [
+      "It was done عَلَى بَصِيرَة — with full knowledge and deliberate intent, not from ignorance or error",
+      "It involved mistranslating the Hebrew text into another language",
+      "It was carried out under orders from their religious leaders under coercion",
+      "It was committed publicly in front of the entire community without shame"
+     ],
+     "answer": 0,
+     "explanation": "The distortion was done عَلَى بَصِيرَة — with full understanding, deliberately. Knowing the truth and then distorting it is a far greater crime than distorting out of ignorance."
+    },
+    {
+     "type": "concept",
+     "question": "Why did the non-munafiq Jews warn against sharing information about the Prophet ﷺ with Muslims?",
+     "options": [
+      "They feared they would be required to pay Jizyah if they acknowledged the Prophet",
+      "They feared Muslims would use it as evidence against them on the Day of Judgment",
+      "They wanted to preserve their religious texts as traditions reserved for scholars",
+      "They believed the information was too advanced for the early Muslim community to understand"
+     ],
+     "answer": 1,
+     "explanation": "If they acknowledged the Torah confirms Muhammad ﷺ, on the Day of Judgment Muslims would use that acknowledgment as evidence — 'You knew he was the true Prophet, yet you did not follow him' — strengthening the case against themselves."
+    },
+    {
+     "type": "concept",
+     "question": "Applying the practical tip taught about weak verbs ending in alif maqsurah: why is the plural of لَقِيَ written as لَقُوا with ضمة?",
+     "options": [
+      "The مُضَارِع يَلْقَى ends in alif maqsurah, so all derived forms of this verb take ضمة",
+      "لَقِيَ is a strong verb and strong verb plurals always take ضمة",
+      "The مَاضِي لَقِيَ ends in a regular ي, not alif maqsurah, so its plural takes ضمة",
+      "All past tense plural forms of weak verbs take ضمة regardless of the sighah"
+     ],
+     "answer": 2,
+     "explanation": "The tip: if the relevant sighah ends in alif maqsurah (ى), the plural takes فتحة; if not, it takes ضمة. The مَاضِي لَقِيَ ends in regular ي — not alif maqsurah — so the plural مَاضِي takes ضمة → لَقُوا."
+    },
+    {
+     "type": "vocab",
+     "question": "What does لَا شِيَةَ فِيهَا mean, and what does it require of the cow?",
+     "options": [
+      "The cow must never have been sold, traded, or used as collateral",
+      "The cow must be young, under two years of age, and unbred",
+      "No markings of a different color — the cow must be completely uniform with no patches or spots",
+      "The cow must have no physical defects or blemishes of any kind"
+     ],
+     "answer": 2,
+     "explanation": "لَا شِيَةَ فِيهَا means the cow must be completely uniform in color — not a single patch, spot, or marking of any other color anywhere on its body."
+    },
+    {
+     "type": "vocab",
+     "question": "What does the verb كَادَ indicate, and does وَمَا كَادُوا يَفْعَلُونَ mean they slaughtered the cow?",
+     "options": [
+      "كَادَ indicates they definitely refused to slaughter the cow in the end",
+      "كَادَ indicates nearness to something not done; they did slaughter — but almost did not",
+      "كَادَ indicates an action completed after enormous delay and negotiation",
+      "كَادَ indicates the action was performed reluctantly but fully and correctly"
+     ],
+     "answer": 1,
+     "explanation": "كَادَ indicates something was about to happen but did not. The sentence means they did slaughter — but they came very close to not doing so at all."
+    },
+    {
+     "type": "vocab",
+     "question": "What does the Form VI pattern in فَادَّارَأْتُمْ add to the root meaning of دَرَأَ (to push/repel)?",
+     "options": [
+      "Collective agreement — all groups reaching a shared conclusion together",
+      "Passive acceptance — the blame being received and absorbed equally by all",
+      "Intensive one-directional blame — one group forcefully accusing another",
+      "Mutual deflection — each group pushing the accusation toward others"
+     ],
+     "answer": 3,
+     "explanation": "Form VI adds mutual action between parties. The root دَرَأَ means to push/repel, so فَادَّارَأْتُمْ means each group pushing the blame away from itself toward others — mutual deflection of accusation."
+    },
+    {
+     "type": "vocab",
+     "question": "In which ayah from this week's sessions is the root قَسَا used to describe the spiritual state of Bani Israel's hearts?",
+     "options": [
+      "فَادَّارَأْتُمْ فِيهَا (Ayah 72)",
+      "وَمَا كَادُوا يَفْعَلُونَ (Ayah 71)",
+      "وَمَا اللَّهُ بِغَافِلٍ عَمَّا تَعْمَلُونَ (Ayah 74)",
+      "ثُمَّ قَسَتْ قُلُوبُكُمْ مِّن بَعْدِ ذَلِكَ (Ayah 74)"
+     ],
+     "answer": 3,
+     "explanation": "قَسَا is used in Ayah 74: ثُمَّ قَسَتْ قُلُوبُكُمْ مِّن بَعْدِ ذَلِكَ, describing the spiritual hardening of Bani Israel's hearts after witnessing the miracle of the cow."
+    },
+    {
+     "type": "vocab",
+     "question": "What distinguishes تَبْدِيل from تَأْوِيل as the two forms of تَحْرِيفٌ described in Ayah 76?",
+     "options": [
+      "تَبْدِيل is literal substitution of the words themselves; تَأْوِيل is false interpretation without altering the words",
+      "تَبْدِيل is private distortion known only to scholars; تَأْوِيل is distortion made public",
+      "تَبْدِيل is minor rewording of secondary passages; تَأْوِيل is complete fabrication of new text",
+      "تَبْدِيل involves oral transmission changes; تَأْوِيل involves changes to the written manuscript"
+     ],
+     "answer": 0,
+     "explanation": "تَبْدِيل is literal substitution — changing the actual words of the Torah. تَأْوِيل is false interpretation — reading an unintended meaning into the text without altering the words themselves."
+    },
+    {
+     "type": "vocab",
+     "question": "How does the phrase عَلَى بَصِيرَةٍ intensify the guilt of the Jewish scholars who distorted the Torah?",
+     "options": [
+      "It indicates they had memorized the entire Torah before deciding to distort it",
+      "It establishes the distortion was deliberate — they knew the truth and distorted it knowingly, with no plea of ignorance",
+      "It shows they acted openly in public without any concealment or shame",
+      "It proves they acted under explicit orders from a foreign political authority"
+     ],
+     "answer": 1,
+     "explanation": "عَلَى بَصِيرَةٍ means 'with full insight/awareness.' The scholars heard, understood, and then distorted it knowingly. There is no plea of ignorance or error."
+    },
+    {
+     "type": "vocab",
+     "question": "What does Allah's statement that He knows both يُسِرُّونَ (what they conceal) and يُعْلِنُونَ (what they reveal openly) imply about their scheming?",
+     "options": [
+      "Their private scheming is entirely futile — nothing is outside Allah's knowledge, making their concealment a self-contradiction",
+      "Their scheming will be forgiven because they also performed many public acts of worship",
+      "Their public conduct is acceptable to Allah even if their private intentions are corrupt",
+      "They should confess their concealed beliefs to the Muslim community"
+     ],
+     "answer": 0,
+     "explanation": "Allah's knowledge of both يُسِرُّونَ and يُعْلِنُونَ makes their private scheming entirely futile — nothing is outside His knowledge, making their behavior a profound self-contradiction for people who claim to believe in Allah."
+    },
+    {
+     "type": "vocab",
+     "question": "Which of the following is one of the two specific أَمَانِيٌّ كَاذِبَةٌ (false hopes) introduced at the end of this week's sessions?",
+     "options": [
+      "Their belief that Musa عليه السلام would intercede and exempt them from all punishment",
+      "Their claim to be more knowledgeable than all other nations about divine scripture",
+      "Their claim that Hellfire will only touch them for a few days, based on a false calculation about the duration of the world",
+      "Their hope that the Prophet ﷺ would eventually adopt their religious law"
+     ],
+     "answer": 2,
+     "explanation": "One of the two false hopes is their claim that Hellfire will only touch them for a few days — based on a false calculation that the world lasts 7,000 years, so they owe only 7 days of punishment."
+    }
+   ]
+  },
+  {
+   "title": "Fiqh 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "Why cannot Witr be elevated to Fard status in the Hanafi madhab?",
+     "options": [
+      "There is no Dalil Qat'i — no Quranic ayah — that could establish a sixth obligatory prayer",
+      "The Prophet ﷺ explicitly stated that Witr is a Sunnah and not an obligation",
+      "The Miraj established only four obligatory prayers, and Witr fills the fifth slot",
+      "The ahadith about Witr are considered too weak to establish any form of obligation"
+     ],
+     "answer": 0,
+     "explanation": "Witr cannot be Fard because there is no Dalil Qat'i — no Quranic ayah. The Miraj established exactly five obligatory prayers; calling Witr Fard would create a sixth fard that is textually unsupported."
+    },
+    {
+     "type": "concept",
+     "question": "How does recitation in the third rakah of Witr differ from the third rakah of Maghrib?",
+     "options": [
+      "Witr's third rakah is Sirri while Maghrib's third rakah is recited aloud",
+      "The Imam recites aloud (Jahr) in Witr's third rakah; Maghrib's third rakah is recited silently (Sirri)",
+      "Both third rakahs are recited silently in the Hanafi madhab",
+      "Both the third rakahs of Witr and Maghrib are recited aloud"
+     ],
+     "answer": 1,
+     "explanation": "In the third rakah of Witr, the Imam recites aloud. In the third rakah of Maghrib, recitation is Sirri (silent). This is one of three structural differences between Witr and Maghrib."
+    },
+    {
+     "type": "concept",
+     "question": "According to the Hanafi position, when is Dua al-Qunut recited, and at what point within the rakah?",
+     "options": [
+      "In the third rakah of Witr, before Ruku, throughout the entire year",
+      "In every rakah of Witr during Ramadan, recited after completing the surah",
+      "Only in the third rakah of Fajr, before Ruku, throughout the entire year",
+      "Only during Ramadan, in the third rakah of Witr, after Ruku"
+     ],
+     "answer": 0,
+     "explanation": "The Hanafi position is that Qunut is recited in the third rakah of Witr, before Ruku, throughout the entire year — not restricted to Ramadan or any particular season."
+    },
+    {
+     "type": "concept",
+     "question": "What distinguishes Qunut al-Nazila from Qunut al-Witr?",
+     "options": [
+      "Qunut al-Nazila replaces Qunut al-Witr exclusively during Ramadan",
+      "Qunut al-Nazila uses a variable supplication; Qunut al-Witr is a fixed du'a recited annually",
+      "Qunut al-Nazila is restricted to Fajr only, while Qunut al-Witr covers all five prayers",
+      "Qunut al-Nazila is recited during times of hardship across all five daily prayers and is not a permanent practice"
+     ],
+     "answer": 3,
+     "explanation": "Qunut al-Nazila is a special supplication recited during times of hardship for the Ummah, recited across all five daily prayers for the duration of the hardship — it is not permanent, unlike Qunut al-Witr which is year-round and fixed."
+    },
+    {
+     "type": "concept",
+     "question": "What are the two intentions a Muqtadi must make before the prayer for it to count as Jama'ah?",
+     "options": [
+      "Niyyat al-Mutaba'ah and Niyyat al-Wudu (intention confirming one's state of purity)",
+      "Niyyat al-Salah and Niyyat al-Qibla (intention to face the correct direction)",
+      "Niyyat al-Fard (obligatory intention) and Niyyat al-Jama'ah (congregation intention)",
+      "Niyyat al-Salah (intention for the specific salah) and Niyyat al-Mutaba'ah (intention to follow this Imam)"
+     ],
+     "answer": 3,
+     "explanation": "The two intentions are Niyyat al-Salah — intention for the specific salah being performed — and Niyyat al-Mutaba'ah — intention to follow this particular Imam. Without both, the prayer does not count as Jama'ah."
+    },
+    {
+     "type": "concept",
+     "question": "When all five conditions are met that render the men's prayer Fasid due to a woman standing in their row, what happens to the woman's own prayer?",
+     "options": [
+      "The woman's prayer is demoted and counted only as Nafil",
+      "The woman must leave and repeat her prayer in a separate congregation",
+      "The woman's prayer remains valid",
+      "The woman's prayer also becomes Fasid along with the men's"
+     ],
+     "answer": 2,
+     "explanation": "Even when all five conditions are met and the men's prayer becomes Fasid, the woman's own prayer remains valid."
+    },
+    {
+     "type": "concept",
+     "question": "According to the Ahnaf, what must the congregation do if they discover after Salah that the Imam had no Wudu?",
+     "options": [
+      "The entire congregation must repeat the prayer",
+      "The prayer is considered valid for all parties and no repetition is required",
+      "Only the Imam must repeat the prayer; the congregation's prayer stands valid",
+      "The congregation performs Sajdat al-Sahw and the prayer is accepted"
+     ],
+     "answer": 0,
+     "explanation": "The Imam being Zamin means his prayer validity carries the congregation. If discovered after Salah that the Imam had no Wudu, the entire congregation must repeat the prayer (Ahnaf position)."
+    },
+    {
+     "type": "concept",
+     "question": "If someone who already prayed a Fard at home joins the congregation for the same Fard at the Masjid, what does the second prayer count as?",
+     "options": [
+      "A second valid Fard obligation",
+      "Sunnah Mu'akkadah",
+      "A Qadha prayer for a previously missed Salah",
+      "Nafil"
+     ],
+     "answer": 3,
+     "explanation": "The person joins with the intention of the same Salah; the second prayer counts as Nafil. The Prophet ﷺ told companions who had already prayed at their camps to join the Jama'ah, telling them it would be Nafil for them."
+    },
+    {
+     "type": "vocab",
+     "question": "What type of proof (dalil) distinguishes فَرْض from وَاجِب?",
+     "options": [
+      "Both require Dalil Qat'i but drawn from different categories of Quranic evidence",
+      "Fard requires Dalil Qat'i (definitive proof — Quran or mutawatir hadith); Wajib requires Dalil Zanni (probable proof — an emphatic ahad hadith)",
+      "Fard requires an ahad hadith; Wajib requires a Quranic ayah",
+      "Fard is established by ijma'; Wajib is established by analogical qiyas"
+     ],
+     "answer": 1,
+     "explanation": "Fard is established by Dalil Qat'i (definitive proof — Quran or mutawatir hadith), while Wajib is established by Dalil Zanni (probable proof — an ahad hadith with taqeed/emphasis). Denying a Fard is kufr; denying a Wajib is not."
+    },
+    {
+     "type": "vocab",
+     "question": "How does وَرَع (Wara') differ from Taqwa?",
+     "options": [
+      "Wara' is a Fard obligation on every Muslim; Taqwa is a recommended virtue",
+      "Taqwa is a higher station than Wara' because it encompasses all categories of worship",
+      "Wara' applies exclusively to food and drink; Taqwa applies to all acts",
+      "Wara' avoids even doubtful matters (Shubuhat) beyond the forbidden; Taqwa avoids Haram and Makruh Tahrimi"
+     ],
+     "answer": 3,
+     "explanation": "Taqwa is avoiding Haram and Makruh Tahrimi. Wara' goes further — it involves avoidance of anything carrying even a shade of doubt (Shubuhat), beyond just the clearly forbidden."
+    },
+    {
+     "type": "vocab",
+     "question": "Leading prayer as a فَاسِق is Makruh Tanzih — what does this mean for the validity of the congregation's Salah?",
+     "options": [
+      "The prayer carries only half the reward of a regular Jama'ah but is not repeated",
+      "The prayer is invalid and the congregation must repeat it with a qualified Imam",
+      "The prayer is disliked but remains valid; no sin is incurred by the congregation and no repeat is required",
+      "The prayer is valid but each Muqtadi individually incurs a sin for participating"
+     ],
+     "answer": 2,
+     "explanation": "Makruh Tanzih means the prayer is disliked but remains valid. No sin is incurred by the congregation and no repeat is required — avoidance is simply preferred."
+    },
+    {
+     "type": "vocab",
+     "question": "In what sense is the Imam a ضَامِن (guarantor), and does this role benefit the congregation as well as create risk?",
+     "options": [
+      "Yes — but only as a benefit; his invalid prayer never flows down to affect the congregation",
+      "Yes — if his prayer is valid, minor errors of Muqtadis are covered; if invalid, the congregation's prayer is also invalid",
+      "No — the Zamin role applies only during Jumu'ah, not in the five daily prayers",
+      "No — it only creates collective risk; each Muqtadi remains solely responsible for their own prayer"
+     ],
+     "answer": 1,
+     "explanation": "It cuts both ways: if the Imam's prayer is valid, minor errors of individual Muqtadis are covered — a mercy for the congregation. If invalid, the congregation's prayer is also invalid — a collective risk making the choice of a qualified Imam a communal responsibility."
+    },
+    {
+     "type": "vocab",
+     "question": "Why is a Fard Muqtadi praying behind a Nafil Imam not permissible in اقْتِدَاء (Iqtida)?",
+     "options": [
+      "A higher obligation cannot follow a lower — Fard is a higher station than Nafil",
+      "The Imam and every Muqtadi must hold the exact identical intention for Iqtida to be valid",
+      "Nafil prayers do not constitute valid Imamah in the Hanafi madhab under any condition",
+      "A Nafil prayer can never be performed in congregation under any circumstance"
+     ],
+     "answer": 0,
+     "explanation": "The asymmetry follows the principle that a higher intention cannot follow a lower. Fard is a higher station than Nafil — a Fard Muqtadi being led by a Nafil Imam would mean a higher obligation following a lower, which is not permissible."
+    },
+    {
+     "type": "vocab",
+     "question": "Which Salahs is recitation from طِوَالُ الْمُفَصَّل Masnoon for, and what is its range?",
+     "options": [
+      "Fajr and Zuhr; Surah al-Hujurat (49) to Surah al-Buruj (85)",
+      "Fajr and Asr; Surah al-Baqarah (2) to Surah al-Hujurat (49)",
+      "Maghrib and Isha; Surah al-Hujurat (49) to Surah al-Buruj (85)",
+      "Zuhr and Asr; Surah al-Buruj (85) to Surah al-Nas (114)"
+     ],
+     "answer": 0,
+     "explanation": "طِوَالُ الْمُفَصَّل is Masnoon for Fajr and Zuhr. Its range is Surah al-Hujurat (Surah 49) to Surah al-Buruj (Surah 85)."
+    },
+    {
+     "type": "vocab",
+     "question": "Fixing a particular surah as the only permissible option for a given Salah (مُتَعَيَّن) is Makruh. What is the reason?",
+     "options": [
+      "It implies other surahs are lesser and can lead to neglect of other portions of the Quran",
+      "It contradicts the Sunnah of reciting only Surah al-Fatihah in the third and fourth rakahs",
+      "It is a form of bid'ah with no basis in any of the four madhabs",
+      "It makes the prayer excessively long and places an undue burden on the congregation"
+     ],
+     "answer": 0,
+     "explanation": "Fixing a surah as the only permissible option is Makruh because it implies other surahs are lesser — which is incorrect, as all parts of the Quran carry equal sanctity — and can lead to neglect of other portions of the Quran."
+    },
+    {
+     "type": "vocab",
+     "question": "Why can a مَعْذُور (Ma'dhur) with urinary incontinence not lead those without this condition as Imam?",
+     "options": [
+      "The Ahnaf require the Imam to be in equal or better physical condition — the Ma'dhur's weaker Wudu state creates a gap that prevents valid Iqtida",
+      "His Wudu is considered permanently broken and he is therefore prohibited from leading any prayer",
+      "The Muqtadis' prayers would be invalidated by physical proximity to him throughout the Salah",
+      "He is incapable of performing Ruku and Sujud with the required completeness and stillness"
+     ],
+     "answer": 0,
+     "explanation": "The Ahnaf principle requires the Imam to be in equal or better physical condition than the Muqtadis. A Ma'dhur's Wudu is weaker — re-made for each prayer only — and this major gap in physical state prevents valid Iqtida."
+    }
+   ]
+  }
+ ]
+}

@@ -10,8 +10,14 @@ on:
 permissions:
   contents: write
 
+# Shared with weekly-quiz.yml: if this run is still going when the quiz fires, the quiz
+# waits instead of checking out a stale main and failing its push.
+concurrency:
+  group: weekly-pages
+  cancel-in-progress: false
+
 jobs:
-  run-weekly-pipeline:
+  run-weekly-review-pipeline:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -45,4 +51,4 @@ jobs:
           # billing — generate with `claude setup-token` (see CLAUDE.md). Do NOT also
           # set ANTHROPIC_API_KEY here: it takes precedence and switches to paid billing.
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: python duo.py weekly-pipeline --backend cli --commit
+        run: python duo.py weekly-review-pipeline --backend cli --commit

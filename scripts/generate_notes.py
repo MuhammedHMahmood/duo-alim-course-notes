@@ -29,7 +29,7 @@ SUBJECT_NAMES = {
 }
 
 
-def _call_api(prompt, model):
+def _call_api(prompt, model, max_tokens=8000):
     """Generate notes using Anthropic API (requires API credits)."""
     import anthropic
     from common import get_api_key
@@ -37,7 +37,7 @@ def _call_api(prompt, model):
     client = anthropic.Anthropic(api_key=get_api_key("anthropic-api-key"))
     response = client.messages.create(
         model=model,
-        max_tokens=8000,
+        max_tokens=max_tokens,
         messages=[{"role": "user", "content": prompt}],
     )
     return response.content[0].text
@@ -55,7 +55,7 @@ def _find_claude_cli():
     raise RuntimeError("Claude Code CLI not found on PATH (and no local Windows install found).")
 
 
-def _call_cli(prompt, model):
+def _call_cli(prompt, model, output_kind="THE STUDY NOTES IN MARKDOWN FORMAT"):
     """Generate notes using Claude Code CLI (uses Pro plan).
 
     Pipes the full prompt via stdin to avoid Windows command-line length limits.
@@ -65,10 +65,10 @@ def _call_cli(prompt, model):
 
     # Prepend explicit instruction to output notes directly
     full_prompt = (
-        "OUTPUT ONLY THE STUDY NOTES IN MARKDOWN FORMAT. "
+        f"OUTPUT ONLY {output_kind}. "
         "Do not describe what you would generate. Do not ask for permission. "
         "Do not include any preamble or commentary. "
-        "Just output the formatted study notes directly.\n\n"
+        "Just output it directly.\n\n"
         + prompt
     )
 

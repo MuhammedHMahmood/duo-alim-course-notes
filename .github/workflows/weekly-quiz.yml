@@ -1,0 +1,54 @@
+name: Weekly quiz
+
+on:
+  schedule:
+    # Sunday 11:30 PM Pacific (PDT, UTC-7) = Monday 06:30 UTC, 30 min after the weekly
+    # review. Drifts to 10:30 PM during PST (winter) since GitHub Actions cron is fixed UTC.
+    - cron: "30 6 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# Shared with weekly-review.yml: if the review run is still going when this fires, this
+# waits instead of checking out a stale main and failing its push.
+concurrency:
+  group: weekly-pages
+  cancel-in-progress: false
+
+jobs:
+  run-weekly-quiz-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run weekly quiz pipeline
+        env:
+          DUO_CLASSES_YAML: ${{ secrets.DUO_CLASSES_YAML }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # Draws from the Pro/Max subscription's included usage, not metered API
+          # billing — generate with `claude setup-token` (see CLAUDE.md). Do NOT also
+          # set ANTHROPIC_API_KEY here: it takes precedence and switches to paid billing.
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: python duo.py weekly-quiz-pipeline --backend cli --commit
