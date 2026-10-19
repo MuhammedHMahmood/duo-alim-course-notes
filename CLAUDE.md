@@ -127,11 +127,13 @@ transcripts/videos are gitignored and don't persist; only what's committed to `m
   `python duo.py pipeline --active-only --transcribe-backend cpu --backend cli --commit`
 - **Weekly review**, Sunday 11:00 PM Pacific (`cron: "0 6 * * 1"`, drifts an hour across DST) —
   `python duo.py weekly-review-pipeline --backend cli --commit`
-- **Weekly quiz**, Sunday 11:30 PM Pacific (`cron: "30 6 * * 1"`, drifts an hour across DST) —
-  `python duo.py weekly-quiz-pipeline --backend cli --commit`
+- **Weekly quiz**, no cron of its own — triggered by `workflow_run` when the Weekly review run
+  completes (whatever its outcome) — `python duo.py weekly-quiz-pipeline --backend cli --commit`
 
-The two weekly workflows share a `concurrency: weekly-pages` group, so if the review run is still
-going when the quiz fires, the quiz queues instead of checking out a stale `main` and failing its push.
+GitHub's scheduled triggers are best-effort: the review's 06:00 UTC cron has fired 6-8 hours late
+most weeks, and the quiz's original separate 06:30 cron never fired at all on its first week. Chaining
+the quiz off the review guarantees it runs, always after the review has pushed. The two workflows also
+share a `concurrency: weekly-pages` group so manual runs of both can't push to `main` at once.
 
 All are also runnable on demand — `gh workflow run daily-pipeline.yml` /
 `gh workflow run weekly-review.yml` / `gh workflow run weekly-quiz.yml` (add `--repo MuhammedHMahmood/duo-alim-course-notes` from

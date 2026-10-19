@@ -1,17 +1,20 @@
 name: Weekly quiz
 
 on:
-  schedule:
-    # Sunday 11:30 PM Pacific (PDT, UTC-7) = Monday 06:30 UTC, 30 min after the weekly
-    # review. Drifts to 10:30 PM during PST (winter) since GitHub Actions cron is fixed UTC.
-    - cron: "30 6 * * 1"
+  # Chained off the weekly review rather than its own cron: GitHub's scheduled triggers are
+  # best-effort (the review's 06:00 UTC cron routinely fires hours late) and the quiz's own
+  # 06:30 schedule was dropped outright on its first week. Runs whatever the review's
+  # outcome, since the quiz doesn't depend on the review page.
+  workflow_run:
+    workflows: ["Weekly review"]
+    types: [completed]
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
-# Shared with weekly-review.yml: if the review run is still going when this fires, this
-# waits instead of checking out a stale main and failing its push.
+# Shared with weekly-review.yml so a manual run of either can't push to main at the same
+# time as the other.
 concurrency:
   group: weekly-pages
   cancel-in-progress: false
