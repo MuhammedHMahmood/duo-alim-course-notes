@@ -81,7 +81,8 @@ update the live site, and `deploy` alone does NOT save the source — both are n
   (Mon-Sun, across every active class), then built, deployed and (with `--commit`) committed:
   - `duo.py weekly-review-pipeline` → a condensed recap per class at `weekly/reviews/{week-ending-date}.md`.
   - `duo.py weekly-quiz-pipeline` → a multiple-choice quiz at `weekly/quizzes/{week-ending-date}.json`
-    (~5 concept + ~5 vocab questions per class).
+    (at most 21 questions — `QUIZ_MAX_QUESTIONS` — split evenly across classes, e.g. 4 concept + 3
+    vocab per class in a 3-class week; `limit_quiz()` enforces the cap even if the model overshoots).
 
   The review page's "Take the weekly quiz" link is added at build time (`update_mkdocs.sync_weekly_reviews()`)
   only once that week's quiz exists, so the review never links to a quiz that hasn't been generated yet.

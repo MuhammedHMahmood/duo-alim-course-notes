@@ -31,18 +31,6 @@
     },
     {
      "type": "concept",
-     "question": "Why is شَيْطَان munsarif while إِبْلِيس is ghayr munsarif?",
-     "options": [
-      "شَيْطَان follows a pattern of jama' muntaha al-jumūm while إِبْلِيس does not",
-      "شَيْطَان carries tā' marbūtah providing tā'nīth while إِبْلِيس does not",
-      "شَيْطَان is a common noun with no alamiyyah while إِبْلِيس has both alamiyyah and ʿujmah",
-      "شَيْطَان is Arabic in origin while إِبْلِيس is non-Arabic, so only إِبْلِيس has ʿujmah"
-     ],
-     "answer": 2,
-     "explanation": "شَيْطَان is a common noun applicable to any evil jinn — it has no alamiyyah, so ʿujmah alone gives only one sabab → munsarif. إِبْلِيس is a proper name (alamiyyah) of non-Arabic origin (ʿujmah) — two asbāb → ghayr munsarif."
-    },
-    {
-     "type": "concept",
      "question": "A non-Arabic proper name has three root letters with a sukūn on the middle letter. What is its ruling regarding ghayr munsarif?",
      "options": [
       "Ghayr munsarif, because alamiyyah and ʿujmah together always produce ghayr munsarif",
@@ -66,18 +54,6 @@
      "explanation": "The two patterns are مَفَاعِل (e.g., مَسَاجِد) and مَفَاعِيل (e.g., مَصَابِيح). Both act as qā'im maqām as-sababayn."
     },
     {
-     "type": "concept",
-     "question": "Which example fails the tarkīb sabab for ghayr munsarif because of iḍāfah?",
-     "options": [
-      "إِبْلِيس",
-      "عَبْدُ اللَّهِ",
-      "بَعْلَبَكَّ",
-      "حَمْرَاء"
-     ],
-     "answer": 1,
-     "explanation": "عَبْدُ اللَّهِ has an iḍāfah relationship — عَبْد is muḍāf and اللَّه is muḍāf ilayhi — which disqualifies it from the tarkīb sabab, making it munsarif."
-    },
-    {
      "type": "vocab",
      "question": "What two grammatical effects distinguish a غَيْرُ مُنْصَرِف noun from a munsarif noun?",
      "options": [
@@ -88,30 +64,6 @@
      ],
      "answer": 2,
      "explanation": "A ghayr munsarif noun (diptote) does not accept tanwīn, and in the majrūr state it takes fatḥah rather than the usual kasrah."
-    },
-    {
-     "type": "vocab",
-     "question": "Which of the following is NOT one of the three asbāb that are قَائِمٌ مَقَامَ السَّبَبَيْن?",
-     "options": [
-      "Alif Maqsūra",
-      "Jama' Muntaha al-Jumūm",
-      "Tā' Marbūtah",
-      "Alif Mamdūda"
-     ],
-     "answer": 2,
-     "explanation": "The three asbāb that carry the weight of two are: Alif Maqsūra, Alif Mamdūda, and Jama' Muntaha al-Jumūm. Tā' Marbūtah counts as only one sabab and is not in this group."
-    },
-    {
-     "type": "vocab",
-     "question": "Which statement correctly describes the relationship between عَلَمِيَّة and maʿrifah?",
-     "options": [
-      "Every maʿrifah is an alam, but not every alam is a maʿrifah",
-      "Every alam is a maʿrifah, but not every maʿrifah is an alam",
-      "Neither every maʿrifah is an alam, nor every alam is a maʿrifah",
-      "Every maʿrifah is an alam, and every alam is a maʿrifah"
-     ],
-     "answer": 1,
-     "explanation": "The relationship is one-directional: every alam is necessarily maʿrifah, but a maʿrifah (like الرَّجُلُ) may refer to an unspecified individual and thus is not an alam."
     },
     {
      "type": "vocab",
@@ -127,30 +79,6 @@
     },
     {
      "type": "vocab",
-     "question": "Why is جَمْعُ مُنْتَهَى الْجُمُوع called 'terminal' (muntahā)?",
-     "options": [
-      "Because no further plural can be formed from it",
-      "Because it contains the maximum number of syllables allowed in Arabic",
-      "Because it always ends in an alif followed by two consonants",
-      "Because it always appears at the end of a sentence"
-     ],
-     "answer": 0,
-     "explanation": "It is 'terminal' because no further plural can be formed from it — it is the final stage of pluralization beyond which the word cannot be pluralized again."
-    },
-    {
-     "type": "vocab",
-     "question": "Which word has its femininity marked by an أَلِف مَقْصُورَة?",
-     "options": [
-      "فَاطِمَة",
-      "حَمْرَاء",
-      "مَسَاجِد",
-      "حُبْلَى"
-     ],
-     "answer": 3,
-     "explanation": "Alif Maqsūra is written as ى at the end of a word; حُبْلَى is an example of a word whose femininity is marked by this alif."
-    },
-    {
-     "type": "vocab",
      "question": "Which word has its femininity marked by an أَلِف مَمْدُودَة?",
      "options": [
       "حُبْلَى",
@@ -160,42 +88,6 @@
      ],
      "answer": 3,
      "explanation": "Alif Mamdūda is an alif followed by hamzah at the end of a word; حَمْرَاء is an example where this alif marks femininity."
-    },
-    {
-     "type": "vocab",
-     "question": "Which two grammatical relationships disqualify a compound from the تَرْكِيب sabab?",
-     "options": [
-      "Isnād and tā'nīth",
-      "ʿUjmah and alamiyyah",
-      "Iḍāfah and isnād",
-      "Jama' muntaha al-jumūm and tā' marbūtah"
-     ],
-     "answer": 2,
-     "explanation": "If iḍāfah (possessive/genitive construction) or isnād (predicate-subject relation) exists between the two parts of a compound, it is disqualified from the tarkīb sabab."
-    },
-    {
-     "type": "vocab",
-     "question": "Why is عَبْدُ اللَّهِ munsarif despite being a compound proper noun?",
-     "options": [
-      "Because عَبْد is a common noun rather than a proper noun",
-      "Because it has an isnād relationship between its two parts",
-      "Because it contains the name of Allah, which overrides the tarkīb rule",
-      "Because it has an iḍāfah relationship between its two parts"
-     ],
-     "answer": 3,
-     "explanation": "عَبْدُ اللَّهِ has an iḍāfah relationship — عَبْد is muḍāf and اللَّه is muḍāf ilayhi — which disqualifies it from the tarkīb sabab, making it munsarif."
-    },
-    {
-     "type": "vocab",
-     "question": "In the context of جَمْعُ مُنْتَهَى الْجُمُوع, when is a مُشَدَّد letter legally significant?",
-     "options": [
-      "When only one letter follows the alif of the plural",
-      "When the word is a non-Arabic proper noun",
-      "When three letters follow the alif of the plural",
-      "When two letters follow the alif of the plural, with the first being sākin"
-     ],
-     "answer": 0,
-     "explanation": "Shadda becomes legally significant in jama' muntaha al-jumūm when only one letter follows the alif — that single letter must be mushaddad for the pattern to be valid, as in دَوَابّ."
     }
    ]
   },
@@ -228,18 +120,6 @@
     },
     {
      "type": "concept",
-     "question": "Of the three 'severed connections' described in this passage, which one is specific to Ahl al-Kitāb?",
-     "options": [
-      "Rejecting some prophets while accepting others",
-      "Abandoning loyalty bonds with believers",
-      "Spreading kufr and shirk",
-      "Severing ties of kinship (qat' al-arḥām)"
-     ],
-     "answer": 0,
-     "explanation": "Rejecting some prophets while accepting others — e.g., accepting Mūsā but rejecting Muḥammad ﷺ — is specific to Ahl al-Kitāb. Severing kinship ties and abandoning loyalty bonds with believers apply generally."
-    },
-    {
-     "type": "concept",
      "question": "What is identified as the worst form of إِفْسَادٌ فِي الْأَرْضِ in this passage?",
      "options": [
       "Spreading kufr and shirk",
@@ -263,18 +143,6 @@
      "explanation": "Kayfa here is an interrogative of rebuke and denial (inkār) — it scolds and rejects the disbelievers' stance; it is not a genuine request for information."
     },
     {
-     "type": "concept",
-     "question": "What is the logical proof for the ease of resurrection derived from Ayah 29?",
-     "options": [
-      "Allah created man once from clay, so He can certainly recreate him from it",
-      "The seven heavens contain enough capacity to house all resurrected souls",
-      "If Allah accomplished the incomparably greater act of creating the entire universe, resurrection of a single human is even more easily within His power",
-      "The framework of creation was designed with resurrection as its ultimate purpose"
-     ],
-     "answer": 2,
-     "explanation": "Allah created the entire universe — earth, seven heavens, all planets and galaxies — an act of far greater magnitude than resurrecting one human. If He accomplished the greater, the lesser (resurrection) is even more easily within His power."
-    },
-    {
      "type": "vocab",
      "question": "The root meaning of fisq is 'going outside.' What specifically are الْفَاسِقِينَ going outside of?",
      "options": [
@@ -285,30 +153,6 @@
      ],
      "answer": 1,
      "explanation": "The Fasiqeen are those going outside the obedience of Allah (ṭāʿat Allāh) — this is the specific meaning the passage establishes."
-    },
-    {
-     "type": "vocab",
-     "question": "What distinguishes a مِيثَاق from a general عَهْد?",
-     "options": [
-      "A mīthāq is an affirmed, witnessed, and binding covenant backed by proofs and evidences",
-      "A mīthāq is a covenant with Allah while an ʿahd is a covenant between people",
-      "A mīthāq is an informal verbal agreement while an ʿahd is a written contract",
-      "A mīthāq applies only to Ahl al-Kitāb while an ʿahd applies universally"
-     ],
-     "answer": 0,
-     "explanation": "A mīthāq is an affirmed, witnessed, and binding covenant backed by proofs and evidences — making its violation far more grave than breaking an ordinary agreement (ʿahd)."
-    },
-    {
-     "type": "vocab",
-     "question": "What does Allah command regarding قَطْعُ الأَرْحَام (family ties)?",
-     "options": [
-      "That they be redefined to include only close relatives",
-      "That they be maintained and upheld",
-      "That they be severed if they lead to fitnah",
-      "That they be renewed through formal covenants"
-     ],
-     "answer": 1,
-     "explanation": "Allah commands that family ties (arḥām) be maintained and upheld. Severing these ties is listed here as a defining characteristic of the Fasiqeen."
     },
     {
      "type": "vocab",
@@ -324,30 +168,6 @@
     },
     {
      "type": "vocab",
-     "question": "From which surah is الْفِتْنَةُ أَشَدُّ مِنَ الْقَتْلِ taken?",
-     "options": [
-      "Surah Al-Anfāl",
-      "Surah An-Nisāʾ",
-      "Surah Al-Baqarah",
-      "Surah Āl ʿImrān"
-     ],
-     "answer": 2,
-     "explanation": "This phrase is from Surah Al-Baqarah. All mufassirūn agree that fitnah here means the spreading of kufr and shirk."
-    },
-    {
-     "type": "vocab",
-     "question": "بَعْث is one of the five stages of human existence in Ayah 28. Which stage is it?",
-     "options": [
-      "Death at the appointed time (stage three)",
-      "Return to Allah for reckoning (stage five)",
-      "Life in this world (stage two)",
-      "Resurrection from the graves (stage four)"
-     ],
-     "answer": 3,
-     "explanation": "Baʿth is stage four: resurrection — Allah reviving the dead from their graves (baʿth min al-qubūr)."
-    },
-    {
-     "type": "vocab",
      "question": "How must اسْتَوَى be understood when applied to Allah in Ayah 29?",
      "options": [
       "Literally and without any interpretation",
@@ -357,42 +177,6 @@
      ],
      "answer": 3,
      "explanation": "Istawā must be understood as it befits Allah's majesty — without likening it to the rising of a created being or making any anthropomorphic comparison."
-    },
-    {
-     "type": "vocab",
-     "question": "Both أَمَاتَ and أَحْيَا are Form IV (bāb ifʿāl). What grammatical feature of Form IV do their meanings reflect?",
-     "options": [
-      "Reflexivity — the subject acts upon itself",
-      "Passivity — the subject receives the action",
-      "Intensification — a more intense form of the base action",
-      "Causativity — causing something to happen to another"
-     ],
-     "answer": 3,
-     "explanation": "Form IV conveys causativity: amāta means 'to cause to die' and aḥyā means 'to cause to live / to give life' — the subject causes the action to occur in another."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the دَلِيلُ الْقُدْرَةِ الْبَاهِرَةِ referred to in Ayah 29?",
-     "options": [
-      "The creation of the earth and seven heavens",
-      "The resurrection of the dead on the Day of Judgment",
-      "The revelation of the Qurʾān to the Prophet ﷺ",
-      "The creation of the first human being from clay"
-     ],
-     "answer": 0,
-     "explanation": "The dalīl is the creation of the earth and seven heavens. It proves Allah's overwhelming, absolute power — and by extension, that resurrection is entirely within His ability."
-    },
-    {
-     "type": "vocab",
-     "question": "Why did the teacher decline to cover بَلَاغَة in these āyāt?",
-     "options": [
-      "The mufassirūn discourage discussing balāghah in passages about the Fasiqeen",
-      "The balāghah of these verses is too advanced even for the teacher to explain",
-      "Balāghah analysis is not part of the tafseer curriculum at any level",
-      "The students have not yet studied a balāghah textbook, so teaching it would consume too much time and divert from the required curriculum"
-     ],
-     "answer": 3,
-     "explanation": "The teacher declined because the students have not yet studied a balāghah textbook; introducing it now would consume too much time and divert from the required tafseer curriculum."
     }
    ]
   },
@@ -425,18 +209,6 @@
     },
     {
      "type": "concept",
-     "question": "Under what timing conditions is vaginal bleeding classified as اسْتِحَاضَة rather than ḥayḍ?",
-     "options": [
-      "When it is lighter in color or flow than her normal ḥayḍ",
-      "When it lasts less than 3 days or more than 10 days",
-      "When it occurs outside the woman's established habit dates",
-      "When it lasts between 3 and 10 days"
-     ],
-     "answer": 1,
-     "explanation": "Istiḥāḍah is vaginal bleeding that is less than 3 days (below the minimum for ḥayḍ) or more than 10 days (above the maximum for ḥayḍ) in duration."
-    },
-    {
-     "type": "concept",
      "question": "A woman with an established ʿādah of 7 days bleeds for 11 days. How are days 8 through 10 classified?",
      "options": [
       "A new ḥayḍ cycle beginning on day 8",
@@ -460,18 +232,6 @@
      "explanation": "Ṭalāq bidʿī includes pronouncing three ṭalāqs simultaneously, or giving any ṭalāq while the wife is in ḥayḍ — both are impermissible."
     },
     {
-     "type": "concept",
-     "question": "Under Imām al-Shāfiʿī's position, what must a maʿdhūr woman do to pray nāfil ṣalāh after her farḍ?",
-     "options": [
-      "Perform a complete ghusl before each nāfil ṣalāh",
-      "Use the same wuḍūʾ until the current ṣalāh time exits",
-      "Use the same wuḍūʾ until the next ṣalāh time begins",
-      "Make a fresh wuḍūʾ before each nāfil ṣalāh"
-     ],
-     "answer": 3,
-     "explanation": "Under Imām al-Shāfiʿī's position, wuḍūʾ is valid only for that single farḍ ṣalāh — nāfil after it requires a new wuḍūʾ. Under the Ḥanafī position (Abū Ḥanīfah/Abū Yūsuf), the same wuḍūʾ lasts until the next ṣalāh time begins."
-    },
-    {
      "type": "vocab",
      "question": "What established analogy (ḥukm) does اسْتِحَاضَة share?",
      "options": [
@@ -482,30 +242,6 @@
      ],
      "answer": 2,
      "explanation": "Istiḥāḍah shares the ḥukm of a nosebleed (ḥukm al-ruʿāf): it is a minor impurity that does not prevent ṣalāh, fasting, or conjugal relations — worship continues normally."
-    },
-    {
-     "type": "vocab",
-     "question": "Which of the following is an example of a مَعْذُور in the Ḥanafī school?",
-     "options": [
-      "A person too ill to stand during ṣalāh",
-      "A person who forgets to renew wuḍūʾ before ṣalāh",
-      "A traveler who cannot find water for wuḍūʾ",
-      "A person with chronic urinary incontinence"
-     ],
-     "answer": 3,
-     "explanation": "A maʿdhūr has a continuous excuse that invalidates wuḍūʾ; examples include a woman with continuous istiḥāḍah, a person with chronic urinary incontinence, and a person with a continuously bleeding wound."
-    },
-    {
-     "type": "vocab",
-     "question": "If a مُبْتَدَأَة's very first cycle lasts 12 days, what becomes her established ʿādah?",
-     "options": [
-      "3 days, the minimum for ḥayḍ",
-      "7 days, the average for most women",
-      "12 days, matching the full duration of her first cycle",
-      "10 days, the legal maximum"
-     ],
-     "answer": 3,
-     "explanation": "Days 1–10 are ḥayḍ (the legal maximum); days 11–12 are istiḥāḍah. Her ʿādah becomes 10 days — the maximum her first cycle produced within the legal limit."
     },
     {
      "type": "vocab",
@@ -521,30 +257,6 @@
     },
     {
      "type": "vocab",
-     "question": "Why can a general ruling not be applied directly to a مُسْتَرِيبَة?",
-     "options": [
-      "She has no established ʿādah and requires individualized guidance from a qualified scholar",
-      "She must wait three full cycles before any classification can be made",
-      "Her condition is too rare to have an established ruling in classical fiqh",
-      "The Ḥanafī school has not issued a position on her specific condition"
-     ],
-     "answer": 0,
-     "explanation": "A mustaribah's situation is a 'moving target' — she has no established habit, so a general ruling cannot apply. She needs individualized guidance from a qualified muftī/ʿālim who can issue a fatwā specific to her condition."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the minimum duration of طُهْر?",
-     "options": [
-      "3 days",
-      "10 days",
-      "7 days",
-      "15 days"
-     ],
-     "answer": 3,
-     "explanation": "The minimum duration of ṭuhr is 15 days. If spotting occurs before this minimum has elapsed, it is classified as istiḥāḍah, not a new ḥayḍ."
-    },
-    {
-     "type": "vocab",
      "question": "حَرَج is a recognized legal basis for concession. Which of the following is another example from fiqh where Sharīʿah removes ḥaraj?",
      "options": [
       "The sick person being permitted to pray seated or lying down when unable to stand",
@@ -554,42 +266,6 @@
      ],
      "answer": 0,
      "explanation": "The sick person is permitted to pray seated or lying down — removing the ḥaraj of an impossible requirement. Similarly, the traveler may shorten four-rakʿah prayers to two."
-    },
-    {
-     "type": "vocab",
-     "question": "For a ṭalāq to be classified as طَلَاق سُنِّي, how many ṭalāqs may be pronounced at one time?",
-     "options": [
-      "Up to two, as long as there is a gap of one day between them",
-      "Only one, pronounced during each separate period of ṭuhr",
-      "Up to three, as long as all are pronounced during periods of ṭuhr",
-      "Only one, pronounced immediately after each ḥayḍ ends"
-     ],
-     "answer": 1,
-     "explanation": "For ṭalāq sunnī, the husband pronounces exactly one ṭalāq during each separate period of ṭuhr — never more than one at a time, and never during menstruation."
-    },
-    {
-     "type": "vocab",
-     "question": "Why is طَوَافُ الزِّيَارَة uniquely critical for a ḥāʾiḍah performing Ḥajj?",
-     "options": [
-      "It is a sunnah that earns great reward but can be compensated by dam",
-      "It must be performed while in a state of iḥrām that ṭawāf al-qudūm does not require",
-      "It is the only ṭawāf that cannot be delegated to another person",
-      "It is a rukn whose omission invalidates the entire Ḥajj and cannot be compensated by dam alone"
-     ],
-     "answer": 3,
-     "explanation": "Ṭawāf al-ziyārah is a rukn of Ḥajj — its omission invalidates the Ḥajj entirely and cannot be compensated by dam alone; it must ultimately be performed. Ṭawāf al-qudūm is not a rukn and missing it carries no comparable consequence."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the legal consequence of omitting a رُكْن from an act of worship?",
-     "options": [
-      "The entire act of worship is invalidated and cannot be compensated by dam",
-      "The act is valid but requires dam as compensation",
-      "The act is valid but must be repeated within the same prayer time",
-      "The act is valid but the worshipper must perform an extra rakʿah"
-     ],
-     "answer": 0,
-     "explanation": "Omitting a rukn invalidates the entire act of worship — it cannot be compensated by dam or any substitute. Omitting a wājib makes the act deficient and requires dam, but the act itself remains valid."
     }
    ]
   }

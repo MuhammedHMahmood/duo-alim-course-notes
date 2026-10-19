@@ -18,6 +18,7 @@ WEEKLY_DIR = PROJECT_ROOT / "weekly" / "reviews"
 QUIZ_DIR = PROJECT_ROOT / "weekly" / "quizzes"
 
 QUIZ_OPTIONS = 4
+QUIZ_MAX_QUESTIONS = 21
 QUIZ_SCHEMA = """{"sections": [{"title": "Nahw 201", "questions": [
   {"type": "concept", "question": "...", "options": ["...", "...", "...", "..."],
    "answer": 0, "explanation": "..."}]}]}"""
@@ -122,8 +123,17 @@ def build_digest(settings, backend, start, end, sessions):
 
 # --- Weekly quiz (multiple choice) ----------------------------------------------------
 
+def _quotas(total, n):
+    """Split total into n near-equal integer parts, larger parts first."""
+    return [total // n + (1 if i < total % n else 0) for i in range(n)]
+
+
 def _build_quiz_prompt(start, end, sessions):
     date_range = date_range_label(start, end)
+    n_classes = len({(subject, course) for subject, course, _, _ in sessions})
+    per_class = min(10, QUIZ_MAX_QUESTIONS // n_classes)
+    n_concept = (per_class + 1) // 2 + (1 if per_class % 2 == 0 else 0)
+    n_vocab = per_class - n_concept
     return f"""You are creating a multiple-choice quiz for a student in the DUO 6-year Alim \
 course, covering everything taught this week ({date_range}). The student has read the \
 notes once, not memorized them: questions should check understanding of the main ideas and \
@@ -135,9 +145,10 @@ Output ONLY a JSON object (no prose, no code fences) shaped like this:
 
 Rules:
 - One section per class (subject + course) that had a session this week; "title" is e.g. "Nahw 201".
-- In each section: 5 questions with "type": "concept" (rules, rulings, explanations, meanings of \
-ayat or hadith), then 5 with "type": "vocab" (an Arabic term and its meaning or usage, or a \
-meaning and its term).
+- In each section: exactly {n_concept} questions with "type": "concept" (rules, rulings, \
+explanations, meanings of ayat or hadith), then exactly {n_vocab} with "type": "vocab" (an Arabic \
+term and its meaning or usage, or a meaning and its term). Pick the most important ideas and \
+spread them across the week's sessions.
 - Exactly {QUIZ_OPTIONS} options per question, exactly one correct. "answer" is the 0-based index of the \
 correct option.
 - Distractors must be plausible: related terms, rules or rulings from the same notes. Keep \
@@ -192,7 +203,44 @@ def parse_quiz(raw, start, end):
 
     if not sections:
         raise ValueError("no valid questions in model output")
-    return {"week_start": start.isoformat(), "week_end": end.isoformat(), "sections": sections}
+    quiz = {"week_start": start.isoformat(), "week_end": end.isoformat(), "sections": sections}
+    return limit_quiz(quiz)
+
+
+def _spread(items, k):
+    """Pick k items evenly spaced through the list, keeping their order."""
+    if k >= len(items):
+        return list(items)
+    return [items[(i * len(items)) // k] for i in range(k)]
+
+
+def limit_quiz(quiz, max_questions=QUIZ_MAX_QUESTIONS):
+    """Trim a quiz to at most max_questions, balanced across sections and, within a
+    section, between concept and vocab questions. Picks are spread evenly through
+    each list so coverage of the week isn't lost to whatever came first."""
+    sections = quiz["sections"]
+    if sum(len(s["questions"]) for s in sections) <= max_questions:
+        return quiz
+
+    # Hand out the budget one slot at a time to sections that still have questions, so
+    # a short section's unused share goes to the others.
+    quota = [0] * len(sections)
+    budget = max_questions
+    while budget:
+        open_ = [i for i, s in enumerate(sections) if quota[i] < len(s["questions"])]
+        for i, share in zip(open_, _quotas(budget, len(open_))):
+            quota[i] += min(share, len(sections[i]["questions"]) - quota[i])
+        budget = max_questions - sum(quota)
+
+    trimmed = []
+    for sec, k in zip(sections, quota):
+        qs = sec["questions"]
+        concept = [q for q in qs if q["type"] == "concept"]
+        vocab = [q for q in qs if q["type"] == "vocab"]
+        n_concept = min(len(concept), max(k - len(vocab), (k + 1) // 2 + (1 if k % 2 == 0 else 0)))
+        keep = _spread(concept, n_concept) + _spread(vocab, k - n_concept)
+        trimmed.append({**sec, "questions": [q for q in qs if any(q is kq for kq in keep)]})
+    return {**quiz, "sections": trimmed}
 
 
 def quiz_from_prompt(prompt, settings, backend, start, end, attempts=2):

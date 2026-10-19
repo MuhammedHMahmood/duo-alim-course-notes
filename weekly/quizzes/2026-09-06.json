@@ -31,18 +31,6 @@
     },
     {
      "type": "concept",
-     "question": "What are the two asbab that make ثُلَاث / مَثْلَث Ghayr Munsarif?",
-     "options": [
-      "Wazn Fi'l and Wasf",
-      "Wasf and Adl Tahqiqi",
-      "'Alamiyya and Wasf",
-      "Adl Taqdiri and Ta'nith"
-     ],
-     "answer": 1,
-     "explanation": "ثُلَاث / مَثْلَث carries Wasf (designed as a descriptor meaning 'three and three') and Adl Tahqiqi (deviated from the original form سَلَاسَةٌ سَلَاسَةٌ, proven by the repetition in its meaning)."
-    },
-    {
-     "type": "concept",
      "question": "What is the defining difference between Wasf Asli and Wasf Ardi?",
      "options": [
       "Wasf Asli requires Ta'nith to function as a sabab; Wasf Ardi does not",
@@ -66,18 +54,6 @@
      "explanation": "Adl cannot pair with Wazn Fi'l as its second sabab. Adl commonly pairs with 'Alamiyya (e.g., عُمَر، زُفَر) and with Wasf (e.g., ثُلَاث، مَثْلَث)."
     },
     {
-     "type": "concept",
-     "question": "Why is هِنْد valid as both Munsarif and Ghayr Munsarif?",
-     "options": [
-      "Because it has Ta'nith Ma'nawi and 'Alam, but its middle letter is Sakin al-Awsat and it is Arabic origin, weakening the second sabab",
-      "Because it is a foreign-origin word, making its 'Alam status ambiguous",
-      "Because Thulathi words with Ta'nith Lafzi are always permitted both rulings by consensus",
-      "Because grammarians applied Adl Taqdiri to it, creating two valid interpretations"
-     ],
-     "answer": 0,
-     "explanation": "هِنْد is Thulathi with Ta'nith Ma'nawi and 'Alam — two asbab in principle — but its middle letter carries sukoon (Sakin al-Awsat) and it is Arabic origin; both sub-conditions failing means the second sabab is weakened, so grammarians accepted both rulings as valid."
-    },
-    {
      "type": "vocab",
      "question": "What does it mean for a noun to be مُنْصَرِف?",
      "options": [
@@ -88,18 +64,6 @@
      ],
      "answer": 0,
      "explanation": "Munsarif accepts all three harakaat (Damma, Fatha, Kasra) along with Tanwin; it 'turns' to all states of declension."
-    },
-    {
-     "type": "vocab",
-     "question": "In the jarr position, what does غَيْر مُنْصَرِف take instead of Kasra?",
-     "options": [
-      "Fatha",
-      "Sukoon",
-      "Damma",
-      "Tanwin al-Fath"
-     ],
-     "answer": 0,
-     "explanation": "Ghayr Munsarif takes Fatha in the jarr position instead of the expected Kasra."
     },
     {
      "type": "vocab",
@@ -115,30 +79,6 @@
     },
     {
      "type": "vocab",
-     "question": "What does تَقْدِير mean, and how does it apply to عُمَر?",
-     "options": [
-      "Grammatical assumption; grammarians inferred عُمَر's original form was عَامِر to supply a missing second sabab",
-      "Literal deviation; grammarians found explicit evidence that عُمَر originally ended in Ta' Marbuta",
-      "Phonetic transformation; عُمَر lost its Ta' Marbuta to become Ghayr Munsarif",
-      "Semantic inversion; عُمَر's meaning shifted, granting it the quality of Adl"
-     ],
-     "answer": 0,
-     "explanation": "Taqdir means grammatical assumption — inferring something not explicitly stated. For عُمَر, grammarians assumed the original form was عَامِر to supply the missing second sabab, since only Alamiyya was visibly present."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the rule regarding وَصْف أَصْلِي once a word possesses it?",
-     "options": [
-      "It applies only while the word is being used in a comparative construction",
-      "It is retained permanently — 'once Wasf, forever Wasf' — even if the word shifts in daily use to function as a noun",
-      "It is lost when the word enters a genitive structure",
-      "It disappears once the word is used more than half the time as a noun"
-     ],
-     "answer": 1,
-     "explanation": "Wasf Asliyya is never removed — a word designed from the outset to describe retains that quality permanently, even if it later functions primarily as a noun (e.g., أَسْوَد as a name for a type of snake)."
-    },
-    {
-     "type": "vocab",
      "question": "Which of the following is one of the three visible markers of تَأْنِيث لَفْظِي?",
      "options": [
       "Shadda on the final letter",
@@ -148,30 +88,6 @@
      ],
      "answer": 1,
      "explanation": "The three markers of Ta'nith Lafzi are Tā' marbūṭah (ة), Alif maqṣūrah (ى), and Alif mamdūdah (اء)."
-    },
-    {
-     "type": "vocab",
-     "question": "A Thulāthī word with سَاكِن الأَوْسَط and Arabic origin falls into which category for Ghayr Munsarif purposes?",
-     "options": [
-      "Always Munsarif because Arabic origin overrides the Ta'nith",
-      "Both Munsarif and Ghayr Munsarif are valid",
-      "Always Ghayr Munsarif because the middle weakness outweighs its Arabic origin",
-      "Ghayr Munsarif only if it also carries 'Alamiyya"
-     ],
-     "answer": 1,
-     "explanation": "With Arabic origin and Sakin al-Awsat, both Munsarif and Ghayr Munsarif are valid — the word sits on the fence, and grammarians accepted both rulings."
-    },
-    {
-     "type": "vocab",
-     "question": "Which statement correctly describes the relationship between عَلَمِيَّة and وَصْف as the two asbab for Ghayr Munsarif?",
-     "options": [
-      "They can pair together, but only for Thulathi words with Sakin al-Awsat",
-      "They commonly pair together when the word is of Ajami origin",
-      "They are mutually exclusive — they can never co-occur as the two asbab",
-      "They can pair together only when the word also has Ta'nith Ma'nawi"
-     ],
-     "answer": 2,
-     "explanation": "'Alamiyya and Wasf are mutually exclusive as the two asbab — they can never co-occur as the pair that triggers Ghayr Munsarif."
     }
    ]
   },
@@ -204,18 +120,6 @@
     },
     {
      "type": "concept",
-     "question": "What does لَن communicate in وَلَن تَفْعَلُوا, and how does it differ from لَا?",
-     "options": [
-      "لَن is a question particle introducing a hypothetical; لَا is a simple negation of fact",
-      "لَن negates a present action with uncertainty; لَا negates a past action definitively",
-      "لَن permanently and definitively negates a future action for all time; لَا is a general negation without that permanence",
-      "لَن negates unlikely events; لَا negates events that have already happened"
-     ],
-     "answer": 2,
-     "explanation": "لَن negates a future action permanently and forever — a decisive divine declaration that the Quran will never be successfully challenged. لَا is a general negation; لَن is stronger and more definitive, and history has confirmed this from the Prophet's ﷺ time until today."
-    },
-    {
-     "type": "concept",
      "question": "According to Mujahid, what are الحجارة in the description of Hellfire's fuel, and why are they especially severe?",
      "options": [
       "Stones from the mountains of this world that glow red-hot with heat",
@@ -239,18 +143,6 @@
      "explanation": "The greatest anxiety of this life is the fear of death and loss. Jannah removes that anxiety entirely by making all its perfect blessings permanent — without eternity, even the finest blessings would remain incomplete happiness."
     },
     {
-     "type": "concept",
-     "question": "Why is جَنَّاتٍ marked with Kasra as its sign of Nasb, even though it is the Ism of Anna?",
-     "options": [
-      "Because it follows a preposition which always triggers Kasra regardless of grammatical position",
-      "Because Anna only takes Fatha when its Ism is a masculine singular noun",
-      "Because the rule of Anna is suspended when the Ism is indefinite (Nakirah)",
-      "Because جَنَّاتٍ is a Jam' Mu'annath Saalim, and this category always uses Kasra as its Nasb marker"
-     ],
-     "answer": 3,
-     "explanation": "Jam' Mu'annath Saalim always uses Kasra as its sign of Nasb — this is an exception to the general rule. How Nasb is marked depends on the word's grammatical category, not just its position in the sentence."
-    },
-    {
      "type": "vocab",
      "question": "What is a نِدّ, and what were the mushrikeen doing by making أَنداد for Allah?",
      "options": [
@@ -261,30 +153,6 @@
      ],
      "answer": 2,
      "explanation": "A nidd is an equal, rival, or partner. The mushrikeen set up idols and created things as equals to Allah in power and worship, which is the essence of Shirk."
-    },
-    {
-     "type": "vocab",
-     "question": "Which of the following is cited as a dimension of إِعْجَاز القُرآن in these sessions?",
-     "options": [
-      "Eloquence and rhetoric (بَلَاغَة)",
-      "The speed at which the Companions memorized and preserved the Quran",
-      "The number of times the Quran has been printed and distributed worldwide",
-      "The ease of memorization compared to other scriptures"
-     ],
-     "answer": 0,
-     "explanation": "Three dimensions cited are eloquence/rhetoric (بَلَاغَة), clarity of expression (بَيَان), and composition/arrangement (نَظْم), along with words, meanings, and legislation (شَرِيعَة)."
-    },
-    {
-     "type": "vocab",
-     "question": "What does الرَّيب mean, and in which ayah does it appear in these sessions?",
-     "options": [
-      "Wonder; it appears in the Jannah ayah describing the purified spouses",
-      "Rejection; it appears in the ayah describing the fuel of Hellfire",
-      "Doubt or suspicion; it appears in وَإِن كُنتُمْ فِي رَيْبٍ مِّمَّا نَزَّلْنَا, the opening of the challenge ayah",
-      "Certainty; it appears in the opening ayah of Surah Al-Fatiha"
-     ],
-     "answer": 2,
-     "explanation": "الرَّيب means doubt, suspicion, or confusion. It appears in the challenge ayah: وَإِن كُنتُمْ فِي رَيْبٍ مِّمَّا نَزَّلْنَا."
     },
     {
      "type": "vocab",
@@ -300,30 +168,6 @@
     },
     {
      "type": "vocab",
-     "question": "What is وَقُود, and what two things serve as it in Jahannam?",
-     "options": [
-      "The chains of Hellfire; they are made of fire itself and bind the inhabitants",
-      "The guards of Hellfire; they are angels and jinns",
-      "The gates of Hellfire; there are seven, each for a different category of wrongdoer",
-      "The fuel of fire; the two things are the disbelievers (people) and sulfur stones"
-     ],
-     "answer": 3,
-     "explanation": "وَقُود is the fuel or substance that kindles and sustains a fire. In Jahannam, the two things that serve as waqud are people (the disbelievers) and stones (specifically sulfur stones per Mujahid)."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the grammatical form of أُعِدَّتْ?",
-     "options": [
-      "Active past tense (Madhi Ma'lum), meaning 'Allah prepared it'",
-      "Command form (Amr), root وَعَدَ, meaning 'fulfill your promise'",
-      "Present tense (Mudari'), root عَدَّ, meaning 'it is being prepared'",
-      "Passive past tense (Madhi Majhul), root أَعَدَّ; the Tā' is added because النَّار (the Fire) is feminine"
-     ],
-     "answer": 3,
-     "explanation": "أُعِدَّتْ is Madhi Majhul (passive past tense), root أَعَدَّ. The active form is أَعَدَّ اللَّهُ (Allah prepared); the Tā' is added because the subject النَّار is feminine."
-    },
-    {
-     "type": "vocab",
      "question": "According to the majority of mufassiroon, what is similar and what is different about the fruits of Jannah described as مُتَشَابِهًا?",
      "options": [
       "The shape, color, and appearance are similar, but the taste and quality are different each time they are served",
@@ -333,30 +177,6 @@
      ],
      "answer": 0,
      "explanation": "According to the majority of mufassiroon, the fruits of Jannah are similar in shape, color, and appearance, but entirely different in taste and quality each time they are served."
-    },
-    {
-     "type": "vocab",
-     "question": "According to Imam Mujahid, from what specific things are أَزْوَاجٌ مُطَهَّرَة purified?",
-     "options": [
-      "From physical impurities including Haydh, Nifas, Ghaa'it, Bawl, and Nukhaam",
-      "From sadness, anger, jealousy, and fear — all emotional impurities",
-      "From the effects of old age, disease, fatigue, and death",
-      "From sin, arrogance, envy, and deception — all moral impurities"
-     ],
-     "answer": 0,
-     "explanation": "Per Imam Mujahid, the wives of Jannah are purified from Haydh (menstruation), Nifas (postpartum bleeding), Ghaa'it (defecation), Bawl (urine), and Nukhaam (sputum/phlegm) — all physical impurities of the human bodily condition."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the Quranic rhetorical purpose of تَرْغِيب وَتَرْهِيب — placing the description of Jannah immediately after the description of Jahannam?",
-     "options": [
-      "To establish that both destinies were prepared before the creation of humanity",
-      "To show the proportional balance of reward and punishment in divine justice",
-      "To allow grammarians to contrast the sentence structures used for each destination",
-      "To move the heart in both directions — Jannah motivates through hope and Jahannam deters through fear"
-     ],
-     "answer": 3,
-     "explanation": "Targheeb motivates through hope of Jannah, and Tarheeb deters through fear of Jahannam. Placing them side by side maximizes the simultaneous effect on the reader's heart."
     }
    ]
   },
@@ -389,18 +209,6 @@
     },
     {
      "type": "concept",
-     "question": "How does the time limit for Masa on الجَبَائِر differ from Masa on Jorabayn?",
-     "options": [
-      "Jabair has no time limit — it remains valid for as long as the bandage or cast is medically necessary",
-      "Jabair allows 72 hours for all users, whether resident or traveler",
-      "Jabair's Masa expires at the next Salah time regardless of medical need",
-      "Both have the same limit: 24 hours for a resident and 72 hours for a traveler"
-     ],
-     "answer": 0,
-     "explanation": "Masa on Jabair has no time limit — it is valid for as long as the bandage/cast is medically necessary. Jorabayn has a fixed limit of 24 hours for a resident and 72 hours for a traveler."
-    },
-    {
-     "type": "concept",
      "question": "According to Imam Abu Hanifa (Ahnaf), what are the minimum and maximum durations of Haydh?",
      "options": [
       "Minimum 3 days and 3 nights; maximum 15 days and 15 nights",
@@ -424,18 +232,6 @@
      "explanation": "Salah is completely Saqit (dropped) — missed prayers during Haydh are permanently forgiven and never made up. Sawm is Haram during Haydh but Qada is required — missed Ramadan days must be made up, as they are far fewer and manageable."
     },
     {
-     "type": "concept",
-     "question": "What is the Hanafi position on performing multiple prayers with one Tayammum?",
-     "options": [
-      "A new Tayammum is required for each Fard prayer but Sunnah prayers are exempt",
-      "Performing multiple prayers with one Tayammum is permissible — Tayammum is a complete Tahara in itself",
-      "Tayammum is only valid until the prayer time expires; a new one is needed for the next prayer time",
-      "Only two prayers may be performed — one Fard and one Nafl — per Tayammum"
-     ],
-     "answer": 1,
-     "explanation": "The Ahnaf hold that Tayammum is a complete Tahara in itself, not limited to a specific prayer or time, so multiple prayers with one Tayammum are permissible — contrasting with Imam Shafi'i who requires a new Tayammum for each prayer time."
-    },
-    {
      "type": "vocab",
      "question": "Under which structural modification does الجَوْرَبَيْن become fully equivalent to Khuffayn for Masa purposes?",
      "options": [
@@ -446,18 +242,6 @@
      ],
      "answer": 3,
      "explanation": "Jorab becomes equivalent to Khuffayn when it is Mujallad (entire outer surface wrapped in leather) or Muna'al (leather applied to the sole only) — both structural modifications qualify it fully for Masa."
-    },
-    {
-     "type": "vocab",
-     "question": "How does the ruling for Masa on الجَبَائِر differ from Masa on Jorabayn regarding prior wudu?",
-     "options": [
-      "Masa on Jabair does not require prior wudu — the bandage may have been applied at any time in any state of purity",
-      "Masa on Jabair requires Tayammum to have been performed first, not wudu",
-      "Masa on Jabair requires prior Ghusl, not merely wudu",
-      "Masa on Jabair requires prior wudu just as Masa on Jorabayn does"
-     ],
-     "answer": 0,
-     "explanation": "Unlike Jorabayn, Jabair does not require prior wudu. The bandage may have been applied at any time, with or without wudu — because it is a medical necessity and removing it to wash the limb may cause harm."
     },
     {
      "type": "vocab",
@@ -473,30 +257,6 @@
     },
     {
      "type": "vocab",
-     "question": "How does اسْتِحَاضَة differ from الحَيْض in its ruling?",
-     "options": [
-      "Istihada requires Ghusl after each prayer; Haydh requires only one Ghusl at the end",
-      "Istihada and Haydh carry identical rulings; both require full suspension of ibadah",
-      "Istihada suspends ibadah for up to 15 days; Haydh suspends it for up to 10 days",
-      "Istihada does not suspend ibadah — the woman continues to pray, fast, and fulfill all obligations"
-     ],
-     "answer": 3,
-     "explanation": "Istihada is irregular or abnormal bleeding outside the valid Haydh window. Unlike Haydh, it does not suspend ibadah — the woman continues to pray, fast, and fulfill all obligations normally."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the Shari' definition of الحَيْض?",
-     "options": [
-      "Any vaginal bleeding, including post-surgical bleeding, that occurs after puberty in a woman",
-      "Irregular bleeding that occurs outside the normal window, as defined collectively by the four madhabs",
-      "The state of ritual impurity that a woman enters upon experiencing any type of vaginal bleeding",
-      "Blood that flows from the womb of a healthy, mature, non-pregnant woman within valid duration parameters"
-     ],
-     "answer": 3,
-     "explanation": "الحَيْض is blood that flows from the womb of a healthy, mature woman who has reached puberty and is not pregnant, within the valid duration parameters (minimum 3 days, maximum 10 days per Ahnaf)."
-    },
-    {
-     "type": "vocab",
      "question": "What is the difference between مُجَلَّد and مُنَعَّل?",
      "options": [
       "Mujallad qualifies for Masa; Muna'al does not because it lacks full coverage",
@@ -506,30 +266,6 @@
      ],
      "answer": 2,
      "explanation": "Mujallad means the entire outer surface of the Jorab is wrapped in leather; Muna'al means leather is applied only to the sole. Both qualify for Masa — Muna'al has a hadith in Sunan al-Bayhaqi as its specific evidence."
-    },
-    {
-     "type": "vocab",
-     "question": "What is رُخْصَة, and what is the correct attitude toward using it?",
-     "options": [
-      "A strict ruling that should only be applied when there is clear Quranic evidence",
-      "A temporary exemption that should be avoided once the hardship has passed",
-      "A scholarly discretion; only a qualified scholar may decide when it applies to a specific case",
-      "A concession granted by Sharia to ease hardship; using it is an act of gratitude (Shukr) to Allah — refusing it out of false piety is not more virtuous"
-     ],
-     "answer": 3,
-     "explanation": "Rukhsa is a concession or dispensation granted by Sharia to ease hardship. Taking the concession is an act of Shukr to Allah — refusing it out of false piety is not more virtuous and may amount to failing to appreciate what Allah has given."
-    },
-    {
-     "type": "vocab",
-     "question": "If a person acts on غَالِبَة الظَّنّ (strong conviction that no water exists) for Tayammum and later finds water, what is the Hanafi ruling on their Salah?",
-     "options": [
-      "The ruling depends on how far from the water the person was when they performed Tayammum",
-      "The Tayammum is valid but the person must perform Ghusl as a precaution",
-      "The Tayammum and Salah remain valid — per Tarfain (Imam Abu Hanifa and Imam Muhammad)",
-      "The Tayammum is invalidated and the Salah must be repeated immediately"
-     ],
-     "answer": 2,
-     "explanation": "If a person had a strong dominant conviction based on clear facts that no water existed, their Tayammum and Salah remain valid even if water is found later — per Imam Abu Hanifa and Imam Muhammad (Tarfain)."
     }
    ]
   }

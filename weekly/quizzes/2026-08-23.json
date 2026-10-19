@@ -31,18 +31,6 @@
     },
     {
      "type": "concept",
-     "question": "In مَرَرْتُ بِعُمَرَ, why does عُمَرَ carry a fatḥa rather than kasra?",
-     "options": [
-      "Proper nouns always take fatḥa when preceded by a preposition",
-      "عُمَرَ is treated as the object of the verb and therefore in naṣb",
-      "The preposition بِ changes the following harakah to fatḥa in formal Arabic",
-      "عُمَرَ is ghayr munsarif and cannot take kasra, so fatḥa substitutes for it"
-     ],
-     "answer": 3,
-     "explanation": "عُمَرَ is ghayr munsarif — it rejects both tanwīn and kasra. When majrūr, fatḥa substitutes for the kasra it cannot take (i'rāb far'ī — secondary i'rāb by substitution of ḥarakāt)."
-    },
-    {
-     "type": "concept",
      "question": "Which of the following is one of the four conditions required for أَسْمَاءُ السِّتَّةِ to be declined with wāw, alif, and yā'?",
      "options": [
       "The noun must be in the dual (tasniyah) form",
@@ -66,18 +54,6 @@
      "explanation": "رَأَيْتُ مُسْلِمَيْن has fatḥa before yā' (tasniyah — 'I saw two Muslims'), while رَأَيْتُ مُسْلِمِين has kasra before yā' (jam' muzakkar sālim — 'I saw many Muslims'). Confusing the two entirely changes the meaning."
     },
     {
-     "type": "concept",
-     "question": "When مُسْلِمُون is made muḍāf to يَاءُ الْمُتَكَلِّمِ, what is the FIRST morphological step?",
-     "options": [
-      "The wāw converts to yā'",
-      "The noon drops",
-      "The two yā's merge with shaddah",
-      "The ḍamma changes to kasra"
-     ],
-     "answer": 1,
-     "explanation": "The first step is that the noon drops when made muḍāf, yielding مُسْلِمُو + يَ. Then the wāw converts to yā', the two yā's merge with shaddah, and finally ḍamma changes to kasra, giving مُسْلِمِيَّ."
-    },
-    {
      "type": "vocab",
      "question": "When a غَيْرُ مُنْصَرِفٌ noun is majrūr, what marker does it carry instead of kasra?",
      "options": [
@@ -88,18 +64,6 @@
      ],
      "answer": 0,
      "explanation": "A ghayr munsarif noun rejects both tanwīn and kasra; when majrūr, fatḥa substitutes for the kasra it cannot take."
-    },
-    {
-     "type": "vocab",
-     "question": "A noun described as جَارٍ مَجْرَى الصَّحِيحِ follows which i'rāb category?",
-     "options": [
-      "Category 6 (for jam' muzakkar sālim)",
-      "Category 5 (for ism maqsur)",
-      "Category 3 (for ghayr munsarif nouns)",
-      "Category 1 (ḍamma in raf', fatḥa in naṣb, kasra in jarr)"
-     ],
-     "answer": 3,
-     "explanation": "جَارٍ مَجْرَى الصَّحِيحِ means 'acting like a ṣaḥīḥ noun.' A noun with wāw or yā' and sukūn on the preceding letter qualifies and follows Category 1 i'rāb."
     },
     {
      "type": "vocab",
@@ -115,30 +79,6 @@
     },
     {
      "type": "vocab",
-     "question": "When a noun is made muḍāf to يَاءُ الْمُتَكَلِّمِ, what happens to its i'rāb across all three cases?",
-     "options": [
-      "The noun drops its final letter entirely",
-      "The noun takes fatḥa in all three cases",
-      "The noun takes a visible kasra in all three cases",
-      "The three cases look identical — i'rāb is taqdiree (hidden)"
-     ],
-     "answer": 3,
-     "explanation": "When muḍāf to yā' al-mutakallim, all three i'rāb states look identical (e.g., جَاءَ أَخِي / رَأَيْتُ أَخِي / مَرَرْتُ بِأَخِي). The i'rāb is understood from context, not visible on the word."
-    },
-    {
-     "type": "vocab",
-     "question": "In which i'rāb state does اسْمٌ مَنْقُوصٌ carry a visible harakah?",
-     "options": [
-      "Naṣb only",
-      "Raf' only",
-      "Jarr only",
-      "All three states carry visible markers"
-     ],
-     "answer": 0,
-     "explanation": "اسْمٌ مَنْقُوصٌ (e.g., الْقَاضِي) carries a visible fatḥa only in naṣb (رَأَيْتُ الْقَاضِيَ); its raf' and jarr markers are hidden (taqdiree)."
-    },
-    {
-     "type": "vocab",
      "question": "نُونُ التَّثْنِيَةِ always carries _____, while the noon of jam' muzakkar sālim always carries _____.",
      "options": [
       "ḍamma; kasra",
@@ -148,30 +88,6 @@
      ],
      "answer": 1,
      "explanation": "نُونُ التَّثْنِيَةِ is always maksūr (kasra), while noon al-jam' is always maftūḥ (fatḥa) — this distinction allows you to tell dual from plural in the naṣb/jarr forms."
-    },
-    {
-     "type": "vocab",
-     "question": "أُولُو / أُولِي (meaning 'possessors of') follows which i'rāb category?",
-     "options": [
-      "Category 2 (ism maqsur)",
-      "Category 4 (asmā' al-sitta)",
-      "Category 3 (ghayr munsarif)",
-      "Category 6 (same as jam' muzakkar sālim — wāw in raf', yā' in naṣb/jarr)"
-     ],
-     "answer": 3,
-     "explanation": "أُولُو / أُولِي follows Category 6 — the same pattern as jam' muzakkar sālim, using wāw in raf' and yā' in naṣb/jarr. It is inherently plural and has no singular form in this pattern."
-    },
-    {
-     "type": "vocab",
-     "question": "Which type of i'rāb is described as لَفْظِيٌّ?",
-     "options": [
-      "I'rāb that is hidden/estimated — the word's form does not change across cases",
-      "I'rāb that applies only to pronouns",
-      "I'rāb that is visible and explicitly pronounced on the word",
-      "I'rāb that substitutes one ḥarakah for another (niyāba)"
-     ],
-     "answer": 2,
-     "explanation": "Lafẓī i'rāb is visible and explicitly pronounced (e.g., the ḍamma on a regular noun in raf'), as opposed to taqdiree i'rāb, where the word's written and spoken form does not change regardless of case."
     }
    ]
   },
@@ -204,18 +120,6 @@
     },
     {
      "type": "concept",
-     "question": "According to Ibn Kathir, what is the definition of نِفَاق?",
-     "options": [
-      "إِظْهَارُ الْخَيْرِ وَإِسْرَارُ الشَّرِّ (displaying goodness outwardly and concealing evil inwardly)",
-      "إِظْهَارُ الْكُفْرِ وَإِسْرَارُ الإِيمَانِ (displaying disbelief outwardly and concealing faith inwardly)",
-      "مُوَافَقَةُ الْمُؤْمِنِينَ فِي الظَّاهِرِ فَقَطْ (agreeing with the believers outwardly only)",
-      "إِخْفَاءُ الإِيمَانِ خَوْفًا مِنَ الْأَعْدَاء (concealing faith out of fear of enemies)"
-     ],
-     "answer": 0,
-     "explanation": "Ibn Kathir defines nifaq as: النِّفَاقُ هُوَ إِظْهَارُ الْخَيْرِ وَإِسْرَارُ الشَّرِّ — displaying goodness outwardly while concealing evil inwardly."
-    },
-    {
-     "type": "concept",
      "question": "In what sense do the Munafiqeen deceive only themselves (وَمَا يَخْدَعُونَ إِلَّا أَنفُسَهُمْ)?",
      "options": [
       "The evil consequence (وَبَال) of their deception returns to them alone",
@@ -239,18 +143,6 @@
      "explanation": "هُمْ here is ضَمِيرُ الْفَصْل placed between the mubtadaʾ and khabar — it restricts the predicate exclusively to this subject, meaning 'it is they and none other' who are the corrupters."
     },
     {
-     "type": "concept",
-     "question": "Why do descriptions of the Munafiqeen appear exclusively in Madani surahs and not in Makki surahs?",
-     "options": [
-      "The Quran deliberately withheld this topic in Makkah to protect early Muslims from their enemies",
-      "The Prophet ﷺ was forbidden to speak about the Munafiqeen while in Makkah",
-      "Makki surahs address only aqeedah; Madani surahs address exclusively social and political matters",
-      "Nifaq as a social phenomenon only arose in Madinah after the Hijrah, when Islam became the dominant political and social force"
-     ],
-     "answer": 3,
-     "explanation": "In Makkah, opposition was open — nobody pretended to be Muslim. Nifaq as a social phenomenon arose only in Madinah after the Hijrah, when Islam became dominant and some joined outwardly for worldly or political benefit."
-    },
-    {
      "type": "vocab",
      "question": "What does نُورُ الْبَصِيرَة refer to, according to the mufassirūn?",
      "options": [
@@ -261,30 +153,6 @@
      ],
      "answer": 0,
      "explanation": "نُورُ الْبَصِيرَة is the light of inner insight and imān. Accumulated sins gradually obscure it; once lost, there is no pathway (مَسْلَك) for imān to enter or for kufr to exit the heart."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the ultimate consequence of النِّفَاقُ الِاعْتِقَادِيُّ in the next life?",
-     "options": [
-      "A major sin requiring repentance but not eternal damnation",
-      "Eternal Hellfire (يُخَلِّدُ صَاحِبَهُ فِي النَّار)",
-      "Temporary punishment before eventual entry into Paradise",
-      "Reduced rank in Paradise"
-     ],
-     "answer": 1,
-     "explanation": "Nifaq I'tiqadi concerns the creed itself — the person inwardly disbelieves while outwardly claiming Islam — and its consequence is eternal Hellfire (يُخَلِّدُ صَاحِبَهُ فِي النَّار), the most severe of all forms of nifaq."
-    },
-    {
-     "type": "vocab",
-     "question": "Imam al-Baydawi describes the Munafiqeen as الْمُزَبْزَبُ — between which two groups are they wavering?",
-     "options": [
-      "Between the Mu'mineen and the Kafireen",
-      "Between the leaders and the followers of the hypocrites",
-      "Between the scholars ('ulamā') and the common people",
-      "Between the Ansar and the Muhajireen"
-     ],
-     "answer": 0,
-     "explanation": "الْمُزَبْزَبُ means 'confused/wavering' — the Munafiqeen waver between the Mu'mineen and the Kafireen, fully belonging to neither group."
     },
     {
      "type": "vocab",
@@ -300,30 +168,6 @@
     },
     {
      "type": "vocab",
-     "question": "Imam al-Baydawi applies أَخْبَثُ الْكَفَرَة to the Munafiqeen — from which root and what does it mean?",
-     "options": [
-      "From خَبَا — 'the most concealed,' meaning their kufr is the most hidden",
-      "From خَبَثَ — 'the most vile/wicked' among all disbelievers",
-      "From خَبَر — 'the most informed,' meaning they know the truth and still reject it",
-      "From خَبَّ — 'the most deceptive,' meaning they excel at trickery"
-     ],
-     "answer": 1,
-     "explanation": "أَخْبَثُ is the superlative of خَبِيث (vile/wicked), from the root خَبَثَ. The Munafiqeen are described as أَخْبَثُ الْكَفَرَة — the most vile of all disbelievers."
-    },
-    {
-     "type": "vocab",
-     "question": "How does رِجْس differ from نَجَاسَة?",
-     "options": [
-      "The two terms are synonymous and fully interchangeable in the Quran",
-      "رِجْس refers only to idols; نَجَاسَة refers exclusively to internal spiritual impurity",
-      "رِجْس is moral/spiritual filth; نَجَاسَة is physical ritual impurity",
-      "رِجْس is physical ritual impurity; نَجَاسَة is spiritual filth"
-     ],
-     "answer": 2,
-     "explanation": "رِجْس is moral/spiritual filth or abomination (used for nifaq, kufr, and idols — فَاجْتَنِبُوا الرِّجْسَ مِنَ الْأَوْثَان). نَجَاسَة is physical ritual impurity affecting wuḍū and ṣalāh."
-    },
-    {
-     "type": "vocab",
      "question": "What is the grammatical function of the particle أَلَا called in Arabic?",
      "options": [
       "حَرْفُ النَّفْيِ (particle of negation)",
@@ -333,30 +177,6 @@
      ],
      "answer": 1,
      "explanation": "أَلَا is called الْمُنَبِّه — the alerting/warning particle that draws the listener's full attention before an emphatic statement, as in Allah's refutation of the Munafiqeen in Ayah 12."
-    },
-    {
-     "type": "vocab",
-     "question": "Where is ضَمِيرُ الْفَصْل placed, and what rhetorical effect does it add?",
-     "options": [
-      "After the khabar; it summarizes the meaning for added emphasis",
-      "Before the mubtadaʾ; it introduces a new topic for discussion",
-      "Before the verb; it strengthens the meaning of the verbal predicate",
-      "Between the mubtadaʾ and khabar; it restricts the predicate exclusively to that subject"
-     ],
-     "answer": 3,
-     "explanation": "ضَمِيرُ الْفَصْل is placed between the mubtadaʾ and khabar — its grammatical effect is restriction, confirming that the predicate belongs exclusively to that subject and to no one else."
-    },
-    {
-     "type": "vocab",
-     "question": "Who reported the سَبَبُ النُّزُول for Ayahs 8–20 of Surah Al-Baqarah?",
-     "options": [
-      "Anas ibn Mālik (رضي الله عنه)",
-      "'Ā'ishah (رضي الله عنها)",
-      "Ibn Abbas (رضي الله عنه)",
-      "Jābir ibn 'Abdullāh (رضي الله عنه)"
-     ],
-     "answer": 2,
-     "explanation": "The occasion of revelation for these verses was reported by Ibn Abbas (رضي الله عنه). The named leaders of the Munafiqeen are Abdullah ibn Ubayy ibn Salul and Mu'tab ibn Qushayr."
     }
    ]
   },
@@ -389,18 +209,6 @@
     },
     {
      "type": "concept",
-     "question": "According to the Ḥanafī madhhab, what size threshold distinguishes ma-e-kalīl from ma-e-kathīr?",
-     "options": [
-      "10 hand-spans × 10 hand-spans in area",
-      "Depth alone determines the category, not surface area",
-      "5 hand-spans × 5 hand-spans in area",
-      "20 hand-spans × 20 hand-spans in area"
-     ],
-     "answer": 0,
-     "explanation": "Ma-e-kalīl is less than 10 × 10 hand-spans — any najāsa renders the entire body impure. Ma-e-kathīr is 10 × 10 or more with sufficient depth — najāsa does not render it impure unless one of the three qualities is visibly altered."
-    },
-    {
-     "type": "concept",
      "question": "At what exact moment does water become مَاءٌ مُسْتَعْمَل?",
      "options": [
       "When it first comes into contact with a limb being washed",
@@ -424,18 +232,6 @@
      "explanation": "Bi'r Budha'a had an underground stream continuously replenishing it — it was effectively flowing water (mā' jārī). The hadith therefore cannot override the rule for genuinely still, stagnant small bodies of water."
     },
     {
-     "type": "concept",
-     "question": "What Quranic dalīl supports the Ḥanafī ruling that an animal with no flowing blood dying in water does not render it impure?",
-     "options": [
-      "Surah Al-A'rāf's description of water as the source of all life",
-      "Surah Al-An'ām's statement that flowing blood (الدَّمَ مَسْفُوحًا) is najis — animals without it introduce no najāsa",
-      "Surah Al-Mā'idah's permission to eat aquatic animals, implying they are not najis",
-      "Surah Al-Baqarah's declaration that all animals were created for human benefit"
-     ],
-     "answer": 1,
-     "explanation": "The dalīl is from Surah Al-An'ām: flowing blood (الدَّمَ مَسْفُوحًا) is declared najis. An animal with no flowing blood to begin with introduces no najāsa when it dies in water."
-    },
-    {
      "type": "vocab",
      "question": "Which of the following correctly describes مَاءٌ طَهُور?",
      "options": [
@@ -446,18 +242,6 @@
      ],
      "answer": 2,
      "explanation": "طَهُور has two properties: (1) pure in itself and (2) capable of purifying others. Examples include rainwater, river water, well water, seawater, and spring water."
-    },
-    {
-     "type": "vocab",
-     "question": "Under the operative Ḥanafī fatwa, why is mā' musta'mal classified as طَاهِر but not مُطَهِّر?",
-     "options": [
-      "It contains traces of najāsa from the body that cannot be removed",
-      "It is pure in itself but cannot be used to purify others — it may not be used for wuḍū or ghusl",
-      "It can only purify one more time before permanently becoming impure",
-      "Its color, taste, or smell has been altered by contact with the limbs"
-     ],
-     "answer": 1,
-     "explanation": "The operative Ḥanafī fatwa (in line with Imam Muhammad) classifies mā' musta'mal as ṭāhir (pure in itself) but incapable of purifying others — it may not be used for wuḍū or ghusl, though it may be used for istiñjā', irrigation, and general purposes."
     },
     {
      "type": "vocab",
@@ -473,30 +257,6 @@
     },
     {
      "type": "vocab",
-     "question": "Imam Abu Yusuf classifies mā' musta'mal as نَجَاسَةٌ خَفِيفَة — what does this term mean?",
-     "options": [
-      "Impurity caused specifically by animal products",
-      "Impurity that only affects the hands and feet",
-      "Ritual impurity that requires ghusl to remove",
-      "Minor/light impurity, less severe than najasat-e-ghalizah"
-     ],
-     "answer": 3,
-     "explanation": "نَجَاسَةٌ خَفِيفَة means minor or light impurity, less severe than najasat-e-ghalizah (major impurity). Imam Abu Yusuf's opinion places mā' musta'mal in this lighter category."
-    },
-    {
-     "type": "vocab",
-     "question": "الشَّيْخَانِ in the Ḥanafī madhhab refers to which two scholars?",
-     "options": [
-      "Imam Abu Hanifa and Imam Abu Yusuf",
-      "Imam Abu Hanifa and Imam Muhammad",
-      "Imam Abu Yusuf and Imam Muhammad",
-      "Imam Shafi'i and Imam Malik"
-     ],
-     "answer": 0,
-     "explanation": "الشَّيْخَانِ refers to Imam Abu Hanifa and Imam Abu Yusuf. الصَّاحِبَانِ refers to Imam Abu Yusuf and Imam Muhammad — with Imam Abu Yusuf as the scholar shared between both terms."
-    },
-    {
-     "type": "vocab",
      "question": "Which scholar appears in BOTH الشَّيْخَانِ and الصَّاحِبَانِ?",
      "options": [
       "Imam Abu Yusuf",
@@ -506,30 +266,6 @@
      ],
      "answer": 0,
      "explanation": "الشَّيْخَانِ = Imam Abu Hanifa + Imam Abu Yusuf; الصَّاحِبَانِ = Imam Abu Yusuf + Imam Muhammad. Imam Abu Yusuf is the shared scholar between both terms."
-    },
-    {
-     "type": "vocab",
-     "question": "What condition must be met for مَاءٌ جَارٍ to remain pure despite najāsa entering it?",
-     "options": [
-      "No trace (athar) of the najāsa — no change in color, taste, or smell — must remain visible",
-      "The water source must originate from a spring or mountain",
-      "The amount of najāsa must be less than a dirham in weight",
-      "The water must be flowing above a minimum measured speed"
-     ],
-     "answer": 0,
-     "explanation": "Najāsa entering flowing water does not make it impure as long as no trace of the najāsa — no change in color, taste, or smell — remains visible in the water."
-    },
-    {
-     "type": "vocab",
-     "question": "What is the ruling on using excessive water (إِسْرَاف) in wuḍū?",
-     "options": [
-      "Makrūh (disliked) but not forbidden",
-      "Permitted when performing ghusl but not during wuḍū",
-      "Ḥarām (impermissible), even when standing beside a river",
-      "Mustaḥab (recommended) as it shows reverence for the prayer"
-     ],
-     "answer": 2,
-     "explanation": "Using excessive water even in wuḍū is isrāf and is impermissible (ḥarām). The Prophet ﷺ was described as making wuḍū conservatively even when standing beside a river."
     }
    ]
   }
