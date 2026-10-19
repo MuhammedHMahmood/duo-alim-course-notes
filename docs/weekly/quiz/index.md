@@ -5,7 +5,7 @@ before you start, see the [weekly review](../index.md).
 
 | Week | Questions |
 |------|-----------|
-| [Week ending Oct 18, 2026](2026-10-18.md) | 21 |
+| [Week ending Oct 18, 2026](2026-10-18.md) | 15 |
 | [Week ending Oct 11, 2026](2026-10-11.md) | 21 |
 | [Week ending Oct 04, 2026](2026-10-04.md) | 21 |
 | [Week ending Sep 27, 2026](2026-09-27.md) | 21 |

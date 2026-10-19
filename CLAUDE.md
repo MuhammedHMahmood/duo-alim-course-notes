@@ -77,12 +77,17 @@ update the live site, and `deploy` alone does NOT save the source — both are n
   quantization instead of float16 — no GPU needed, no third-party API, $0 marginal cost. This is what
   the GitHub Actions daily workflow uses; it's slower than the GPU path but the daily job normally only
   has ~1 new video to transcribe, so it comfortably finishes within a job.
-- **Weekly review and quiz run separately.** Each is generated independently from that week's notes
-  (Mon-Sun, across every active class), then built, deployed and (with `--commit`) committed:
-  - `duo.py weekly-review-pipeline` → a condensed recap per class at `weekly/reviews/{week-ending-date}.md`.
-  - `duo.py weekly-quiz-pipeline` → a multiple-choice quiz at `weekly/quizzes/{week-ending-date}.json`
-    (at most 21 questions — `QUIZ_MAX_QUESTIONS` — split evenly across classes, e.g. 4 concept + 3
-    vocab per class in a 3-class week; `limit_quiz()` enforces the cap even if the model overshoots).
+- **Weekly review and quiz run separately.** Each covers that week's sessions (Mon-Sun, across every
+  active class), then is built, deployed and (with `--commit`) committed:
+  - `duo.py weekly-review-pipeline` → a short recap at `weekly/reviews/{week-ending-date}.md`, written
+    from the notes: per class a one-sentence summary, 4-5 one-sentence key points, 5-6 vocab terms,
+    and at most one "Easy to Mix Up" bullet. Budget is `REVIEW_WORDS_PER_CLASS` (250) words per class
+    (~3-4 min read); `build_digest()` regenerates once if the draft runs >15% over.
+  - `duo.py weekly-quiz-pipeline` → a multiple-choice quiz at `weekly/quizzes/{week-ending-date}.json`,
+    written **from that week's review page** (falls back to the notes if the review is missing) so it
+    tests exactly what the student just read. At most 15 questions (`QUIZ_MAX_QUESTIONS`), split
+    evenly across classes, e.g. 3 concept + 2 vocab per class in a 3-class week; `limit_quiz()`
+    enforces the cap even if the model overshoots.
 
   The review page's "Take the weekly quiz" link is added at build time (`update_mkdocs.sync_weekly_reviews()`)
   only once that week's quiz exists, so the review never links to a quiz that hasn't been generated yet.

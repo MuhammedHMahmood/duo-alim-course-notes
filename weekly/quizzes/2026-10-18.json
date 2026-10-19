@@ -7,87 +7,63 @@
    "questions": [
     {
      "type": "concept",
-     "question": "In the الاشتغال (ishtighaal) construction — e.g., زَيْدًا ضَرَبْتُهُ — why can the explicit verb not directly govern the fronted noun?",
+     "question": "When a منادى begins with الـ, what must be inserted between يَا and the noun?",
      "options": [
-      "The fronted noun is always indefinite and cannot be governed by a transitive verb",
-      "The ishtighaal construction requires the fronted noun to be in the marfu' position",
-      "A pronoun must always precede its referent in this construction",
-      "The verb is occupied (مشغول) with a pronoun that already refers back to the fronted noun"
-     ],
-     "answer": 3,
-     "explanation": "In ishtighaal the verb is already 'occupied' with a pronoun (e.g., هُ) referring to the fronted noun; it cannot simultaneously govern that noun directly, so a separate implied verb is supplied as the ʿāmil and then dropped obligatorily."
-    },
-    {
-     "type": "concept",
-     "question": "In the expression إِيَّاكَ وَالأَسَدَ (tahdhir), what grammatical role does إِيَّاكَ play?",
-     "options": [
-      "It is the مُحَذَّر مِنْه — the thing being warned from",
-      "It is the مُحَذِّر — the one giving the warning",
-      "It is the حرف نداء standing in place of the dropped verb",
-      "It is the مفعول به of the implied (muqaddar) verb اِتَّقِ"
-     ],
-     "answer": 3,
-     "explanation": "إِيَّاكَ is the مفعول به of the dropped verb اِتَّقِ (beware!). The originally attached pronoun كَ could not remain attached once its governing verb was dropped, so it was converted to the detached pronoun إِيَّاكَ."
-    },
-    {
-     "type": "concept",
-     "question": "Which category of المنادى (the vocative) takes the marfu' form — built on damma?",
-     "options": [
-      "ناكرة غير معيّنة (indefinite, non-specific)",
-      "مشابه المضاف (resembling the muzaf)",
-      "مفرد معرفة (non-muzaf and definite)",
-      "مضاف (in construct state)"
-     ],
-     "answer": 2,
-     "explanation": "The مفرد معرفة category — any munada that is not in construct state (not muzaf) and is definite (a proper noun or a nakirah maqsuda) — is built on damma and treated as marfu'."
-    },
-    {
-     "type": "concept",
-     "question": "In Maf'ul Fih (ظَرْف), when does the preposition فِي appear explicitly rather than being implied (muqaddar)?",
-     "options": [
-      "With ظَرْف زَمَان مُبْهَم — unlimited/undefined time",
-      "With ظَرْف مَكَان مَحْدُود — defined, bounded place",
-      "With ظَرْف مَكَان مُبْهَم — unlimited/undefined place",
-      "With ظَرْف زَمَان مَحْدُود — defined, bounded time"
-     ],
-     "answer": 1,
-     "explanation": "Only when the place is mahdud (defined/bounded — e.g., دَار, مَسْجِد) does فِي appear explicitly, making the noun majrur. For all other zarf types (both zaman types and makan mubham), فِي is implied and the zarf is mansoob."
-    },
-    {
-     "type": "vocab",
-     "question": "What does المفعول لَهُ / لِأَجْلِهِ express in an Arabic sentence?",
-     "options": [
-      "The reason or motive for which the preceding action was performed",
-      "The person accompanying the doer of the action",
-      "The place in which the action occurred",
-      "The time during which the action took place"
+      "أيُّها for masculine or أيَّتها for feminine as a separator",
+      "The لام of المفعول لأجله as a buffer",
+      "A second يَا attached directly to the ل of الـ",
+      "يَا is doubled for extra emphasis before الـ"
      ],
      "answer": 0,
-     "explanation": "المفعول لأجله answers 'why?' — it names the reason or motive behind the action (e.g., جُبُنًا in قَعَدْتُ عَنِ الْحَرْبِ جُبُنًا — 'I stayed away from war out of cowardice'), and is mansoob with لام التعليل implied."
+     "explanation": "Because يَا cannot precede الـ directly, أيُّها (masc.) or أيَّتها (fem.) is inserted as an intermediary between the particle and the noun."
     },
     {
-     "type": "vocab",
-     "question": "The term تَرْخِيم refers to which practice in Arabic grammar?",
+     "type": "concept",
+     "question": "How is a منادى مفرد معرفة — a non-مضاف called-upon noun — built in Arabic grammar?",
      "options": [
-      "Supplying an implied verb (fi'l muqaddar) for a fronted noun",
-      "Using وا instead of يا to indicate mourning or lamentation",
-      "Dropping the last letter or letters of a munada for ease or out of affection",
-      "Inserting أَيُّهَا between the harf nida and a munada with الـ"
-     ],
-     "answer": 2,
-     "explanation": "تَرْخِيم is the dropping of the last one or two letters from a munada for linguistic lightening (تَخْفِيف) or affection — e.g., يَا مَالُ for يَا مَالِكُ. The new final letter takes either a damma or its original underlying vowel."
-    },
-    {
-     "type": "vocab",
-     "question": "What is الاستغاثة, and how does لام الاستغاثة affect the munada?",
-     "options": [
-      "Mourning a lost person; the lam is appended to the end of the munada",
-      "Addressing an unspecified person; the lam replaces the harf nida",
-      "Warning someone of danger; the lam makes the munada mansoob",
-      "Seeking help or rescue; the lam acts as a harf jarr and makes the munada majroor"
+      "مبني على الفتحة like a مضاف",
+      "منصوب, like all other categories of منادى",
+      "مبني على الكسرة in all cases",
+      "مبني على الضمة"
      ],
      "answer": 3,
-     "explanation": "الاستغاثة is calling upon someone for help or rescue. لام الاستغاثة functions as a harf jarr before the munada, making it majroor — e.g., يَا لَزَيْدٍ (O Zaid, come to my aid!)."
+     "explanation": "A منادى مفرد معرفة (non-مضاف, regardless of whether it is grammatically singular) is مبني على الضمة; it is the مضاف, شبه مضاف, and ناكرة types that are منصوب."
+    },
+    {
+     "type": "concept",
+     "question": "What grammatical role does المفعول لأجله serve, and how is it marked?",
+     "options": [
+      "It states the place of an action; منصوب with في implied",
+      "It states the manner of an action; مجرور with كـ implied",
+      "It states the reason for an action; منصوب with لام implied",
+      "It states the time of an action; منصوب with في implied"
+     ],
+     "answer": 2,
+     "explanation": "المفعول لأجله answers 'why' an action was done and is منصوب with an implied لام, as in قَعَدْتُ جُبُنًا — I stayed back out of cowardice."
+    },
+    {
+     "type": "vocab",
+     "question": "الاشتغال refers to which grammatical construction?",
+     "options": [
+      "Occupied-verb construction; a fronted noun governed by a dropped verb",
+      "A warning construction in which the verb is dropped obligatorily",
+      "The adverb of reason; منصوب with لام implied",
+      "Dropping the final letter(s) of a منادى for ease of pronunciation"
+     ],
+     "answer": 0,
+     "explanation": "الاشتغال describes the construction in which a noun is fronted and the governing verb is dropped, leaving a later pronoun or verb 'occupied' with it."
+    },
+    {
+     "type": "vocab",
+     "question": "What does تَرْخِيم mean in the context of النداء?",
+     "options": [
+      "Dropping the final letter(s) of a منادى for ease of pronunciation",
+      "The obligatory omission of the verb in a warning construction",
+      "A particle used to negate a prior false claim",
+      "An indefinite but specific addressee that takes مبني على الضمة"
+     ],
+     "answer": 0,
+     "explanation": "تَرْخِيم is the trimming of a منادى's final letter(s) for ease; the resulting form takes either a ضمة or the noun's original vowel, e.g. يَا حَارُ or يَا حَارِ."
     }
    ]
   },
@@ -96,87 +72,63 @@
    "questions": [
     {
      "type": "concept",
-     "question": "According to the tafseer of Ayah 78 (Surah Al-Baqarah), what does وَإِنْ هُمْ إِلَّا يَظُنُّونَ indicate about the ummiyyun among the Jews?",
+     "question": "What did the أُمِّيُّون among Banu Isra'eel possess in place of genuine Torah knowledge?",
      "options": [
-      "They had firm certainty (yaqin) in their religion based on the Torah",
-      "They relied on direct revelation from Allah rather than the Torah",
-      "They knew the Torah but chose to act against it",
-      "They had no certain knowledge — they merely followed their rabbis in blind imitation (taqlid a'ma)"
-     ],
-     "answer": 3,
-     "explanation": "The إِنْ here is nafiyyah (negating) and يَظُنُّونَ means mere conjecture, not certainty. The ummiyyun had no access to the actual Tawrat and followed their rabbis blindly — like a blind follower — unable to verify any of the claims they were given."
-    },
-    {
-     "type": "concept",
-     "question": "According to the tafseer of Ayah 79 (Surah Al-Baqarah), what double crime did the corrupt scholars commit?",
-     "options": [
-      "Breaking their covenant with Allah and expelling their brethren from their homes",
-      "Killing prophets unjustly and denying the resurrection",
-      "Refusing to pay zakah and misleading the public about permitted earnings",
-      "Distorting the Torah with their own hands and attributing their fabrications to Allah"
-     ],
-     "answer": 3,
-     "explanation": "The mufassir identifies two simultaneous crimes: تَحْرِيفُ كَلَامِ اللَّهِ (distorting the Book) and الكِذْبُ وَالبُهْتَانُ عَلَى اللَّهِ (lying against Allah by attributing their own fabrications to Him)."
-    },
-    {
-     "type": "concept",
-     "question": "In Ayah 81 (Surah Al-Baqarah), what does the phrase أَحَاطَتْ بِهِ خَطِيئَتُهُ describe?",
-     "options": [
-      "A person whose good deeds outweigh his sins and who will enter Paradise",
-      "A person whose sin has surrounded him from every side, blocking all pathways of salvation",
-      "A person who broke his covenant with Allah on one specific occasion",
-      "A person who committed minor sins only but without ever repenting"
-     ],
-     "answer": 1,
-     "explanation": "The phrase means the person's sin completely encircles him, closing off all مَسَالِك النَّجَاة (pathways of salvation). Combined with committing evil deeds (kasaba al-sayyi'ah), such a person is described as a permanent resident of the Fire."
-    },
-    {
-     "type": "concept",
-     "question": "According to the tafseer of Ayaat 83–84 (Surah Al-Baqarah), which of the following was an obligation in the Mīthāq (covenant) taken from Banu Isra'eel?",
-     "options": [
-      "Making pilgrimage to Bayt al-Maqdis every year",
-      "Accepting only scholars from the tribe of Levi as religious leaders",
-      "Establishing salah and giving zakah",
-      "Keeping the Torah free from any additions or alterations"
+      "Personal scholarly judgments derived from their own reasoning",
+      "A simplified written summary of the Torah in their own language",
+      "Fabricated أَمَانِيّ fed to them by their corrupt rabbis",
+      "Direct oral instruction preserved from their prophets"
      ],
      "answer": 2,
-     "explanation": "The Mīthāq explicitly included: worship of Allah alone, honoring parents, caring for relatives, orphans and the poor, kind speech, establishing salah, and giving zakah — with salah and zakah being the culminating twin pillars of worship."
+     "explanation": "The أُمِّيُّون could not read or verify the Torah and so relied entirely on the wishful fabrications their rabbis invented for them, including the claim that the Fire would only touch them for a few days."
     },
     {
-     "type": "vocab",
-     "question": "What does أُمِّيٌّ (ummi, pl. أُمِّيُّونَ) mean in the context of Ayah 78?",
+     "type": "concept",
+     "question": "What two simultaneous crimes did the corrupt scholars of Banu Isra'eel commit with the scripture?",
      "options": [
-      "An illiterate person with no knowledge of the scripture who cannot verify what they are told",
-      "A leader of the Jewish community who instructs the masses",
-      "A scholar who deliberately distorts scripture for worldly gain",
-      "A person who follows a prophet without seeking evidence"
-     ],
-     "answer": 0,
-     "explanation": "In this ayah, أُمِّيُّونَ refers to the ignorant masses among the Jews (جُهَّال العَوَام) who could neither read nor write and had no direct access to the Torah — making them entirely dependent on whatever their rabbis told them."
-    },
-    {
-     "type": "vocab",
-     "question": "What are أَمَانِيُّ (amaniyy, sing. أُمْنِيَّة) as described in the tafseer of Ayah 78?",
-     "options": [
-      "False wishful thinking and baseless hopes instilled in the masses by the rabbis",
-      "Solemn covenants recorded in the Torah and binding upon the Jewish community",
-      "Intercession requests that the masses made to their prophets and ancestors",
-      "The authentic rulings of the Tawrat that the rabbis faithfully taught"
-     ],
-     "answer": 0,
-     "explanation": "The أَمَانِيُّ were fabricated hopes fed to the Jewish masses — e.g., that the Fire would only touch them for a few days, that their prophets would intercede for them, that they were the beloved (ahibba') of Allah — none grounded in the actual Tawrat."
-    },
-    {
-     "type": "vocab",
-     "question": "What does بَلَى (balā) mean and what does it do in Ayah 81?",
-     "options": [
-      "It means 'perhaps' — introducing uncertainty about the nature of the Jews' punishment",
-      "It means 'and' — connecting Allah's warning to the covenant already mentioned",
-      "It means 'except' — carving out a special exception for those who repent",
-      "It means 'yes/indeed' — it negates the Jews' false claim and affirms the true reality"
+      "Denying prophethood outright and abandoning congregational worship",
+      "Rejecting the مِيثَاق publicly and misguiding their children privately",
+      "تحريف الكتاب and withholding zakah from their communities",
+      "تحريف الكتاب and الكذب على الله, both for forbidden worldly gain"
      ],
      "answer": 3,
-     "explanation": "بَلَى is a response particle that negates a preceding negative (or false) claim and affirms the truth that follows — here it directly refutes the claim that the Fire will barely touch them, and introduces the real condition for eternal punishment."
+     "explanation": "They distorted the scripture with their own hands (تحريف الكتاب) and then attributed those fabrications to Allah (الكذب على الله), all in exchange for سُحْت — forbidden worldly gain."
+    },
+    {
+     "type": "concept",
+     "question": "What is the fate of the person described as أَحَاطَتْ بِهِ خَطِيئَتُه?",
+     "options": [
+      "His sins are forgiven after a limited period in the Fire",
+      "He is spared the Fire if he had a righteous lineage",
+      "He becomes a permanent resident of the Fire",
+      "He receives a lighter punishment due to surrounding ignorance"
+     ],
+     "answer": 2,
+     "explanation": "When sin encircles a person from every side closing all paths of salvation, Ayah 81 establishes that such a person is a permanent resident of the Fire with no prospect of exit."
+    },
+    {
+     "type": "vocab",
+     "question": "What is the function of the particle بَلَى in Ayah 80?",
+     "options": [
+      "It introduces a solemn binding covenant",
+      "It affirms an existing claim made by Banu Isra'eel",
+      "It negates the prior false claim and affirms the opposite truth",
+      "It expresses wishful thinking about a future outcome"
+     ],
+     "answer": 2,
+     "explanation": "بَلَى is a particle that directly refutes what was asserted before it — here negating the claim that the Fire would only touch them a few days — and affirms the truth in its place."
+    },
+    {
+     "type": "vocab",
+     "question": "Which term means 'deliberate distortion of scripture'?",
+     "options": [
+      "مِيثَاق",
+      "تَحْرِيف",
+      "أَمَانِيّ",
+      "سُحْت"
+     ],
+     "answer": 1,
+     "explanation": "تَحْرِيف refers specifically to the deliberate alteration and distortion of revealed scripture, which the corrupt scholars performed with their own hands."
     }
    ]
   },
@@ -185,87 +137,63 @@
    "questions": [
     {
      "type": "concept",
-     "question": "What is the Hanafi ruling on بِنَاء (bana) — continuing salah from the point of interruption after wudu breaks?",
+     "question": "Under the مسائل الاثنا عشر rule, when does the Sahibain opinion consider the salah valid rather than batil?",
      "options": [
-      "It is never permitted; salah must always be restarted from the beginning",
-      "It is permitted for the imam only, not for a muqtadi praying behind him",
-      "It is permitted only when the hadas requires ghusl (major purification)",
-      "It is permitted under 13 conditions, provided the hadas was involuntary"
+      "Whenever any of the twelve conditions arises at any point in the salah",
+      "When any of the twelve conditions arises after the tashahud sitting is complete",
+      "Only when the imam also corrects the situation before salam",
+      "Only when the entire salah has been completed without incident"
      ],
-     "answer": 3,
-     "explanation": "The Hanafi position holds bana is valid when all 13 conditions are met, the first being that the hadas was involuntary. If wudu was broken deliberately, bana is not permitted and the salah must be restarted."
+     "answer": 1,
+     "explanation": "The operative Hanafi opinion (Sahibain) holds the salah valid if any of the twelve conditions arises after the tashahud sitting has been completed; before that point, the salah is batil by agreement."
     },
     {
      "type": "concept",
-     "question": "What are the three absolute prohibition times during which no salah of any kind — Fard, Nafil, Qada, Janazah, or Sajda-e-Tilawat — may be performed?",
+     "question": "Under what circumstance does the obligation of ترتيب drop for a صاحب ترتيب in the Hanafi madhab?",
      "options": [
-      "Between Fajr and Dhuhr, between Dhuhr and Asr, and between Asr and Maghrib",
-      "During the final third of the night, at noon, and immediately before Fajr",
-      "At sunrise, at sunset, and when the sun is exactly at its zenith (Zawal/Istiwa')",
-      "After the Fajr iqamah, after the Asr iqamah, and at midnight"
-     ],
-     "answer": 2,
-     "explanation": "The three absolute Makruh Tahrimi times are: طُلُوع الشَّمْس (sunrise), غُرُوب الشَّمْس (sunset), and الاسْتِوَاء (the exact midday zenith). At these times all forms of salah — including Janazah and Sajda-e-Tilawat — are prohibited."
-    },
-    {
-     "type": "concept",
-     "question": "According to the Hanafi madhab, when does Tartib (the obligation to pray qada prayers in their original order) drop?",
-     "options": [
-      "As soon as a person misses one prayer without a valid excuse",
-      "When the number of missed prayers reaches three",
-      "When the number of missed prayers exceeds five — i.e., when the sixth becomes fully qada",
-      "When a person has been unconscious for more than a day and a night"
-     ],
-     "answer": 2,
-     "explanation": "Tartib is Wajib for a Sahib al-Tartib (one with five or fewer missed prayers). The Mufta bihi position is that Tartib drops when the sixth prayer's time fully expires — making six prayers completely qada."
-    },
-    {
-     "type": "concept",
-     "question": "In the Hanafi ruling on the Qa'dah Akhirah, what happens if a worshipper deliberately breaks wudu after completing the tashahud duration in the final sitting?",
-     "options": [
-      "The salah is considered complete, though he should ideally return and make taslim",
-      "The salah is suspended until wudu is made; he must then repeat the entire final rak'ah",
-      "Only the final sitting must be repeated; the preceding rak'at remain valid",
-      "The salah is completely void (batil) and must be restarted from the beginning"
+      "When missed prayers exceed five, causing كثرة القضاء",
+      "When the person has been unconscious for more than three prayers",
+      "When the time of the current salah is about to expire",
+      "When the person is travelling and prayers must be shortened"
      ],
      "answer": 0,
-     "explanation": "Once the fundamental arkan of salah are fulfilled in the final qa'dah, even deliberate violations do not nullify the salah. The worshipper's salah is considered complete; returning and making taslim is the proper way to close it."
+     "explanation": "ترتيب — the sequential ordering of qada before the current salah — is wajib in the Hanafi madhab but drops once a person's missed prayers exceed five, a state called كثرة القضاء."
     },
     {
-     "type": "vocab",
-     "question": "Who is a صَاحِب التَّرْتِيب (Sahib al-Tartib) in Hanafi fiqh?",
+     "type": "concept",
+     "question": "How does the ruling at the three absolute prohibition times differ from the restriction that applies after Fajr and after Asr?",
      "options": [
-      "A person upon whom five or fewer qada (missed) prayers are currently outstanding",
-      "A person who has never missed a prayer in their life",
-      "A person who has memorized the Quran and regularly leads congregational prayer",
-      "A person who arranges and straightens the rows in congregational prayer"
+      "Both restrictions identically prohibit the same categories of salah",
+      "The absolute times ban only nawafil; post-Fajr and post-Asr ban all salah",
+      "The absolute times ban all salah; post-Fajr and post-Asr only ban nawafil",
+      "The absolute times ban only fard prayers; nawafil remain permitted at those times"
      ],
-     "answer": 0,
-     "explanation": "Sahib al-Tartib is a person with five or fewer outstanding missed (qada) prayers. For such a person, Tartib — praying them in their original order before the current prayer — is Wajib in the Hanafi madhab."
+     "answer": 2,
+     "explanation": "At sunrise, sunset, and the sun's exact zenith, no salah of any kind is permitted; after Fajr and after Asr the prohibition is narrower — only nawafil are banned, while qada prayers and salat al-janazah remain valid."
     },
     {
      "type": "vocab",
-     "question": "Which description correctly identifies قَهْقَهَة (qahlaqah) during salah?",
+     "question": "Who is described by the term صاحب ترتيب?",
      "options": [
-      "Any involuntary sound made during salah — breaks salah but not wudu",
-      "Moderate laughter audible only to the person themselves",
-      "A silent smile — no effect on salah or wudu",
-      "Loud laughter audible to those praying nearby — breaks both salah and wudu"
-     ],
-     "answer": 3,
-     "explanation": "قَهْقَهَة is the loudest type of laughter during salah — audible to those nearby — and it breaks both salah (making it batil) and wudu. This distinguishes it from Tabassum (a silent smile, no effect) and the moderate Qahqah (heard only by oneself)."
-    },
-    {
-     "type": "vocab",
-     "question": "What is اسْتِخْلَاف (istikhlaf) in the context of salah?",
-     "options": [
-      "Performing salah by gestures when unable to complete the full physical postures",
-      "Making up a missed prayer from a previous day in the correct sequence",
-      "The act of the imam giving taslim to formally conclude the congregation's salah",
-      "Appointing a qualified substitute imam to lead the congregation when the original imam must withdraw"
+      "One with more than five missed prayers for whom ترتيب has dropped",
+      "One who was unconscious for six or more prayers and is now excused",
+      "One who leads the congregation specifically in qada prayers",
+      "One with five or fewer missed prayers who must pray qada in order"
      ],
      "answer": 3,
-     "explanation": "الاسْتِخْلَاف is appointing a qualified substitute imam mid-salah — for example, when the original imam's wudu breaks and he must leave. The substitute leads to completion; the original imam, upon returning, rejoins as a muqtadi."
+     "explanation": "صاحب ترتيب designates a person whose missed prayers number five or fewer; such a person must pray those qada prayers in order before performing the current salah."
+    },
+    {
+     "type": "vocab",
+     "question": "What does الاستواء refer to in the context of prohibited salah times?",
+     "options": [
+      "The period immediately after Fajr salah when nawafil are forbidden",
+      "The completion of the tashahud sitting that validates salah under the twelve conditions",
+      "The sun at its exact zenith; one of the three absolute prohibition times",
+      "The moment of sunset; one of the three absolute prohibition times"
+     ],
+     "answer": 2,
+     "explanation": "الاستواء (also called الزوال) is the sun's brief pause at its exact zenith before beginning its descent, and it is one of the three absolute prohibition times during which no salah — fard, nafl, janazah, or sajda-e-tilawat — is permitted."
     }
    ]
   }

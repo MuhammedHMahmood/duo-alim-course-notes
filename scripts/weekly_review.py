@@ -18,7 +18,7 @@ WEEKLY_DIR = PROJECT_ROOT / "weekly" / "reviews"
 QUIZ_DIR = PROJECT_ROOT / "weekly" / "quizzes"
 
 QUIZ_OPTIONS = 4
-QUIZ_MAX_QUESTIONS = 21
+QUIZ_MAX_QUESTIONS = 15
 QUIZ_SCHEMA = """{"sections": [{"title": "Nahw 201", "questions": [
   {"type": "concept", "question": "...", "options": ["...", "...", "...", "..."],
    "answer": 0, "explanation": "..."}]}]}"""
@@ -89,24 +89,31 @@ def _call_llm(prompt, settings, backend, output_kind=None, max_tokens=8000):
 
 # --- Weekly review (condensed recap) -------------------------------------------------
 
-def _build_digest_prompt(start, end, sessions, template):
-    date_range = date_range_label(start, end)
-    return f"""You are writing a condensed weekly recap for a student in the DUO 6-year \
-Alim course, covering everything taught this week ({date_range}). The student will read \
-this to refresh the week's material before taking a quiz, so it should be short enough to \
-read in about ten minutes and clear enough to learn from.
+REVIEW_WORDS_PER_CLASS = 250
 
-Use the following template structure. It shows one class section as an example — repeat \
-that section for each subject/course represented below.
+
+def _n_classes(sessions):
+    return len({(subject, course) for subject, course, _, _ in sessions})
+
+
+def _build_digest_prompt(start, end, sessions, template, word_budget):
+    date_range = date_range_label(start, end)
+    return f"""You are writing a short weekly recap for a student in the DUO 6-year Alim \
+course, covering what was taught this week ({date_range}). The student reads this right \
+before a short quiz, so it must be quick to read (3-4 minutes) and contain only what matters \
+most. Total length: at most {word_budget} words (about {REVIEW_WORDS_PER_CLASS} per class).
+
+Use the following template structure exactly. It shows one class section as an example — \
+repeat that section for each subject/course represented below.
 
 --- TEMPLATE ---
 {template}
 --- END TEMPLATE ---
 
 Base everything strictly on the study notes below — do not add content from outside them. \
-Condense: merge repeated points across sessions, drop anecdotes and filler, and keep the \
-rules, rulings, explanations and terms a student must remember. Preserve Arabic terms with \
-their transliterations.
+Be selective: pick only the most important rules, rulings and lessons, merge repeated points \
+across sessions, and leave out anecdotes, side discussions and secondary details. Short, \
+plain sentences. Keep Arabic terms in Arabic script.
 
 --- THIS WEEK'S NOTES ---
 {_sessions_text(sessions)}
@@ -117,8 +124,23 @@ Do not include any links."""
 
 
 def build_digest(settings, backend, start, end, sessions):
-    prompt = _build_digest_prompt(start, end, sessions, load_weekly_template())
-    return _call_llm(prompt, settings, backend)
+    """Generate the review, regenerating once with the overshoot spelled out if the
+    first draft runs over the word budget (models tend to ignore length targets)."""
+    budget = REVIEW_WORDS_PER_CLASS * _n_classes(sessions) + 50  # + title/intro
+    prompt = _build_digest_prompt(start, end, sessions, load_weekly_template(), budget)
+    content = _call_llm(prompt, settings, backend)
+    words = len(content.split())
+    if words <= budget * 1.15:
+        return content
+
+    print(f"[weekly-review] draft is {words} words (budget {budget}), shortening...")
+    retry = _call_llm(
+        prompt + f"\n\nA previous draft was {words} words — far over the {budget}-word limit. "
+        "Cut harder: fewer and shorter key points, fewer vocabulary rows.",
+        settings, backend,
+    )
+    print(f"[weekly-review] retry is {len(retry.split())} words")
+    return min(content, retry, key=lambda c: len(c.split()))
 
 
 # --- Weekly quiz (multiple choice) ----------------------------------------------------
@@ -128,38 +150,42 @@ def _quotas(total, n):
     return [total // n + (1 if i < total % n else 0) for i in range(n)]
 
 
-def _build_quiz_prompt(start, end, sessions):
+def _build_quiz_prompt(start, end, sessions, review=None):
+    """Quiz prompt built from the week's review page, so the quiz tests exactly what the
+    student just read. Falls back to the full notes if the review doesn't exist."""
     date_range = date_range_label(start, end)
-    n_classes = len({(subject, course) for subject, course, _, _ in sessions})
-    per_class = min(10, QUIZ_MAX_QUESTIONS // n_classes)
+    per_class = min(10, QUIZ_MAX_QUESTIONS // _n_classes(sessions))
     n_concept = (per_class + 1) // 2 + (1 if per_class % 2 == 0 else 0)
     n_vocab = per_class - n_concept
-    return f"""You are creating a multiple-choice quiz for a student in the DUO 6-year Alim \
-course, covering everything taught this week ({date_range}). The student has read the \
-notes once, not memorized them: questions should check understanding of the main ideas and \
-terms from this week's lessons, and the right answer should be recognizable from the \
-lesson. Avoid trick questions and obscure details.
+    if review:
+        source_name = "the weekly review"
+        source = f"--- WEEKLY REVIEW ---\n{review}\n--- END WEEKLY REVIEW ---"
+    else:
+        source_name = "the notes"
+        source = f"--- THIS WEEK'S NOTES ---\n{_sessions_text(sessions)}\n--- END THIS WEEK'S NOTES ---"
+    return f"""You are creating a short multiple-choice quiz for a student in the DUO 6-year Alim \
+course on this week's lessons ({date_range}). The student has just read {source_name}: \
+questions should check that they understood its main points and terms, and the right answer \
+should be recognizable from it. Avoid trick questions and obscure details.
 
 Output ONLY a JSON object (no prose, no code fences) shaped like this:
 {QUIZ_SCHEMA}
 
 Rules:
-- One section per class (subject + course) that had a session this week; "title" is e.g. "Nahw 201".
+- One section per class (subject + course) in the source below; "title" is e.g. "Nahw 201".
 - In each section: exactly {n_concept} questions with "type": "concept" (rules, rulings, \
 explanations, meanings of ayat or hadith), then exactly {n_vocab} with "type": "vocab" (an Arabic \
-term and its meaning or usage, or a meaning and its term). Pick the most important ideas and \
-spread them across the week's sessions.
-- Exactly {QUIZ_OPTIONS} options per question, exactly one correct. "answer" is the 0-based index of the \
-correct option.
-- Distractors must be plausible: related terms, rules or rulings from the same notes. Keep \
+term and its meaning, or a meaning and its term). Each question covers a different key point.
+- Exactly {QUIZ_OPTIONS} options per question, exactly one correct. "answer" is the 0-based index \
+of the correct option.
+- Distractors must be plausible: related terms, rules or rulings from the same source. Keep \
 options similar in length. Never use "all of the above" or "none of the above".
 - "explanation" is 1-2 sentences on why the answer is right.
-- Use Arabic script (with harakat where the notes have them) for Arabic terms; everything else in English.
-- Base every question strictly on the notes below.
+- Use Arabic script for Arabic terms; everything else in English.
+- Base every question strictly on {source_name} below, but never mention it in the question \
+text (no "according to the review").
 
---- THIS WEEK'S NOTES ---
-{_sessions_text(sessions)}
---- END THIS WEEK'S NOTES ---"""
+{source}"""
 
 
 def parse_quiz(raw, start, end):
@@ -258,7 +284,12 @@ def quiz_from_prompt(prompt, settings, backend, start, end, attempts=2):
 
 
 def build_quiz(settings, backend, start, end, sessions):
-    return quiz_from_prompt(_build_quiz_prompt(start, end, sessions), settings, backend, start, end)
+    review_path = WEEKLY_DIR / f"{end.isoformat()}.md"
+    review = review_path.read_text(encoding="utf-8") if review_path.exists() else None
+    if not review:
+        print("[weekly-quiz] No review page for this week, building the quiz from the notes.")
+    prompt = _build_quiz_prompt(start, end, sessions, review)
+    return quiz_from_prompt(prompt, settings, backend, start, end)
 
 
 def write_quiz(end, quiz):
