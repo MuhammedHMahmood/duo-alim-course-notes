@@ -26,3 +26,4 @@ Fiqh 201
 | [Oct 14, 2026](2026-10-14.md) | bana |
 | [Oct 17, 2026](2026-10-17.md) | Masa'il of 12 |
 | [Oct 21, 2026](2026-10-21.md) | Two main topics from Kitāb ... |
+| [Oct 24, 2026](2026-10-24.md) | Qira'at (recitation) |
