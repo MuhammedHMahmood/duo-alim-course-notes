@@ -1,0 +1,184 @@
+{
+ "week_start": "2026-10-19",
+ "week_end": "2026-10-25",
+ "sections": [
+  {
+   "title": "Nahw 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "What grammatical role does a noun take when it follows وَاوُ الْمَعِيَّة?",
+     "options": [
+      "It mirrors the i'raab of the preceding noun as Ma'toof",
+      "It becomes منصوب as مَفْعُولٌ مَعَهُ",
+      "It becomes مرفوع as Fa'il",
+      "It becomes مجرور in place of a Mudaaf"
+     ],
+     "answer": 1,
+     "explanation": "A noun following وَاوُ الْمَعِيَّة is منصوب and is called مَفْعُولٌ مَعَهُ, indicating that the Fa'il and this noun co-occurred."
+    },
+    {
+     "type": "concept",
+     "question": "In the sentence جِئْتُ وَزَيْدًا, why is Nasb obligatory for زَيْدًا?",
+     "options": [
+      "The Ma'toof 'Alayh is a ضَمِيرٌ مُتَّصِل with no ضَمِيرٌ مُنْفَصِل present",
+      "زَيْد is a proper noun and proper nouns are always منصوب",
+      "The Fa'il is absent and cannot take a conjunction",
+      "The verb جَاءَ cannot take a Ma'toof after it"
+     ],
+     "answer": 0,
+     "explanation": "نَصْبٌ مُتَعَيَّن applies here because the Ma'toof 'Alayh (تُ) is a ضَمِيرٌ مُتَّصِل with no ضَمِيرٌ مُنْفَصِل, making 'Atf impermissible."
+    },
+    {
+     "type": "concept",
+     "question": "What does inserting أَنَا into the sentence جِئْتُ أَنَا وَزَيْدٌ/زَيْدًا accomplish?",
+     "options": [
+      "It restores the permissibility of 'Atf, giving two valid grammatical options",
+      "It converts the وَاو into a حَرْفُ عَطْف",
+      "It removes زَيْد from the sentence's grammatical structure",
+      "It makes Nasb the only valid grammatical option for زَيْد"
+     ],
+     "answer": 0,
+     "explanation": "Inserting أَنَا (a ضَمِيرٌ مُنْفَصِل) restores the permissibility of 'Atf, so زَيْد can validly be either منصوب (Maf'ool Ma'ahu) or مرفوع (Ma'toof)."
+    },
+    {
+     "type": "concept",
+     "question": "How does a مَعْطُوف determine its own i'raab?",
+     "options": [
+      "It is always منصوب regardless of the i'raab of its Ma'toof 'Alayh",
+      "It is always مرفوع when conjoined to a مرفوع or منصوب noun",
+      "It takes its i'raab independently based on its function in the sentence",
+      "It always mirrors the i'raab of its مَعْطُوفٌ عَلَيْه"
+     ],
+     "answer": 3,
+     "explanation": "A مَعْطُوف has no independent i'raab — it always follows its مَعْطُوفٌ عَلَيْه in being مرفوع, منصوب, or مجرور."
+    },
+    {
+     "type": "vocab",
+     "question": "What does مُصَاحَبَة mean in the context of مَفْعُولٌ مَعَهُ?",
+     "options": [
+      "Companionship; the co-occurrence of the Fa'il and another noun",
+      "The obligation of Nasb when 'Atf is not permissible",
+      "The role of a detached pronoun in permitting 'Atf",
+      "The mirroring of i'raab between Ma'toof and Ma'toof 'Alayh"
+     ],
+     "answer": 0,
+     "explanation": "مُصَاحَبَة means companionship or co-occurrence — it describes the relationship مَفْعُولٌ مَعَهُ expresses, that the Fa'il and this noun acted together."
+    },
+    {
+     "type": "vocab",
+     "question": "What is وَاوُ الْمَعِيَّة?",
+     "options": [
+      "A Waaw that introduces a conditional clause",
+      "A Waaw that makes what follows مجرور",
+      "The Waaw meaning 'along with,' making what follows منصوب as Maf'ool Ma'ahu",
+      "The Waaw meaning 'and,' making what follows take the i'raab of the Ma'toof 'Alayh"
+     ],
+     "answer": 2,
+     "explanation": "وَاوُ الْمَعِيَّة means 'along with' and its object is منصوب as مَفْعُولٌ مَعَهُ, distinguishing it from حَرْفُ عَطْف which means 'and' and requires i'raab agreement."
+    },
+    {
+     "type": "vocab",
+     "question": "What is a ضَمِيرٌ مُنْفَصِل, and what role does it play in sentences with مَفْعُولٌ مَعَهُ?",
+     "options": [
+      "A pronoun that always requires the noun after it to be مرفوع",
+      "A noun that becomes منصوب after وَاوُ الْمَعِيَّة",
+      "A detached pronoun (like أَنَا or أَنْتَ) that restores the permissibility of 'Atf when inserted beside a ضَمِيرٌ مُتَّصِل",
+      "An attached pronoun that blocks 'Atf when present as the Ma'toof 'Alayh"
+     ],
+     "answer": 2,
+     "explanation": "A ضَمِيرٌ مُنْفَصِل is a detached pronoun such as أَنَا or أَنْتَ; inserting one beside a ضَمِيرٌ مُتَّصِل removes the block on 'Atf and makes both Nasb and Raf' valid options."
+    }
+   ]
+  },
+  {
+   "title": "Fiqh 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "What is the Ḥanafī ruling on praying nawāfil before Maghrib?",
+     "options": [
+      "It is not permitted; the Maghrib farḍ must be prayed immediately",
+      "Four rakʿāt are permitted as a Sunnah Muʾakkadah before Maghrib",
+      "Two rakʿāt are permitted, in agreement with the Shāfiʿī madhhab",
+      "It is مستحب to pray two rakʿāt, following transmitted practice"
+     ],
+     "answer": 0,
+     "explanation": "In the Ḥanafī madhhab, nawāfil before Maghrib are not permitted and the farḍ must be prayed immediately, unlike Imām al-Shāfiʿī who permits two rakʿāt based on a ḥadīth in Bukhārī."
+    },
+    {
+     "type": "concept",
+     "question": "Which combination correctly lists the 12 daily Sunnah Muʾakkadah rakʿāt?",
+     "options": [
+      "2 Fajr + 4 Ẓuhr + 2 ʿAṣr + 4 ʿIshāʾ",
+      "4 Fajr + 4 Ẓuhr + 2 Maghrib + 2 ʿIshāʾ",
+      "2 Fajr + 4 before and 2 after Ẓuhr + 2 Maghrib + 2 ʿIshāʾ",
+      "2 Fajr + 2 Ẓuhr + 4 ʿAṣr + 2 Maghrib + 2 ʿIshāʾ"
+     ],
+     "answer": 2,
+     "explanation": "The 12 Sunnah Muʾakkadah rakʿāt are: 2 before Fajr, 4 before and 2 after Ẓuhr, 2 after Maghrib, and 2 after ʿIshāʾ — and a ḥadīth promises a house in Jannah for observing them."
+    },
+    {
+     "type": "concept",
+     "question": "What is the ruling on the 4 rakʿāt sunnah before ʿAṣr in the Ḥanafī madhhab?",
+     "options": [
+      "Sunnah Muʾakkadah — habitually missing it is blameworthy",
+      "Farḍ — obligatory alongside the ʿAṣr prayer",
+      "مستحب — recommended but no sin for omission",
+      "Not permitted — no nawāfil may be prayed before ʿAṣr"
+     ],
+     "answer": 2,
+     "explanation": "The 4 rakʿāt before ʿAṣr are مستحب (recommended), not Sunnah Muʾakkadah, so missing them carries no blame — unlike the 12 emphasized sunnahs."
+    },
+    {
+     "type": "concept",
+     "question": "According to Imām Abū Ḥanīfah, how many rakʿāt may be prayed in a single salām during night nawāfil?",
+     "options": [
+      "Up to 12 rakʿāt per salām",
+      "Up to 8 rakʿāt per salām",
+      "Only 2 rakʿāt per salām, the same as the Ṣāḥibayn hold",
+      "Up to 4 rakʿāt per salām"
+     ],
+     "answer": 1,
+     "explanation": "Imām Abū Ḥanīfah permits up to 8 rakʿāt per salām at night, while the Ṣāḥibayn and Imām al-Shāfiʿī restrict night nawāfil to 2 rakʿāt per salām."
+    },
+    {
+     "type": "vocab",
+     "question": "What does مستحب mean in Islamic legal terminology?",
+     "options": [
+      "Obligatory; one is sinful for omission",
+      "An emphasized sunnah the Prophet ﷺ was rarely absent from",
+      "Voluntary night prayer performed after sleeping",
+      "Recommended; rewarding but no sin for omission"
+     ],
+     "answer": 3,
+     "explanation": "مستحب denotes a recommended act that earns reward when performed but carries no blame for omission, making it a lesser grade than Sunnah Muʾakkadah."
+    },
+    {
+     "type": "vocab",
+     "question": "What is تَهَجُّد?",
+     "options": [
+      "An emphasized sunnah the Prophet ﷺ rarely missed",
+      "Supplications transmitted from the Prophet ﷺ",
+      "Six voluntary rakʿāt after the Maghrib farḍ",
+      "Voluntary night prayer performed after sleeping"
+     ],
+     "answer": 3,
+     "explanation": "تَهَجُّد refers specifically to voluntary night prayer performed after sleeping, distinguishing it from night worship performed before sleeping."
+    },
+    {
+     "type": "vocab",
+     "question": "What are دُعَاءٌ مَأْثُورَة?",
+     "options": [
+      "Supplications transmitted from the Prophet ﷺ",
+      "Six voluntary rakʿāt after the Maghrib farḍ",
+      "Personal needs held silently in the heart during ṣalāh",
+      "The best moments for duʿāʾ within ṣalāh"
+     ],
+     "answer": 0,
+     "explanation": "دُعَاءٌ مَأْثُورَة are supplications that have been transmitted from the Prophet ﷺ; duʿāʾ in ṣalāh must be in Arabic drawn from these transmitted supplications."
+    }
+   ]
+  }
+ ]
+}
