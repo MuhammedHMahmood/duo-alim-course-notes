@@ -1,0 +1,131 @@
+{
+ "week_start": "2026-10-26",
+ "week_end": "2026-11-01",
+ "sections": [
+  {
+   "title": "Fiqh 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "A person in a four-rakah Fard salah realizes they have stood into a fifth rakah, but have not yet completed its Sajdah. What should they do?",
+     "options": [
+      "Remain standing and complete the fifth rakah normally",
+      "Return to sitting immediately, complete the Tashahud, and perform سَجْدَةُ السَّهْو",
+      "Complete the Sajdah and then perform Sajda Sahu at the end",
+      "Break the prayer and restart it from the beginning"
+     ],
+     "answer": 1,
+     "explanation": "If caught before completing the Sajdah of the fifth rakah, sitting down preserves the Fard prayer; Sajda Sahu is then performed to cover the error."
+    },
+    {
+     "type": "concept",
+     "question": "A person has already completed the Sajdah of the fifth rakah. What is the ruling on their Fard prayer?",
+     "options": [
+      "The Fard prayer converts to Nafil and Tasleem is given immediately",
+      "The Fard prayer is invalidated and must be restarted",
+      "The Fard prayer remains valid with five rakahs",
+      "The Fard prayer converts to Nafil (تَحَوَّلَتْ صَلَاتُهُ نَفْلًا) and a sixth rakah must be added"
+     ],
+     "answer": 3,
+     "explanation": "Once the Sajdah of the fifth rakah is completed the Fard is irrecoverably converted to Nafil; because Nafil cannot validly consist of an odd number of rakahs, a sixth must be added."
+    },
+    {
+     "type": "concept",
+     "question": "A person doubts their rakah count for the very first time during a salah. What is required of them?",
+     "options": [
+      "Add an extra rakah as a precaution",
+      "Break the prayer and restart it from the beginning",
+      "Perform Sajda Sahu only, without restarting",
+      "Act on غَالِبُ الظَّنّ and perform Sajda Sahu at the end"
+     ],
+     "answer": 1,
+     "explanation": "A first-time doubt about the rakah count is serious enough that the salah must be broken and restarted; the rule of acting on غَالِبُ الظَّنّ applies only when the doubt is habitual."
+    },
+    {
+     "type": "concept",
+     "question": "A person habitually experiences doubt about their rakah count. How should they handle this doubt?",
+     "options": [
+      "Perform an extra rakah each time they are unsure",
+      "Break the prayer and restart it every time the doubt arises",
+      "Ignore the doubt entirely and complete the prayer without any compensation",
+      "Act on غَالِبُ الظَّنّ and perform Sajda Sahu at the end of the prayer"
+     ],
+     "answer": 3,
+     "explanation": "For habitual doubt, the worshipper acts on their dominant thought (غَالِبُ الظَّنّ) and then compensates with Sajda Sahu at the end, rather than breaking and restarting."
+    },
+    {
+     "type": "concept",
+     "question": "What is the correct progressive hierarchy of positions for Salatul Mareed (prayer for a sick person)?",
+     "options": [
+      "Standing → sitting → laying on one's side (facing Qibla) → إِشَارَة with the head",
+      "Standing → laying on one's side → sitting → إِشَارَة",
+      "Sitting → standing → laying on one's side → إِشَارَة",
+      "إِشَارَة → sitting → standing → laying on one's side"
+     ],
+     "answer": 0,
+     "explanation": "The sick person begins with standing and moves down the hierarchy only as their condition prevents the higher position; laying on the side facing the Qibla is preferred when lying down is required."
+    },
+    {
+     "type": "concept",
+     "question": "A sick person begins their salah using إِشَارَة but recovers mid-salah and is now able to stand. What must they do?",
+     "options": [
+      "Continue the salah from the current point, now standing",
+      "Perform Sajda Sahu to compensate for the portion prayed with إِشَارَة",
+      "Switch to sitting rather than standing so as not to disrupt the salah",
+      "Restart the salah from the beginning (اسْتِئْنَاف الصَّلَاة)"
+     ],
+     "answer": 3,
+     "explanation": "Recovering to a higher (stronger) position mid-salah requires restarting the prayer; by contrast, deteriorating to a lower position mid-salah is always permitted without restarting."
+    },
+    {
+     "type": "vocab",
+     "question": "What is the meaning of غَالِبُ الظَّنّ?",
+     "options": [
+      "Head-gesture indication replacing Ruku and Sujood",
+      "Restarting the prayer from the beginning",
+      "The final sitting position before Tasleem",
+      "Dominant or preponderant thought"
+     ],
+     "answer": 3,
+     "explanation": "غَالِبُ الظَّنّ literally means the dominant or preponderant opinion/thought, and is used in Fiqh to describe acting on one's stronger belief when certainty is unavailable."
+    },
+    {
+     "type": "vocab",
+     "question": "Which term describes the head-gesture that replaces Ruku and Sujood for a sick person unable to move otherwise?",
+     "options": [
+      "إِشَارَة",
+      "تَحَوَّلَتْ صَلَاتُهُ نَفْلًا",
+      "اسْتِئْنَاف الصَّلَاة",
+      "الْقَعْدَةُ الْأَخِيرَة"
+     ],
+     "answer": 0,
+     "explanation": "إِشَارَة refers to the head gesture used in Salatul Mareed as the final concession when a sick person cannot physically perform Ruku or Sujood."
+    },
+    {
+     "type": "vocab",
+     "question": "What does الْقَعْدَةُ الْأَخِيرَة refer to?",
+     "options": [
+      "Restarting the prayer from the beginning",
+      "The final sitting position performed before Tasleem",
+      "The head-gesture indication used by a sick worshipper",
+      "The dominant thought used to resolve doubt about rakah count"
+     ],
+     "answer": 1,
+     "explanation": "الْقَعْدَةُ الْأَخِيرَة (Qadatul Akhira) is the final sitting in salah, during which the complete Tashahud is recited before Tasleem."
+    },
+    {
+     "type": "vocab",
+     "question": "What is the meaning of اسْتِئْنَاف الصَّلَاة?",
+     "options": [
+      "The conversion of a Fard prayer into a Nafil prayer",
+      "Performing Sajda Sahu after a mistake",
+      "Restarting the prayer from the beginning",
+      "The final sitting position before Tasleem"
+     ],
+     "answer": 2,
+     "explanation": "اسْتِئْنَاف الصَّلَاة means to restart the prayer entirely from the beginning, which is required when a sick person recovers to a higher position mid-salah."
+    }
+   ]
+  }
+ ]
+}
