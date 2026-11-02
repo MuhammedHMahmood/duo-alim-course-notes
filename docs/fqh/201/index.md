@@ -28,3 +28,4 @@ Fiqh 201
 | [Oct 21, 2026](2026-10-21.md) | Two main topics from Kitāb ... |
 | [Oct 24, 2026](2026-10-24.md) | Qira'at (recitation) |
 | [Oct 28, 2026](2026-10-28.md) | Two major topics |
+| [Oct 31, 2026](2026-10-31.md) | Sajda Tilawat |
