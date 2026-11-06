@@ -29,3 +29,4 @@ Fiqh 201
 | [Oct 24, 2026](2026-10-24.md) | Qira'at (recitation) |
 | [Oct 28, 2026](2026-10-28.md) | Two major topics |
 | [Oct 31, 2026](2026-10-31.md) | Sajda Tilawat |
+| [Nov 04, 2026](2026-11-04.md) | Prayer of the traveler |
