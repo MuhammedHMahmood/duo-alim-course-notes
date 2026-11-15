@@ -30,3 +30,6 @@ Fiqh 201
 | [Oct 28, 2026](2026-10-28.md) | Two major topics |
 | [Oct 31, 2026](2026-10-31.md) | Sajda Tilawat |
 | [Nov 04, 2026](2026-11-04.md) | Prayer of the traveler |
+| [Nov 07, 2026](2026-11-07.md) | Babu Salatul Eidain |
+| [Nov 11, 2026](2026-11-11.md) | Two topics: (1) a concludin... |
+| [Nov 14, 2026](2026-11-14.md) | Shrouding |

@@ -28,3 +28,6 @@ Tafseer Foundation Series 201
 | [Oct 13, 2026](2026-10-13.md) | Surah Al-Baqarah (Ayat 78) |
 | [Oct 15, 2026](2026-10-15.md) | Surah Al-Baqarah (Ayat 80) |
 | [Nov 03, 2026](2026-11-03.md) | Surah Al-Baqarah (Ayat 84) |
+| [Nov 10, 2026](2026-11-10.md) | Surah Al-Baqarah (Ayat 87) |
+| [Nov 12, 2026](2026-11-12.md) | Surah Al-Baqarah (Ayat 93) |
+| [Nov 14, 2026](2026-11-14.md) | Surah Al-Baqarah (Ayat 99) |
