@@ -1,0 +1,201 @@
+{
+ "week_start": "2026-11-09",
+ "week_end": "2026-11-15",
+ "sections": [
+  {
+   "title": "Nahw 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "In Mustasna Mufarragh, how does the noun after إلا take its i'rab?",
+     "options": [
+      "It takes Nasb in all cases",
+      "It is Mabnī ʿalā al-fatḥ like the ism of لا نافية للجنس",
+      "It takes its i'rab from the Amil — as if إلا were not there",
+      "It takes Jarr because إلا functions like a preposition"
+     ],
+     "answer": 2,
+     "explanation": "When the Mustasna Minhu is absent (Mufarragh), إلا has no independent i'rab effect; the noun's grammatical role is determined entirely by the Amil in the sentence."
+    },
+    {
+     "type": "concept",
+     "question": "What case does the Mustasna take after غير or سِوى?",
+     "options": [
+      "Mabnī ʿalā al-fatḥ",
+      "Marfūʿ",
+      "Majrūr",
+      "Mansūb"
+     ],
+     "answer": 2,
+     "explanation": "غير and سِوى are themselves particles that govern Jarr, so the Mustasna following them is always Majrūr; غير itself then takes the case the Mustasna would have taken with إلا."
+    },
+    {
+     "type": "concept",
+     "question": "In which situation does لا نافية للجنس lose its amal?",
+     "options": [
+      "When its ism is shibh muḍāf",
+      "When its ism is nakirah mufrad",
+      "When a maʿrifa follows it",
+      "When the khabar is mentioned before the ism"
+     ],
+     "answer": 2,
+     "explanation": "لا نافية للجنس requires a nakirah ism; if a maʿrifa follows, the amal is void and repetition of لا becomes obligatory. The same applies when a fāṣil intervenes between لا and its ism."
+    },
+    {
+     "type": "vocab",
+     "question": "The term مُفَرَّغ in Mustasna grammar refers to:",
+     "options": [
+      "An exception whose i'rab is fixed as Nasb regardless of context",
+      "An exception in which the Mustasna is Majrūr after a particle",
+      "An exception in which the Mustasna Minhu is absent",
+      "An exception that follows a definite noun"
+     ],
+     "answer": 2,
+     "explanation": "مُفَرَّغ means 'empty' — the sentence is 'emptied' of the Mustasna Minhu, leaving the excepted noun to fill the grammatical role directly."
+    },
+    {
+     "type": "vocab",
+     "question": "What is إن زائدة?",
+     "options": [
+      "A pleonastic إن that adds no meaning — its presence voids the amal of Hijazi مَا",
+      "An إن that adds emphasis by linking two clauses",
+      "An إن that makes both sides of a sentence Majzūm",
+      "An إن that converts a nominal sentence into a conditional"
+     ],
+     "answer": 0,
+     "explanation": "إن زائدة is purely expletive — it carries no semantic weight — and its insertion after Hijazi مَا is one of the three conditions that nullify مَا's amal, returning both ism and khabar to Rafʿ."
+    }
+   ]
+  },
+  {
+   "title": "Tafseer 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "What was the primary reason Bani Isra'eel rejected Prophet Muhammad ﷺ despite recognizing him from the Torah?",
+     "options": [
+      "They were driven by حَسَد — unwilling to accept prophethood going to another nation",
+      "They doubted the authenticity of the Quranic revelation",
+      "They believed prophethood had ended permanently with Musa ﷺ",
+      "They claimed the Torah's description matched a future prophet, not Muhammad ﷺ"
+     ],
+     "answer": 0,
+     "explanation": "Bani Isra'eel had already recognized the Prophet ﷺ from the Torah's descriptions; their rejection stemmed from حَسَد — resentment that prophethood was given to a nation other than their own."
+    },
+    {
+     "type": "concept",
+     "question": "What is the Quranic verdict on Sulaiman ﷺ and magic?",
+     "options": [
+      "Sulaiman ﷺ learned magic but employed it only for righteous purposes",
+      "Sulaiman ﷺ was given knowledge of sihr as one of his divine miracles",
+      "Sulaiman ﷺ forbade magic but could not prevent the shayateen from spreading it",
+      "Sulaiman ﷺ was entirely innocent of magic; it was the shayateen who taught sihr"
+     ],
+     "answer": 3,
+     "explanation": "The Quran explicitly states مَا كَفَرَ سُلَيْمَانُ — Sulaiman ﷺ never disbelieved nor practiced magic; his kingdom rested on divine miracles, and the shayateen alone were responsible for teaching sihr."
+    },
+    {
+     "type": "concept",
+     "question": "What was the role of Harut and Marut in Babylon?",
+     "options": [
+      "They were sent to punish Bani Isra'eel for the sin of calf worship",
+      "They were angels who demonstrated that divine miracles surpass magic",
+      "They were sent as a divine فِتْنَة, always warning 'do not disbelieve' before teaching magic",
+      "They were tasked with exposing the shayateen who had spread sihr among the people"
+     ],
+     "answer": 2,
+     "explanation": "Harut and Marut were sent as a test (فِتْنَة) from Allah; before imparting any knowledge they always issued the warning not to disbelieve, making each learner's choice a matter of personal responsibility."
+    },
+    {
+     "type": "vocab",
+     "question": "Which term means 'coverings or sheaths' — used by Bani Isra'eel to claim their hearts could not receive the Prophet's message?",
+     "options": [
+      "لَعْنَة",
+      "حَسَد",
+      "فِتْنَة",
+      "غُلْف"
+     ],
+     "answer": 3,
+     "explanation": "غُلْف (plural of أَغْلَف) means coverings or sheaths; Bani Isra'eel used this claim to suggest their hearts were sealed off, but Allah responded by declaring it a consequence of their own disbelief and cursing them."
+    },
+    {
+     "type": "vocab",
+     "question": "What distinguishes a مُعْجِزَة from سِحْر?",
+     "options": [
+      "A مُعْجِزَة has permanent effects, while the effects of سِحْر always fade with time",
+      "A مُعْجِزَة is always visible to everyone, while سِحْر can only be perceived by its victim",
+      "A مُعْجِزَة can be learned through prolonged study, while سِحْر requires a pact with shayateen",
+      "A مُعْجِزَة is exclusively from Allah and cannot be learned; سِحْر is a human craft bounded by Allah's permission"
+     ],
+     "answer": 3,
+     "explanation": "A مُعْجِزَة is a divine miracle granted only by Allah and cannot be acquired or replicated; سِحْر is a real but human craft that can only harm with Allah's permission."
+    }
+   ]
+  },
+  {
+   "title": "Fiqh 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "In Salat al-Khawf, what do soldiers of each group do after the imam gives salam?",
+     "options": [
+      "They defer the remaining raka'at until the threat has passed",
+      "They pray their missed raka'at independently",
+      "They repeat the entire prayer together as one unit",
+      "They join the opposing group to complete the remaining raka'at jointly"
+     ],
+     "answer": 1,
+     "explanation": "Each group follows the imam for its portion of the prayer; once the imam finishes and gives salam, each group independently completes whatever raka'at they missed while on guard duty."
+    },
+    {
+     "type": "concept",
+     "question": "Which item is never omitted from a woman's kafan, even at the absolute minimum (Kafan Kifaya)?",
+     "options": [
+      "The Qamees (shirt)",
+      "The Khimar (head covering)",
+      "The Izar (lower wrap)",
+      "The Lifafa (outer sheet)"
+     ],
+     "answer": 1,
+     "explanation": "The Khimar is the head covering specific to the woman's kafan; it is retained even when only the bare minimum is used, reflecting the obligation to cover the head that extends even to burial."
+    },
+    {
+     "type": "concept",
+     "question": "For how long may Salatul Janazah be performed at the grave if burial occurred without it?",
+     "options": [
+      "Until the following Friday prayer",
+      "Three days, as long as the body has not begun to disintegrate",
+      "One day only, before the next Fajr prayer",
+      "Two days, to allow distant family to attend"
+     ],
+     "answer": 1,
+     "explanation": "Imam Abu Yusuf's relied-upon position permits Salatul Janazah at the grave for up to three days after burial, provided the body has not yet begun to decompose."
+    },
+    {
+     "type": "vocab",
+     "question": "What is a لَحْد?",
+     "options": [
+      "A niche cut into the side wall of the grave toward the qibla",
+      "The perfumed compound applied to the head and places of sajda after ghusl",
+      "Unbaked mud bricks used to seal the grave opening",
+      "The outer shroud layer that wraps the entire body"
+     ],
+     "answer": 0,
+     "explanation": "The لَحْد is the preferred grave type in which a niche is carved into the qibla-facing side wall; the body is laid in this recess, which is then sealed — preferably with لَا بِن (unbaked bricks)."
+    },
+    {
+     "type": "vocab",
+     "question": "What is حَنُوط applied to after the deceased's ghusl?",
+     "options": [
+      "The entire body before the first layer of kafan is wrapped",
+      "The outside surface of the completed kafan",
+      "The hands and feet only",
+      "The head and the places of sajda"
+     ],
+     "answer": 3,
+     "explanation": "حَنُوط is a perfumed compound applied specifically to the head and the seven places of sajda after ghusl is complete, before the body is wrapped in kafan."
+    }
+   ]
+  }
+ ]
+}
