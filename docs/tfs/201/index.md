@@ -32,3 +32,4 @@ Tafseer Foundation Series 201
 | [Nov 12, 2026](2026-11-12.md) | Surah Al-Baqarah (Ayat 93) |
 | [Nov 14, 2026](2026-11-14.md) | Surah Al-Baqarah (Ayat 99) |
 | [Nov 17, 2026](2026-11-17.md) | Surah Al-Baqarah (Ayat 104) |
+| [Nov 19, 2026](2026-11-19.md) | Surah Al-Baqarah (Ayat 111) |

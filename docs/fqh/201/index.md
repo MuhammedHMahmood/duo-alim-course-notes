@@ -33,3 +33,4 @@ Fiqh 201
 | [Nov 07, 2026](2026-11-07.md) | Babu Salatul Eidain |
 | [Nov 11, 2026](2026-11-11.md) | Two topics: (1) a concludin... |
 | [Nov 14, 2026](2026-11-14.md) | Shrouding |
+| [Nov 18, 2026](2026-11-18.md) | Two major topics from Imam ... |
