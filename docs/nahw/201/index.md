@@ -32,3 +32,4 @@ Nahw 201
 | [Nov 09, 2026](2026-11-09.md) | Mansubat |
 | [Nov 13, 2026](2026-11-13.md) | Mansubaat |
 | [Nov 16, 2026](2026-11-16.md) | Mansubaat |
+| [Nov 20, 2026](2026-11-20.md) | Majroorat |
