@@ -5,6 +5,7 @@ then test yourself with the [weekly quiz](quiz/index.md).
 
 | Week |
 |------|
+| [Week ending Nov 22, 2026](2026-11-22.md) |
 | [Week ending Nov 15, 2026](2026-11-15.md) |
 | [Week ending Nov 08, 2026](2026-11-08.md) |
 | [Week ending Nov 01, 2026](2026-11-01.md) |
