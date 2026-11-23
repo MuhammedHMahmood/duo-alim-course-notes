@@ -1,0 +1,201 @@
+{
+ "week_start": "2026-11-16",
+ "week_end": "2026-11-22",
+ "sections": [
+  {
+   "title": "Nahw 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "What is the grammatical role of حَال?",
+     "options": [
+      "It describes the state of the subject during an action and is منصوب",
+      "It describes the action itself and must share the verb's root",
+      "It removes ambiguity from a noun and is مجرور",
+      "It specifies the beneficiary of an action and is منصوب"
+     ],
+     "answer": 0,
+     "explanation": "حال answers 'how?' and describes the state during an action; it is منصوب but is not classified as a مفعول, unlike مفعول مطلق."
+    },
+    {
+     "type": "concept",
+     "question": "What is the defining grammatical requirement for a word to function as مفعول مطلق?",
+     "options": [
+      "It must share the same root (مصدر) as its verb",
+      "It must describe the manner of the action",
+      "It must follow a transitive verb directly",
+      "It must be indefinite (نكرة)"
+     ],
+     "answer": 0,
+     "explanation": "مفعول مطلق must derive from the same verbal root as its verb; if the roots differ, the word cannot serve as مفعول مطلق."
+    },
+    {
+     "type": "concept",
+     "question": "In إضافة معنوية, what does annexing the مضاف to a معرفة (definite noun) give the مضاف?",
+     "options": [
+      "تخصيص (specification)",
+      "تخفيف (phonetic lightening)",
+      "إبهام removal",
+      "تعريف (definiteness)"
+     ],
+     "answer": 3,
+     "explanation": "When a مضاف is annexed to a definite (معرفة) word in إضافة معنوية, the مضاف acquires تعريف; annexation to a نكرة gives تخصيص instead."
+    },
+    {
+     "type": "vocab",
+     "question": "Which of the following best defines تَمْيِيز?",
+     "options": [
+      "A word that removes ambiguity (إبهام) from a noun or pronoun",
+      "A word indicating the place or time of an action",
+      "A word describing the state of the subject during an action",
+      "A word sharing the same root as its governing verb"
+     ],
+     "answer": 0,
+     "explanation": "تمييز is the grammatical device that removes إبهام; in اللَّهُمَّ زِدْنِي عِلْمًا, the word عِلْمًا is the تمييز specifying what should be increased."
+    },
+    {
+     "type": "vocab",
+     "question": "What is the Arabic term for speech that contains negation, prohibition, or interrogation?",
+     "options": [
+      "إِضَافَة لَفْظِيَّة",
+      "مَنْصُوبَات",
+      "كَلَام غَيْر مُوجَب",
+      "مُسْتَثْنَى مُفَرَّق"
+     ],
+     "answer": 2,
+     "explanation": "كَلَام غَيْر مُوجَب means non-affirmative speech and covers sentences with negation, prohibition, or interrogation, which expand the إعراب options for the مستثنى after إلا."
+    }
+   ]
+  },
+  {
+   "title": "Tafseer 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "Why were believers prohibited from saying رَاعِنَا to the Prophet ﷺ?",
+     "options": [
+      "The word had no meaning in classical Arabic",
+      "It was considered disrespectful toward elders in Arab culture",
+      "It implied that the Prophet ﷺ was inattentive to his companions",
+      "Jews used it as a pun to insult the Prophet ﷺ"
+     ],
+     "answer": 3,
+     "explanation": "Jews exploited رَاعِنَا as a pun-insult against the Prophet ﷺ, so believers were commanded to use أُنْظُرْنَا instead to avoid the ambiguity."
+    },
+    {
+     "type": "concept",
+     "question": "According to the lesson on نَسْخ, what is the purpose of abrogating a ruling?",
+     "options": [
+      "To permanently cancel obligations inherited from earlier prophets",
+      "To clarify a previously misunderstood command",
+      "To replace it with something better or equal, removing hardship or increasing reward",
+      "To penalize those who failed to follow the first ruling"
+     ],
+     "answer": 2,
+     "explanation": "نسخ is not contradiction — Allah replaces a ruling with one that is better or equal, either to ease hardship on believers or to give them greater reward."
+    },
+    {
+     "type": "concept",
+     "question": "According to Surah Al-Baqarah, who is described as the most unjust (أَظْلَم)?",
+     "options": [
+      "One who makes exclusive paradise claims without any proof",
+      "One who refuses to submit fully to Allah despite knowing the truth",
+      "One who prevents worship in مَسَاجِد الله or works to destroy them",
+      "One who interprets نسخ as a contradiction in the Quran"
+     ],
+     "answer": 2,
+     "explanation": "The most unjust person is one who prevents worship in Allah's houses or works to destroy them — their consequence is خِزْي in this world and a great punishment in the hereafter."
+    },
+    {
+     "type": "vocab",
+     "question": "What does نَسْخ mean?",
+     "options": [
+      "Commentary that explains the meaning of an ayah",
+      "Revelation confirming a previously sent scripture",
+      "A baseless paradise claim with no scriptural proof",
+      "Abrogation — replacing one ruling with another"
+     ],
+     "answer": 3,
+     "explanation": "نسخ refers to the replacement of one divine ruling with another, either to ease hardship or to increase the believers' reward — it is not a contradiction."
+    },
+    {
+     "type": "vocab",
+     "question": "What does the phrase أَسْلَمَ وَجْهَهُ لِلَّه mean?",
+     "options": [
+      "Sought sincere forgiveness from Allah",
+      "Submitted his entire self to Allah",
+      "Turned his face toward the قبلة in prayer",
+      "Performed deeds with the highest excellence"
+     ],
+     "answer": 1,
+     "explanation": "أَسْلَمَ وَجْهَهُ لِلَّه means submitting one's entire self to Allah — this, combined with إيمان and إحسان, is the condition for entering Jannah."
+    }
+   ]
+  },
+  {
+   "title": "Fiqh 201",
+   "questions": [
+    {
+     "type": "concept",
+     "question": "Which burial rite is waived for a شَهِيد دُنْيَا وَآخِرَة (battlefield martyr)?",
+     "options": [
+      "Burial in a Muslim graveyard",
+      "كَفَن (burial shroud)",
+      "صَلَاة الْجَنَازَة (funeral prayer)",
+      "غُسْل (washing of the body)"
+     ],
+     "answer": 3,
+     "explanation": "A battlefield martyr is not washed (غسل) but is given كفن and صلاة الجنازة, and is buried with their blood and clothing intact; non-cloth items like weapons must be removed."
+    },
+    {
+     "type": "concept",
+     "question": "What condition causes a wounded fighter to be classified as مُرْتَث, losing the hukm of شهيد?",
+     "options": [
+      "Requesting to be buried with their weapons and armor",
+      "Dying before being removed from the battlefield",
+      "Dying from wounds sustained in a battle that took place previously",
+      "Being removed from the battlefield alive and then receiving treatment or surviving one full prayer time"
+     ],
+     "answer": 3,
+     "explanation": "A مرتث is a fighter removed from the battlefield while conscious who then received treatment or survived one full prayer time — this removes the special شهيد burial rulings."
+    },
+    {
+     "type": "concept",
+     "question": "According to the Ahnaf, in which case is a مُقْتَدِي's prayer invalid when praying inside the كعبة?",
+     "options": [
+      "When the مقتدي stands directly ahead of the imam with their back to the imam's face",
+      "When the مقتدي enters without knowing the original قبلة direction",
+      "When the مقتدي prays a نافلة prayer facing any direction",
+      "When the مقتدي faces the door of the كعبة during prayer"
+     ],
+     "answer": 0,
+     "explanation": "According to the Ahnaf, praying inside the كعبة is permissible in any direction, but a مقتدي standing directly ahead of the imam — back to the imam's face — has an invalid prayer."
+    },
+    {
+     "type": "vocab",
+     "question": "What does بُغَاة mean?",
+     "options": [
+      "Soldiers who abandon their position during battle",
+      "Rebels who rise in armed insurrection against the legitimate Muslim ruler",
+      "Highway robbers who ambush travelers on public roads",
+      "Those who withhold obligatory زكاة from distribution"
+     ],
+     "answer": 1,
+     "explanation": "بُغَاة refers to rebels who rise in armed insurrection against the legitimate Muslim ruler — صلاة الجنازة is not performed for them to publicly express disapproval of their destructive actions."
+    },
+    {
+     "type": "vocab",
+     "question": "Which term describes an act that is valid but blameworthy?",
+     "options": [
+      "مُرْتَث",
+      "دِيَة",
+      "كَفَن",
+      "مَكْرُوه"
+     ],
+     "answer": 3,
+     "explanation": "مَكْرُوه refers to a disliked act — it is valid and carries no sin in terms of correctness, but it is blameworthy; praying on top of the كعبة is given as an example."
+    }
+   ]
+  }
+ ]
+}
