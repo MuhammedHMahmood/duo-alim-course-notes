@@ -34,3 +34,4 @@ Fiqh 201
 | [Nov 11, 2026](2026-11-11.md) | Two topics: (1) a concludin... |
 | [Nov 14, 2026](2026-11-14.md) | Shrouding |
 | [Nov 18, 2026](2026-11-18.md) | Two major topics from Imam ... |
+| [Nov 21, 2026](2026-11-21.md) | Imam Quduri's arrangement o... |
