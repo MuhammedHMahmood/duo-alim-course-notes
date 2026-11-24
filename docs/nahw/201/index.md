@@ -33,3 +33,4 @@ Nahw 201
 | [Nov 13, 2026](2026-11-13.md) | Mansubaat |
 | [Nov 16, 2026](2026-11-16.md) | Mansubaat |
 | [Nov 20, 2026](2026-11-20.md) | Majroorat |
+| [Nov 23, 2026](2026-11-23.md) | Tawabi' (التوابع) |
